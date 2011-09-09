@@ -1,8 +1,6 @@
 package model;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -18,7 +16,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.0.0  26/08/2011
+ * @version 1.0.1  09/09/2011
  * @copyright 2011
  * 
  * 
@@ -31,9 +29,13 @@ public class ReadExcel {
 	private Iterator rowIter;
 	private String path;
 	private String fileName;
+	private String allowed = "^[a-zA-Z0-9_.!~@-]*$";//"A-Z a-z 0-9 _.-+*@!$%~";
 
+	public ReadExcel() {
+		
+	}
 	
-	public ReadExcel(String file) throws Exception {
+	public void ReadExcel(String file) throws Exception {
 		/**
 		 * --Define a Vector --Holds Vectors Of Cells
 		 */
@@ -96,7 +98,6 @@ public class ReadExcel {
 		}
 		return column;
 	}
-
 	
 	public Vector getTable() {
 		return table;
@@ -129,8 +130,19 @@ public class ReadExcel {
 	public void setPath(String path) {
 		this.path = path;
 	}
-
-	public ReadExcel() throws Exception {
-		new ReadExcel(this.getPath());
+	
+	/**
+	 * This function checks if the Login/Password field contains unwanted characters to the ILIAS System.
+	 * @return
+	 */
+	public boolean isCompatible() {
+		boolean x = true;
+		for (int i = 1; i < this.getColumn("Login").size(); i++) {
+			String user = (String)this.getColumn("Login").get(i);
+			String pass = (String)this.getColumn("Password").get(i);
+			if(!user.matches(allowed) || !pass.matches(allowed))
+				x = false;
+		}
+		return x;
 	}
 }

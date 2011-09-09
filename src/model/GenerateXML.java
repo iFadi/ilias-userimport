@@ -1,14 +1,13 @@
 package model;
 
 import java.io.File;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -25,14 +24,19 @@ import org.w3c.dom.Text;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.0.0
+ * @version 1.0.1 09/09/2011
  * @copyright 2011
  * 
  * 
  */
 public class GenerateXML {
+	
+	public GenerateXML() {
+		
+	}
 
-	public GenerateXML(ReadExcel input, String output) throws Exception {
+	
+	public void GenerateXML(ReadExcel input, String output) throws Exception {
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
@@ -60,7 +64,7 @@ public class GenerateXML {
 			root.appendChild(user);
 //			 System.out.println(input.getColumn("Login").get(i));
 
-			// Add Global Rolle
+			// Add Global Role
 			grole.setAttribute("Id", "_1");
 			grole.setAttribute("Type", "Global");
 			grole.setAttribute("Action", "Assign");
@@ -143,8 +147,26 @@ public class GenerateXML {
 //		System.out.println("Done!");
 
 	}
+	
+	/**
+	 * This function removes any empty spaces from the Login/Password field.
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public String removeSpaces(String s) {
+		  StringTokenizer st = new StringTokenizer(s," ",false);
+		  String t="";
+		  while (st.hasMoreElements()) t += st.nextElement();
+		  return t;
+		}
 
-	private static String convertToHex(byte[] data) {
+	/**
+	 * 
+	 * @param data
+	 * @return
+	 */
+	private String convertToHex(byte[] data) {
 		StringBuffer buf = new StringBuffer();
 		for (int i = 0; i < data.length; i++) {
 			int halfbyte = (data[i] >>> 4) & 0x0F;
@@ -160,7 +182,14 @@ public class GenerateXML {
 		return buf.toString();
 	}
 
-	public static String MD5(String text) throws NoSuchAlgorithmException,
+	/**
+	 * 
+	 * @param text
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	public String MD5(String text) throws NoSuchAlgorithmException,
 			UnsupportedEncodingException {
 		MessageDigest md;
 		md = MessageDigest.getInstance("MD5");

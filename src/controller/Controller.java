@@ -1,7 +1,5 @@
 package controller;
 
-import model.GenerateXML;
-import model.ReadExcel;
 import view.View;
 
 /**
@@ -10,7 +8,7 @@ import view.View;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.0.0  26/08/2011
+ * @version 1.0.1  09/09/2011
  * @copyright 2011
  * 
  * 
