@@ -3,18 +3,10 @@
  */
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 import model.GenerateXML;
 import model.ReadExcel;
-
-import org.apache.pdfbox.pdfparser.PDFParser;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.common.PDMetadata;
-import org.apache.pdfbox.util.PDFTextStripper;
-
+import model.UpdateNotifier;
+import view.UpdateView;
 import view.View;
 
 /**
@@ -24,7 +16,7 @@ import view.View;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.1.0  26/08/2011
+ * @version 1.1.0  09/10/2011
  * @copyright 2011
  * 
  * TERMS AND CONDITIONS:
@@ -45,30 +37,20 @@ import view.View;
 public class RunApp {
 
 	public static void main(String[] args) throws Exception {
-//		/** Load the ReadExcel Class **/
+		/** Load the ReadExcel Class **/
 		ReadExcel excel = new ReadExcel();
-//		/** Load the GenerateXML Class **/
+		/** Load the GenerateXML Class **/
 		GenerateXML xml = new GenerateXML();
-//		/** Load The View **/
-		View view = new View(excel, xml);
+		/**Notifiy if Update is available **/
+		UpdateNotifier un = new UpdateNotifier();
 		
-		/** Testing the new Class ReadCSV **/
-//		ReadCSV csv = new ReadCSV();
-		
-		/** Testing the new Class ReadPDF **/
-//		PDDocument pddDocument=PDDocument.load(new File("Fotoseite.pdf"));
-//		PDFTextStripper textStripper=new PDFTextStripper();
-//		System.out.println(textStripper.getText(pddDocument));
-//		pddDocument.close();
-//		Document luceneDocument = LucenePDFDocument.getDocument("a.pdf");
-//		InputStream in=new FileInputStream(new File("Fotoseite.pdf"));
-//		PDFParser parser=new PDFParser(in);
-//		parser.parse();
-//		PDMetadata metadata = parser.getPDDocument().getDocumentCatalog().getMetadata();
-//		if(metadata!=null)
-//		 {
-//		 System.out.println(metadata.getInputStreamAsString());
-//		 }
-//		view.setVisible(true);	
+		if(un.IsNewVersionAvailable()) {
+			/** Load The Update View **/
+			UpdateView av = new UpdateView(excel, xml);
+		}
+		else {
+			/** Load The App View **/
+			View view = new View(excel, xml);
+		}	
 	}
 }
