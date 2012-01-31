@@ -24,7 +24,7 @@ import model.UpdateNotifier;
 
 /**
  * 
- * View.java
+ * UpdateView.java
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
@@ -46,7 +46,7 @@ import model.UpdateNotifier;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class View extends JFrame implements ActionListener {
+public class UpdateView extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -64,7 +64,7 @@ public class View extends JFrame implements ActionListener {
 	private ReadExcel excel;
 	public Desktop d;
 
-	public View(ReadExcel excel, GenerateXML xml) throws Exception {
+	public UpdateView(ReadExcel excel, GenerateXML xml) throws Exception {
 		this.xml = xml;
 		this.excel = excel;
 
@@ -79,15 +79,14 @@ public class View extends JFrame implements ActionListener {
 		this.setLocation(500, 100);
 
 		open = new JButton("Open");
-		generate = new JButton("Generate XML");
+		generate = new JButton("DOWNLOAD NOW");
 		exit = new JButton("Exit");
 		bug = new JButton("Bug/Issue Report");
 		status = new JTextField();
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
-		generate.setEnabled(false);
-		status.setText("Click Open to Choose File");
-		status.setForeground(Color.black.darker());
+		status.setText("NEW VERSION IS AVAILABLE");
+		status.setForeground(Color.blue.darker());
 
 		this.add(status, BorderLayout.NORTH);
 		panel.setBorder(new TitledBorder("Generates XML File to Import in ILIAS e-Learning System"));
@@ -152,6 +151,26 @@ public class View extends JFrame implements ActionListener {
 					this.getStatus().setForeground(Color.red.darker());
 				}
 		}
+		if (e.getActionCommand().equals("DOWNLOAD NOW")) {
+			try {
+				 
+					URI u;
+					d = Desktop.getDesktop();
+					u = new URI("http://code.google.com/p/ilias-userimport/downloads/list");
+					d.browse(u); 
+				
+			} catch (URISyntaxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				this.getStatus().setText("ERROR");
+				this.getStatus().setForeground(Color.red.darker());
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+				this.getStatus().setText("ERROR");
+				this.getStatus().setForeground(Color.red.darker());
+			}
+	}
 	}
 
 	public String getFileNameWithoutExtension(String file) {
@@ -169,7 +188,7 @@ public class View extends JFrame implements ActionListener {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel 97-2004", "xls");
 		c.setFileFilter(filter);
 		// Demonstrate "Open" dialog:
-		int rVal = c.showOpenDialog(View.this);
+		int rVal = c.showOpenDialog(UpdateView.this);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			filename = c.getSelectedFile().getName();
 			dir = c.getCurrentDirectory().toString();
@@ -179,6 +198,7 @@ public class View extends JFrame implements ActionListener {
 //				excel = new ReadExcel(getPath());
 				this.getStatus().setText("READY TO GO");
 				this.getStatus().setForeground(Color.blue.darker());
+				generate.setText("Generate XML");
 				generate.setEnabled(true);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

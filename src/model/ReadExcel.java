@@ -1,8 +1,6 @@
 package model;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -18,7 +16,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.0.0  26/08/2011
+ * @version 1.1.0  26/08/2011
  * @copyright 2011
  * 
  * 
@@ -32,8 +30,11 @@ public class ReadExcel {
 	private String path;
 	private String fileName;
 
+	public ReadExcel() {
+		
+	}
 	
-	public ReadExcel(String file) throws Exception {
+	public void ReadExcel(String file) throws Exception {
 		/**
 		 * --Define a Vector --Holds Vectors Of Cells
 		 */
@@ -129,8 +130,8 @@ public class ReadExcel {
 	public void setPath(String path) {
 		this.path = path;
 	}
-
-	public ReadExcel() throws Exception {
-		new ReadExcel(this.getPath());
+	
+	public void start(String file) {
+		
 	}
 }
