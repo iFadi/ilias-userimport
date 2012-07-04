@@ -16,8 +16,8 @@ import view.View;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.1.0  09/10/2011
- * @copyright 2011
+ * @version 1.2.0  31/01/2012
+ * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

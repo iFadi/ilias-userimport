@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.1.0  09/10/2011
+ * @version 1.2.0  31/01/2012
  * @copyright 2011
  * 
  * TERMS AND CONDITIONS:
@@ -31,8 +31,8 @@ import java.net.UnknownHostException;
  * 
  */
 public class UpdateNotifier {
-	final String majorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.2.0.jar";
-	final String minorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.1.1.jar";
+	final String majorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.3.0.jar";
+	final String minorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.2.1.jar";
 	
 	public UpdateNotifier() {
 		

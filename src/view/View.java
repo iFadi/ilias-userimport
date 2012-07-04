@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import net.iharder.dnd.FileDrop;
+
 import model.GenerateXML;
 import model.ReadExcel;
 import model.UpdateNotifier;
@@ -64,7 +66,7 @@ public class View extends JFrame implements ActionListener {
 	private ReadExcel excel;
 	public Desktop d;
 
-	public View(ReadExcel excel, GenerateXML xml) throws Exception {
+	public View(final ReadExcel excel, GenerateXML xml) throws Exception {
 		this.xml = xml;
 		this.excel = excel;
 
@@ -111,6 +113,29 @@ public class View extends JFrame implements ActionListener {
 		
 		if(!d.isDesktopSupported())
 			bug.setEnabled(false);
+		
+		//TESTING Drag n Drop
+        new  FileDrop(panel, new FileDrop.Listener()
+        {   public void  filesDropped( java.io.File[] files )
+            {   
+        	setPath(files[0].getAbsolutePath());
+        	setFilename(files[0].getName());
+			try {
+				excel.ReadExcel(getPath());
+//				excel = new ReadExcel(getPath());
+				getStatus().setText("READY TO GO");
+				getStatus().setForeground(Color.blue.darker());
+				generate.setEnabled(true);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				getStatus().setText("ERROR");
+				getStatus().setForeground(Color.red.darker());
+			}
+            }
+			// System.out.println(dir+"/"+filename);
+        }); // end F
+
 	}
 
 	@Override
@@ -120,7 +145,7 @@ public class View extends JFrame implements ActionListener {
 		}
 		if (e.getActionCommand().equals("Generate XML")) {
 			try {
-				xml.GenerateXML(excel, getFileNameWithoutExtension(filename)+".xml");
+				xml.GenerateXML(excel, getFileNameWithoutExtension(getFilename())+".xml");
 				this.getStatus().setText("XML File has been Generated");
 				this.getStatus().setForeground(Color.green.darker());
 			} catch (Exception e1) {
@@ -171,9 +196,9 @@ public class View extends JFrame implements ActionListener {
 		// Demonstrate "Open" dialog:
 		int rVal = c.showOpenDialog(View.this);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
-			filename = c.getSelectedFile().getName();
+			setFilename(c.getSelectedFile().getName());
 			dir = c.getCurrentDirectory().toString();
-			setPath(dir + "/" + filename);
+			setPath(dir + "/" + getFilename());
 			try {
 				excel.ReadExcel(getPath());
 //				excel = new ReadExcel(getPath());
@@ -186,7 +211,7 @@ public class View extends JFrame implements ActionListener {
 				this.getStatus().setText("ERROR");
 				this.getStatus().setForeground(Color.red.darker());
 			}
-			// System.out.println(dir+"/"+filename);
+			// System.out.println(dir+"/"+getFilename());
 		}
 	}
 	
@@ -204,5 +229,12 @@ public class View extends JFrame implements ActionListener {
 
 	public void setStatus(JTextField status) {
 		this.status = status;
+	}
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 }
