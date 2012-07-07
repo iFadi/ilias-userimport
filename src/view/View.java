@@ -2,27 +2,15 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import net.iharder.dnd.FileDrop;
 
 import model.GenerateXML;
 import model.ReadExcel;
-import model.UpdateNotifier;
+import net.iharder.dnd.FileDrop;
 
 /**
  * 
@@ -30,8 +18,8 @@ import model.UpdateNotifier;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.1.0  09/10/2011
- * @copyright 2011
+ * @version 1.2.0  04/07/2012
+ * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
@@ -48,179 +36,67 @@ import model.UpdateNotifier;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class View extends JFrame implements ActionListener {
+public class View extends JFrame  {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6177350218996491783L;
-	private JButton open;
-	private JButton generate;
-	private JButton exit;
-	private JButton bug;
 	private JTextField status;
-	private String filename;
-	private String dir;
-	private String path;
-	private GenerateXML xml;
-	private ReadExcel excel;
-	public Desktop d;
 
 	public View(final ReadExcel excel, GenerateXML xml) throws Exception {
-		this.xml = xml;
-		this.excel = excel;
 
-		this.setTitle("ILIAS User Import");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("ILIAS User Import"); //The Title of the Window.
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		this.add(panel, BorderLayout.CENTER);
+		JTabbedPane tabbedPane = new JTabbedPane();
+		
+		final mainTab mt = new mainTab(excel, xml, this); //Main Tab
+		JPanel configuration = new JPanel();
+		configuration.setLayout(new BorderLayout());
+		
+		tabbedPane.addTab("Main", null, mt, null);
+		tabbedPane.addTab("Configuration", null, configuration, null);
+		
+		this.add(tabbedPane, BorderLayout.CENTER);
 		this.pack();
-		this.setSize(400, 150);
+		this.setSize(400, 200);
 		this.setLocation(500, 100);
 
-		open = new JButton("Open");
-		generate = new JButton("Generate XML");
-		exit = new JButton("Exit");
-		bug = new JButton("Bug/Issue Report");
 		status = new JTextField();
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
-		generate.setEnabled(false);
 		status.setText("Click Open to Choose File");
 		status.setForeground(Color.black.darker());
 
 		this.add(status, BorderLayout.NORTH);
-		panel.setBorder(new TitledBorder("Generates XML File to Import in ILIAS e-Learning System"));
-		panel.add(generate);
-		panel.add(open);
-		panel.add(bug);
-		panel.add(exit);
-		panel.setLayout(new GridLayout(2, 2));
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
-		panel.setVisible(true);
+		mt.setVisible(true);
 		this.setVisible(true);
 
-		generate.addActionListener(this);
-		open.addActionListener(this);
-		exit.addActionListener(this);
-		bug.addActionListener(this);
-		
-		if(!d.isDesktopSupported())
-			bug.setEnabled(false);
-		
-		//TESTING Drag n Drop
-        new  FileDrop(panel, new FileDrop.Listener()
+        //Drag n Drop functionality.
+        new  FileDrop(this, new FileDrop.Listener()
         {   public void  filesDropped( java.io.File[] files )
             {   
-        	setPath(files[0].getAbsolutePath());
-        	setFilename(files[0].getName());
-			try {
-				excel.ReadExcel(getPath());
-//				excel = new ReadExcel(getPath());
-				getStatus().setText("READY TO GO");
-				getStatus().setForeground(Color.blue.darker());
-				generate.setEnabled(true);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				getStatus().setText("ERROR");
-				getStatus().setForeground(Color.red.darker());
-			}
+                mt.setPath(files[0].getAbsolutePath());
+                mt.setFilename(files[0].getName());
+                        try {
+                                excel.ReadExcel(mt.getPath());
+                                getStatus().setText("READY TO GO");
+                                getStatus().setForeground(Color.blue.darker());
+                                mt.getGenerate().setEnabled(true);
+                        } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                                getStatus().setText("ERROR");
+                                getStatus().setForeground(Color.red.darker());
+                        }
             }
-			// System.out.println(dir+"/"+filename);
-        }); // end F
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Open")) {
-			this.Browse();
-		}
-		if (e.getActionCommand().equals("Generate XML")) {
-			try {
-				xml.GenerateXML(excel, getFileNameWithoutExtension(getFilename())+".xml");
-				this.getStatus().setText("XML File has been Generated");
-				this.getStatus().setForeground(Color.green.darker());
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				this.getStatus().setText("ERROR");
-				this.getStatus().setForeground(Color.red.darker());
-			}
-		}
-		if (e.getActionCommand().equals("Exit")) {
-			System.exit(0);
-		}
-		if (e.getActionCommand().equals("Bug/Issue Report")) {
-				try {
-					 
-						URI u;
-						d = Desktop.getDesktop();
-						u = new URI("http://code.google.com/p/ilias-userimport/issues/list");
-						d.browse(u); 
-					
-				} catch (URISyntaxException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					this.getStatus().setText("ERROR");
-					this.getStatus().setForeground(Color.red.darker());
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-					this.getStatus().setText("ERROR");
-					this.getStatus().setForeground(Color.red.darker());
-				}
-		}
-	}
-
-	public String getFileNameWithoutExtension(String file) {
-		int index = file.lastIndexOf('.');
-		if (index > 0 && index <= file.length() - 2) {
-			return file.substring(0, index);
-		}
-		return file.substring(0, index);
-	}
-	
-	public void Browse() {
-		JFileChooser c = new JFileChooser();
-		c.setMultiSelectionEnabled(false);
-		c.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel 97-2004", "xls");
-		c.setFileFilter(filter);
-		// Demonstrate "Open" dialog:
-		int rVal = c.showOpenDialog(View.this);
-		if (rVal == JFileChooser.APPROVE_OPTION) {
-			setFilename(c.getSelectedFile().getName());
-			dir = c.getCurrentDirectory().toString();
-			setPath(dir + "/" + getFilename());
-			try {
-				excel.ReadExcel(getPath());
-//				excel = new ReadExcel(getPath());
-				this.getStatus().setText("READY TO GO");
-				this.getStatus().setForeground(Color.blue.darker());
-				generate.setEnabled(true);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				this.getStatus().setText("ERROR");
-				this.getStatus().setForeground(Color.red.darker());
-			}
-			// System.out.println(dir+"/"+getFilename());
-		}
-	}
-	
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
+                        // System.out.println(dir+"/"+filename);
+        }); // end FD
 	}
 	
 	public JTextField getStatus() {
@@ -230,11 +106,5 @@ public class View extends JFrame implements ActionListener {
 	public void setStatus(JTextField status) {
 		this.status = status;
 	}
-	public String getFilename() {
-		return filename;
-	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
 }

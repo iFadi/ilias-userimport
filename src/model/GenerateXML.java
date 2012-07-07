@@ -97,9 +97,8 @@ public class GenerateXML {
 				user.appendChild(lrole);
 			}
 
-			// Add Login, if Login column doesn't exist
+			// Add Login, if Login column doesn't exist, The generate login from firstname.lastname
 			if(input.getColumn("Login").size() == 0 || configuration.isLogin()) {
-//			if(input.getColumn("Login").size() == 0 ){
 				// Add Login
 				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn("Firstname").get(i)+"."+(String)input.getColumn("Lastname").get(i))));
 				login.appendChild((Text)getLogin());
@@ -163,7 +162,7 @@ public class GenerateXML {
 			Text lastNameText = doc.createTextNode((String) input.getColumn("Lastname").get(i));
 			lastname.appendChild(lastNameText);
 			user.appendChild(lastname);
-			 System.out.println((String)input.getColumn("Lastname").get(i));
+//			 System.out.println((String)input.getColumn("Lastname").get(i));
 
 			// Add email
 			Text mailt = doc.createTextNode((String) input.getColumn("Email")
