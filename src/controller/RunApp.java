@@ -6,7 +6,7 @@ package controller;
 import model.GenerateXML;
 import model.ReadExcel;
 import model.UpdateNotifier;
-import view.UpdateView;
+import view.Update;
 import view.View;
 
 /**
@@ -46,10 +46,10 @@ public class RunApp {
 		
 		if(un.IsNewVersionAvailable()) {
 			/** Load The Update View **/
-			UpdateView av = new UpdateView(excel, xml);
+			Update av = new Update(excel, xml);
 		}
 		else {
-			/** Load The App View **/
+			/** Load The Normal App View **/
 			View view = new View(excel, xml);
 		}	
 	}

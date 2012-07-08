@@ -2,21 +2,34 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import net.iharder.dnd.FileDrop;
 
 import model.GenerateXML;
 import model.ReadExcel;
-import net.iharder.dnd.FileDrop;
+import model.UpdateNotifier;
 
 /**
  * 
- * View.java
+ * Update.java
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
@@ -38,12 +51,12 @@ import net.iharder.dnd.FileDrop;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class View extends JFrame implements ChangeListener, IView  {
+public class Update extends JFrame implements ChangeListener, IView {
 
 	private static final long serialVersionUID = 6177350218996491783L;
 	private JTextField status;
 
-	public View(final ReadExcel excel, GenerateXML xml) throws Exception {
+	public Update(final ReadExcel excel, GenerateXML xml) throws Exception {
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
@@ -66,8 +79,8 @@ public class View extends JFrame implements ChangeListener, IView  {
 		status = new JTextField();
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
-		status.setText("Click Open to Choose a File or Drag one here.");
-		status.setForeground(Color.black.darker());
+		status.setText("NEW VERSION IS AVAILABLE. Download at Project site.");
+		status.setForeground(Color.blue.darker());
 
 		this.add(status, BorderLayout.NORTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,11 +123,13 @@ public class View extends JFrame implements ChangeListener, IView  {
 	public void stateChanged(ChangeEvent changeEvent) {
 		JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
 //		System.out.println("Tab changed to: " + sourceTabbedPane.getSelectedIndex());
-		if(sourceTabbedPane.getSelectedIndex() == 0)
-			status.setText("Click Open to Choose a File or Drag one here.");
-		if(sourceTabbedPane.getSelectedIndex() == 1)
-			status.setText("Generate dummy user accounts i.e. for test purposes.");
-		
+		if(sourceTabbedPane.getSelectedIndex() == 0) {
+			getStatus().setForeground(Color.black.darker());
+			getStatus().setText("Click Open to Choose a File or Drag one here.");
+		}
+		if(sourceTabbedPane.getSelectedIndex() == 1) {
+			getStatus().setForeground(Color.black.darker());
+			getStatus().setText("Generate dummy user accounts for test purposes.");
+		}
 	}
-
 }

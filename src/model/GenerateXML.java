@@ -17,15 +17,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import view.dummyTab;
+
 /**
  * 
  * GenerateXML.java
  * Generates XML Users File for the import in the ILIAS E-Learning System.
- * This Class needs an input(Excel file) and an output(file name).
+ * 
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.2.0  31/01/2012
+ * @version 1.2.0  04/07/2012
  * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
@@ -46,6 +48,8 @@ import org.w3c.dom.Text;
 public class GenerateXML {
 	
 	private Text login;
+	private Text password;
+	private Text globalRole;
 	private Text title;
 	private Configuration configuration;
 	
@@ -53,7 +57,97 @@ public class GenerateXML {
 		
 	}
 
-	public void GenerateXML(ReadExcel input, String output) throws Exception {
+	public void GenerateXMLFile(dummyTab dt, String output) throws Exception {
+		// We need a Document
+		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+		Document doc = docBuilder.newDocument();
+
+		// create the root element and add it to the document
+		Element root = doc.createElement("Users");
+		doc.appendChild(root);
+
+		for (int i = 1; i <= dt.getNumberField(); i++) {
+			// create child element, add an attribute, and add to root
+//			Element title = doc.createElement("Title");
+			Element user = doc.createElement("User");
+			Element grole = doc.createElement("Role");
+//			Element lrole = doc.createElement("Role");
+			Element login = doc.createElement("Login");
+			Element password = doc.createElement("Password");
+			Element gender = doc.createElement("Gender");
+			Element firstname = doc.createElement("Firstname");
+			Element lastname = doc.createElement("Lastname");
+			Element email = doc.createElement("Email");
+			Element matriculation = doc.createElement("Matriculation");
+
+			// Add Global Role
+			grole.setAttribute("Id", "_1");
+			grole.setAttribute("Type", "Global");
+			grole.setAttribute("Action", "Assign");
+			setGlobalRole(doc.createTextNode("User")); //Standard Role in ILIAS.
+			grole.appendChild(getGlobalRole());
+			user.appendChild(grole);
+			
+
+			// Add Login
+			setLogin(doc.createTextNode(dt.getLoginField()+i));
+			login.appendChild((Text)getLogin());
+			user.appendChild(login);
+
+			
+			// Insert User Command
+			user.setAttribute("Id", getLogin().getWholeText());
+			user.setAttribute("Action", "Insert");
+			root.appendChild(user);
+			
+			
+			// Add Password in MD5 Form
+			password.setAttribute("Type", "ILIAS3");
+			setPassword(doc.createTextNode(MD5(removeSpaces(dt.getPasswordField()))));
+			password.appendChild(getPassword());
+			user.appendChild(password);
+
+
+			// Add Gender
+			Text genderText = doc.createTextNode("f");
+			gender.appendChild(genderText);
+			user.appendChild(gender);
+			
+			
+			// Add first Name
+			Text firstNameText = doc.createTextNode(dt.getLoginField());
+			firstname.appendChild(firstNameText);
+			user.appendChild(firstname);
+			// System.out.println((String)input.getColumn("Firstname").get(i));
+
+			// Add last Name
+			Text lastNameText = doc.createTextNode(i+"");
+			lastname.appendChild(lastNameText);
+			user.appendChild(lastname);
+//			 System.out.println((String)input.getColumn("Lastname").get(i));
+
+			// Add email
+			Text mailt = doc.createTextNode("users@dummy.com");
+			email.appendChild(mailt);
+			user.appendChild(email);
+
+			// Add matriculation
+			Text matText = doc.createTextNode("xxxxxx");
+			matriculation.appendChild(matText);
+			user.appendChild(matriculation);
+
+		}
+
+		// write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(new File("./"+output));
+		transformer.transform(source, result);
+	}
+	
+	public void GenerateXMLFile(ReadExcel input, String output) throws Exception {
 		configuration = new Configuration(); // Load the Configuration.
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
@@ -290,6 +384,34 @@ public class GenerateXML {
 	 */
 	public void setTitle(Text title) {
 		this.title = title;
+	}
+
+	/**
+	 * @return the globalRole
+	 */
+	public Text getGlobalRole() {
+		return globalRole;
+	}
+
+	/**
+	 * @param globalRole the globalRole to set
+	 */
+	public void setGlobalRole(Text globalRole) {
+		this.globalRole = globalRole;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public Text getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(Text password) {
+		this.password = password;
 	}
 	
 }

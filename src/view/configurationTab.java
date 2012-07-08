@@ -3,6 +3,8 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -46,7 +48,7 @@ public class configurationTab extends JPanel {
 	private JTextField passwordField;
 	
 	public configurationTab() {
-		
+		setLayout(new BorderLayout());
 	}
 	
 	public JLabel getLoginLabel() {
