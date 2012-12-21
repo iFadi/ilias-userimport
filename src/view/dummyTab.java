@@ -22,9 +22,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.GenerateXML;
-import model.ReadExcel;
+import model.ParseExcel;
 
-public class dummyTab extends JPanel implements ActionListener{
+public class DummyTab extends JPanel implements ActionListener{
 	private static final long serialVersionUID = -335799796636612645L;
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd_HH:mm:ss";
 	private JLabel loginLabel;
@@ -43,11 +43,11 @@ public class dummyTab extends JPanel implements ActionListener{
 	private String dir;
 	private String path;
 	private GenerateXML xml;
-	private ReadExcel excel;
+	private ParseExcel excel;
 	private IView frame;
 	public Desktop d;
 	
-	public dummyTab(GenerateXML xml, JFrame frame) {
+	public DummyTab(GenerateXML xml, JFrame frame) {
 		this.xml = xml;
 		
 		if(frame instanceof View)
@@ -154,7 +154,7 @@ public class dummyTab extends JPanel implements ActionListener{
 			dir = c.getCurrentDirectory().toString();
 			setPath(dir + "/" + getFilename());
 			try {
-				excel.ReadExcel(getPath());
+				excel.ReadFile(getPath());
 //				excel = new ReadExcel(getPath());
 				frame.getStatus().setText("READY TO GO");
 				frame.getStatus().setForeground(Color.blue.darker());

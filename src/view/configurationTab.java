@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 /**
  * 
- * configurationTab.java
+ * ConfigurationTab.java
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
@@ -34,7 +34,7 @@ import javax.swing.JTextField;
  * 
  */
 
-public class configurationTab extends JPanel {
+public class ConfigurationTab extends JPanel {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class configurationTab extends JPanel {
 	private JTextField loginField;
 	private JTextField passwordField;
 	
-	public configurationTab() {
+	public ConfigurationTab() {
 		setLayout(new BorderLayout());
 	}
 	

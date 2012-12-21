@@ -27,12 +27,29 @@ package model;
 public class Configuration {
 
 	private boolean password; 
-	private boolean login; //Generate login based on firstname.lastname
+	private boolean generateLogin; // Generate Login based on firstname.lastname
 	private boolean dummy; //Generate dummy data for testing.
+	private String firstNameLabel; 
+	private String lastNameLabel;
+	private String loginLabel;
+	private String globalRoleLabel;
+	private String globalLocalLabel;
+	private String matriculationLabel;
+	private String passwordLabel;
+	private String genderLabel;
+	private String emailLabel;
 	
 	public Configuration() {
-		setPassword(false);
-		setLogin(false);
+		setLoginLabel("Login");
+		setPasswordLabel("Password");
+		setFirstNameLabel("Firstname");
+		setLastNameLabel("Lastname");
+		setGlobalRoleLabel("Role");
+		setMatriculationLabel("Matriculation");
+		setEmailLabel("Email");
+		setGenderLabel("Gender");
+		setPassword(true);
+		setGenerateLogin(true);
 	}
 
 	public boolean isPassword() {
@@ -43,14 +60,6 @@ public class Configuration {
 		this.password = password;
 	}
 
-	public boolean isLogin() {
-		return login;
-	}
-
-	public void setLogin(boolean login) {
-		this.login = login;
-	}
-
 	public boolean isDummy() {
 		return dummy;
 	}
@@ -58,4 +67,145 @@ public class Configuration {
 	public void setDummy(boolean dummy) {
 		this.dummy = dummy;
 	}
+
+	/**
+	 * @return the firstNameLabel
+	 */
+	public String getFirstNameLabel() {
+		return firstNameLabel;
+	}
+
+	/**
+	 * @param firstNameLabel the firstNameLabel to set
+	 */
+	public void setFirstNameLabel(String firstNameLabel) {
+		this.firstNameLabel = firstNameLabel;
+	}
+
+	/**
+	 * @return the lastNameLabel
+	 */
+	public String getLastNameLabel() {
+		return lastNameLabel;
+	}
+
+	/**
+	 * @param lastNameLabel the lastNameLabel to set
+	 */
+	public void setLastNameLabel(String lastNameLabel) {
+		this.lastNameLabel = lastNameLabel;
+	}
+
+	/**
+	 * @return the generateLogin
+	 */
+	public boolean isGenerateLogin() {
+		return generateLogin;
+	}
+
+	/**
+	 * @param generateLogin the generateLogin to set
+	 */
+	public void setGenerateLogin(boolean generateLogin) {
+		this.generateLogin = generateLogin;
+	}
+
+	/**
+	 * @return the loginLabel
+	 */
+	public String getLoginLabel() {
+		return loginLabel;
+	}
+
+	/**
+	 * @param loginLabel the loginLabel to set
+	 */
+	public void setLoginLabel(String loginLabel) {
+		this.loginLabel = loginLabel;
+	}
+
+	/**
+	 * @return the globalRoleLabel
+	 */
+	public String getGlobalRoleLabel() {
+		return globalRoleLabel;
+	}
+
+	/**
+	 * @param globalRoleLabel the globalRoleLabel to set
+	 */
+	public void setGlobalRoleLabel(String globalRoleLabel) {
+		this.globalRoleLabel = globalRoleLabel;
+	}
+
+	/**
+	 * @return the globalLocalLabel
+	 */
+	public String getGlobalLocalLabel() {
+		return globalLocalLabel;
+	}
+
+	/**
+	 * @param globalLocalLabel the globalLocalLabel to set
+	 */
+	public void setGlobalLocalLabel(String globalLocalLabel) {
+		this.globalLocalLabel = globalLocalLabel;
+	}
+
+	/**
+	 * @return the matriculationLabel
+	 */
+	public String getMatriculationLabel() {
+		return matriculationLabel;
+	}
+
+	/**
+	 * @param matriculationLabel the matriculationLabel to set
+	 */
+	public void setMatriculationLabel(String matriculationLabel) {
+		this.matriculationLabel = matriculationLabel;
+	}
+
+	/**
+	 * @return the passwordLabel
+	 */
+	public String getPasswordLabel() {
+		return passwordLabel;
+	}
+
+	/**
+	 * @param passwordLabel the passwordLabel to set
+	 */
+	public void setPasswordLabel(String passwordLabel) {
+		this.passwordLabel = passwordLabel;
+	}
+
+	/**
+	 * @return the genderLabel
+	 */
+	public String getGenderLabel() {
+		return genderLabel;
+	}
+
+	/**
+	 * @param genderLabel the genderLabel to set
+	 */
+	public void setGenderLabel(String genderLabel) {
+		this.genderLabel = genderLabel;
+	}
+
+	/**
+	 * @return the emailLabel
+	 */
+	public String getEmailLabel() {
+		return emailLabel;
+	}
+
+	/**
+	 * @param emailLabel the emailLabel to set
+	 */
+	public void setEmailLabel(String emailLabel) {
+		this.emailLabel = emailLabel;
+	}
+
 }

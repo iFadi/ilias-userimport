@@ -20,16 +20,19 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.IFile;
+
 import model.GenerateXML;
-import model.ReadExcel;
+import model.ParseCSV;
+import model.ParseExcel;
 
 /**
  * 
  * mainTab.java
  * 
- * @author Fadi Asbih
+ * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.2.0  04/07/2012
+ * @version 1.2.1  18/12/2012
  * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
@@ -47,7 +50,7 @@ import model.ReadExcel;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class inputTab extends JPanel implements ActionListener{
+public class InputTab extends JPanel implements ActionListener{
 
 	private static final long serialVersionUID = -335799796636612645L;
 	private JButton open;
@@ -58,13 +61,13 @@ public class inputTab extends JPanel implements ActionListener{
 	private String dir;
 	private String path;
 	private GenerateXML xml;
-	private ReadExcel excel;
+	private IFile input;
 	private IView frame;
 	public Desktop d;
 	
-	public inputTab(final ReadExcel excel, GenerateXML xml, JFrame frame) {
+	public InputTab(final IFile input, GenerateXML xml, JFrame frame) {
 		this.xml = xml;
-		this.excel = excel;
+		this.input = input;
 //		this.view = (View)frame;
 		
 		if(frame instanceof View)
@@ -93,7 +96,7 @@ public class inputTab extends JPanel implements ActionListener{
 		exit.addActionListener(this);
 		bug.addActionListener(this);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Open")) {
@@ -101,7 +104,7 @@ public class inputTab extends JPanel implements ActionListener{
 		}
 		if (e.getActionCommand().equals("Generate XML")) {
 			try {
-				xml.GenerateXMLFile(excel, getFileNameWithoutExtension(getFilename())+".xml");
+				xml.GenerateXMLFile(input, getFileNameWithoutExtension(getFilename())+".xml");
 				frame.getStatus().setText("XML File has been Generated");
 				frame.getStatus().setForeground(Color.green.darker());
 			} catch (Exception e1) {
@@ -135,20 +138,27 @@ public class inputTab extends JPanel implements ActionListener{
 		}
 	}
 
-	public String getFileNameWithoutExtension(String file) {
-		int index = file.lastIndexOf('.');
-		if (index > 0 && index <= file.length() - 2) {
-			return file.substring(0, index);
+	/**
+	 * 
+	 * @param input
+	 * @return input name without the extension. i.e. tmp.txt --> tmp
+	 */
+	public String getFileNameWithoutExtension(String input) {
+		int index = input.lastIndexOf('.');
+		if (index > 0 && index <= input.length() - 2) {
+			return input.substring(0, index);
 		}
-		return file.substring(0, index);
+		return input.substring(0, index);
 	}
 	
 	public void Browse() {
 		JFileChooser c = new JFileChooser();
 		c.setMultiSelectionEnabled(false);
 		c.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel 97-2004", "xls");
-		c.setFileFilter(filter);
+		FileNameExtensionFilter filter1 = new FileNameExtensionFilter("Excel 97-2004", "xls");
+		FileNameExtensionFilter filter2 = new FileNameExtensionFilter("CSV (;)", "csv");
+		c.setFileFilter(filter1);
+		c.setFileFilter(filter2);
 		// Demonstrate "Open" dialog:
 		int rVal = c.showOpenDialog(this);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
@@ -156,8 +166,7 @@ public class inputTab extends JPanel implements ActionListener{
 			dir = c.getCurrentDirectory().toString();
 			setPath(dir + "/" + getFilename());
 			try {
-				excel.ReadExcel(getPath());
-//				excel = new ReadExcel(getPath());
+				input.ReadFile(getPath());
 				frame.getStatus().setText("READY TO GO");
 				frame.getStatus().setForeground(Color.blue.darker());
 				generate.setEnabled(true);

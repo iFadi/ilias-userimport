@@ -17,7 +17,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-import view.dummyTab;
+import controller.IFile;
+
+import view.DummyTab;
 
 /**
  * 
@@ -27,7 +29,7 @@ import view.dummyTab;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.2.0  04/07/2012
+ * @version 1.2.1  18/12/2012
  * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
@@ -57,7 +59,7 @@ public class GenerateXML {
 		
 	}
 
-	public void GenerateXMLFile(dummyTab dt, String output) throws Exception {
+	public void GenerateXMLFile(DummyTab dt, String output) throws Exception {
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
@@ -147,8 +149,15 @@ public class GenerateXML {
 		transformer.transform(source, result);
 	}
 	
-	public void GenerateXMLFile(ReadExcel input, String output) throws Exception {
+	/**
+	 * 
+	 * @param input
+	 * @param output
+	 * @throws Exception
+	 */
+	public void GenerateXMLFile(IFile input, String output) throws Exception {
 		configuration = new Configuration(); // Load the Configuration.
+		
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
@@ -158,7 +167,7 @@ public class GenerateXML {
 		Element root = doc.createElement("Users");
 		doc.appendChild(root);
 
-		for (int i = 1; i < input.getColumn("Firstname").size(); i++) {
+		for (int i = 1; i < input.getColumn(configuration.getFirstNameLabel()).size(); i++) {
 			// create child element, add an attribute, and add to root
 			Element title = doc.createElement("Title");
 			Element user = doc.createElement("User");
@@ -172,12 +181,13 @@ public class GenerateXML {
 			Element email = doc.createElement("Email");
 			Element matriculation = doc.createElement("Matriculation");
 
+			
 			// Add Global Role
 			grole.setAttribute("Id", "_1");
 			grole.setAttribute("Type", "Global");
 			grole.setAttribute("Action", "Assign");
-			Text gt = doc.createTextNode((String) input.getColumn("Global Role").get(i));
-			grole.appendChild(gt);
+			setGlobalRole(doc.createTextNode("User")); //Standard Role in ILIAS.
+			grole.appendChild(getGlobalRole());
 			user.appendChild(grole);
 			
 			
@@ -192,7 +202,7 @@ public class GenerateXML {
 			}
 
 			// Add Login, if Login column doesn't exist, The generate login from firstname.lastname
-			if(input.getColumn("Login").size() == 0 || configuration.isLogin()) {
+			if(input.getColumn("Login").size() == 0 || configuration.isGenerateLogin()) {
 				// Add Login
 				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn("Firstname").get(i)+"."+(String)input.getColumn("Lastname").get(i))));
 				login.appendChild((Text)getLogin());
@@ -213,7 +223,7 @@ public class GenerateXML {
 //			 System.out.println(input.getColumn("Login").get(i));
 			
 			// Add Password in MD5 Form, If Password column dosen't exist.
-			if(input.getColumn("Password").size() == 0 || configuration.isLogin()) { //If Password Column dosen't exists, then password will be auto generated combined from firstname.lastname
+			if(input.getColumn("Password").size() == 0 || configuration.isGenerateLogin()) { //If Password Column dosen't exists, then password will be auto generated combined from firstname.lastname
 				password.setAttribute("Type", "ILIAS3");
 				Text pass = doc.createTextNode(MD5(removeSpaces((String)input.getColumn("Firstname").get(i)+"."+(String)input.getColumn("Lastname").get(i)))); 
 				password.appendChild(pass);
@@ -231,6 +241,7 @@ public class GenerateXML {
 				Text genderText = doc.createTextNode("f");
 				gender.appendChild(genderText);
 				user.appendChild(gender);
+//				System.out.println(input.getColumn("Gender"));
 			}
 			else{// get the gender column
 				Text genderText = doc.createTextNode((String) input.getColumn("Gender").get(i));
@@ -243,7 +254,7 @@ public class GenerateXML {
 				Text titleText = doc.createTextNode((String) input.getColumn("Title").get(i));
 				title.appendChild(titleText);
 				user.appendChild(title);
-				System.out.println((String)input.getColumn("Title").get(i));
+				System.out.println(input.getColumn("Title").size());
 			}
 			
 			// Add first Name
@@ -259,8 +270,7 @@ public class GenerateXML {
 //			 System.out.println((String)input.getColumn("Lastname").get(i));
 
 			// Add email
-			Text mailt = doc.createTextNode((String) input.getColumn("Email")
-					.get(i));
+			Text mailt = doc.createTextNode((String) input.getColumn("Email").get(i));
 			email.appendChild(mailt);
 			user.appendChild(email);
 

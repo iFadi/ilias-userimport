@@ -1,6 +1,7 @@
 package model;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -9,6 +10,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+
+import controller.IFile;
 /**
  * 
  * ReadExcel.java
@@ -21,7 +24,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * 
  * 
  */
-public class ReadExcel {
+public class ParseExcel implements IFile{
 	/**
 	 * --Define a Vector --Holds Vectors Of Cells
 	 */
@@ -30,11 +33,11 @@ public class ReadExcel {
 	private String path;
 	private String fileName;
 
-	public ReadExcel() {
+	public ParseExcel() {
 		
 	}
 	
-	public void ReadExcel(String file) throws Exception {
+	public void ReadFile(String file) throws Exception {
 		/**
 		 * --Define a Vector --Holds Vectors Of Cells
 		 */
@@ -134,4 +137,5 @@ public class ReadExcel {
 	public void start(String file) {
 		
 	}
+
 }

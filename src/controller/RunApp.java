@@ -3,8 +3,10 @@
  */
 package controller;
 
+import model.Configuration;
 import model.GenerateXML;
-import model.ReadExcel;
+import model.ParseCSV;
+import model.ParseExcel;
 import model.UpdateNotifier;
 import view.Update;
 import view.View;
@@ -16,7 +18,7 @@ import view.View;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.2.0  31/01/2012
+ * @version 1.2.1  18/12/2012
  * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
@@ -37,20 +39,22 @@ import view.View;
 public class RunApp {
 
 	public static void main(String[] args) throws Exception {
-		/** Load the ReadExcel Class **/
-		ReadExcel excel = new ReadExcel();
-		/** Load the GenerateXML Class **/
-		GenerateXML xml = new GenerateXML();
-		/**Notifiy if Update is available **/
-		UpdateNotifier un = new UpdateNotifier();
+		
+		IFile input; // Interface for different input File Types.
+		
+		input = new ParseExcel(); // Load the ReadExcel Model
+		input = new ParseCSV(); // Load the ReadCSV Model
+		
+		Configuration conf = new Configuration(); // Load the Standard Configuration
+		
+		GenerateXML xml = new GenerateXML(); // Load the GenerateXML Model 
+		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
 		
 		if(un.IsNewVersionAvailable()) {
-			/** Load The Update View **/
-			Update av = new Update(excel, xml);
+			Update av = new Update(input, xml, conf); // Load The Update View
 		}
 		else {
-			/** Load The Normal App View **/
-			View view = new View(excel, xml);
+			View view = new View(input, xml, conf); // Load The Normal App View
 		}	
 	}
 }

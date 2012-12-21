@@ -4,14 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.IFile;
+
+import model.Configuration;
 import model.GenerateXML;
-import model.ReadExcel;
+import model.ParseExcel;
 import net.iharder.dnd.FileDrop;
 
 /**
@@ -20,7 +22,7 @@ import net.iharder.dnd.FileDrop;
  * 
  * @author Fadi Asbih
  * @email fadi_asbih@yahoo.de
- * @version 1.2.0  04/07/2012
+ * @version 1.2.1  18/12/2012
  * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
@@ -43,19 +45,19 @@ public class View extends JFrame implements ChangeListener, IView  {
 	private static final long serialVersionUID = 6177350218996491783L;
 	private JTextField status;
 
-	public View(final ReadExcel excel, GenerateXML xml) throws Exception {
+	public View(final IFile input, GenerateXML xml, Configuration conf) throws Exception {
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
-		final inputTab it = new inputTab(excel, xml, this); //Main Tab
+		final InputTab it = new InputTab(input, xml, this); //Main Tab
 //		configurationTab ct = new configurationTab(); //Configuration Tab
-		dummyTab tb = new dummyTab(xml, this);
+		DummyTab tb = new DummyTab(xml, this);
 		
 		tabbedPane.addTab("Input", null, it, null);
-//		tabbedPane.addTab("Configuration", null, ct, "Here you need to choose an Excel file.");
+//		tabbedPane.addTab("Settings", null, ct, "Here you need to choose an Excel file.");
 		tabbedPane.addTab("Dummy", null, tb, "Here you can generate an XML file without an input.");
 		
 		this.add(tabbedPane, BorderLayout.CENTER);
@@ -83,15 +85,15 @@ public class View extends JFrame implements ChangeListener, IView  {
                 it.setPath(files[0].getAbsolutePath());
                 it.setFilename(files[0].getName());
                         try {
-                                excel.ReadExcel(it.getPath());
-                                getStatus().setText("READY TO GO");
-                                getStatus().setForeground(Color.blue.darker());
-                                it.getGenerate().setEnabled(true);
+                            input.ReadFile(it.getPath());
+                            getStatus().setText("READY TO GO");
+                            getStatus().setForeground(Color.blue.darker());
+                            it.getGenerate().setEnabled(true);
                         } catch (Exception e1) {
-                                // TODO Auto-generated catch block
-                                e1.printStackTrace();
-                                getStatus().setText("ERROR");
-                                getStatus().setForeground(Color.red.darker());
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                            getStatus().setText("ERROR");
+                            getStatus().setForeground(Color.red.darker());
                         }
             }
                         // System.out.println(dir+"/"+filename);
@@ -110,10 +112,14 @@ public class View extends JFrame implements ChangeListener, IView  {
 	public void stateChanged(ChangeEvent changeEvent) {
 		JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
 //		System.out.println("Tab changed to: " + sourceTabbedPane.getSelectedIndex());
-		if(sourceTabbedPane.getSelectedIndex() == 0)
-			status.setText("Click Open to Choose a File or Drag one here.");
-		if(sourceTabbedPane.getSelectedIndex() == 1)
-			status.setText("Generate dummy user accounts i.e. for test purposes.");
+		if(sourceTabbedPane.getSelectedIndex() == 0) {
+			getStatus().setText("Click Open to Choose a File or Drag one here.");
+			getStatus().setForeground(Color.black);
+		}
+		if(sourceTabbedPane.getSelectedIndex() == 1) {
+			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
+			getStatus().setForeground(Color.black);
+		}
 		
 	}
 

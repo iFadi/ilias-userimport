@@ -21,10 +21,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.IFile;
+
 import net.iharder.dnd.FileDrop;
 
+import model.Configuration;
 import model.GenerateXML;
-import model.ReadExcel;
+import model.ParseExcel;
 import model.UpdateNotifier;
 
 /**
@@ -56,16 +59,16 @@ public class Update extends JFrame implements ChangeListener, IView {
 	private static final long serialVersionUID = 6177350218996491783L;
 	private JTextField status;
 
-	public Update(final ReadExcel excel, GenerateXML xml) throws Exception {
+	public Update(final IFile input, GenerateXML xml, Configuration conf) throws Exception {
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
-		final inputTab it = new inputTab(excel, xml, this); //Main Tab
+		final InputTab it = new InputTab(input, xml, this); //Main Tab
 //		configurationTab ct = new configurationTab(); //Configuration Tab
-		dummyTab tb = new dummyTab(xml, this);
+		DummyTab tb = new DummyTab(xml, this);
 		
 		tabbedPane.addTab("Input", null, it, null);
 //		tabbedPane.addTab("Configuration", null, ct, "Here you need to choose an Excel file.");
@@ -96,7 +99,7 @@ public class Update extends JFrame implements ChangeListener, IView {
                 it.setPath(files[0].getAbsolutePath());
                 it.setFilename(files[0].getName());
                         try {
-                                excel.ReadExcel(it.getPath());
+                                input.ReadFile(it.getPath());
                                 getStatus().setText("READY TO GO");
                                 getStatus().setForeground(Color.blue.darker());
                                 it.getGenerate().setEnabled(true);
