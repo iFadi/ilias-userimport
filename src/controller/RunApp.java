@@ -40,21 +40,21 @@ public class RunApp {
 
 	public static void main(String[] args) throws Exception {
 		
-		IFile input; // Interface for different input File Types.
+		IFile input = null; // Interface for different input File Types.
 		
-		input = new ParseExcel(); // Load the ReadExcel Model
-		input = new ParseCSV(); // Load the ReadCSV Model
+//		input = new ParseExcel(); // Load the ReadExcel Model
+//		input = new ParseCSV(); // Load the ReadCSV Model
 		
-		Configuration conf = new Configuration(); // Load the Standard Configuration
+		Configuration configuration = new Configuration(); // Load the Standard Configuration
 		
 		GenerateXML xml = new GenerateXML(); // Load the GenerateXML Model 
 		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
 		
 		if(un.IsNewVersionAvailable()) {
-			Update av = new Update(input, xml, conf); // Load The Update View
+			Update av = new Update(input, xml, configuration); // Load The Update View
 		}
 		else {
-			View view = new View(input, xml, conf); // Load The Normal App View
+			View view = new View(input, xml, configuration); // Load The Normal App View
 		}	
 	}
 }

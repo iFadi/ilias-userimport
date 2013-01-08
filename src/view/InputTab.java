@@ -67,7 +67,7 @@ public class InputTab extends JPanel implements ActionListener{
 	
 	public InputTab(final IFile input, GenerateXML xml, JFrame frame) {
 		this.xml = xml;
-		this.input = input;
+//		this.input = input;
 //		this.view = (View)frame;
 		
 		if(frame instanceof View)
@@ -159,9 +159,14 @@ public class InputTab extends JPanel implements ActionListener{
 		FileNameExtensionFilter filter2 = new FileNameExtensionFilter("CSV (;)", "csv");
 		c.setFileFilter(filter1);
 		c.setFileFilter(filter2);
+		
 		// Demonstrate "Open" dialog:
 		int rVal = c.showOpenDialog(this);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
+			if(c.getFileFilter() == filter1)
+				input = new ParseExcel();
+			if(c.getFileFilter() == filter2)
+				input = new ParseCSV();
 			setFilename(c.getSelectedFile().getName());
 			dir = c.getCurrentDirectory().toString();
 			setPath(dir + "/" + getFilename());

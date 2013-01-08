@@ -65,6 +65,9 @@ public class GenerateXML {
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
 		Document doc = docBuilder.newDocument();
 
+		// Load the Configuration.
+		configuration = new Configuration();
+		
 		// create the root element and add it to the document
 		Element root = doc.createElement("Users");
 		doc.appendChild(root);
@@ -74,7 +77,7 @@ public class GenerateXML {
 //			Element title = doc.createElement("Title");
 			Element user = doc.createElement("User");
 			Element grole = doc.createElement("Role");
-//			Element lrole = doc.createElement("Role");
+			Element lrole = doc.createElement("Role");
 			Element login = doc.createElement("Login");
 			Element password = doc.createElement("Password");
 			Element gender = doc.createElement("Gender");
@@ -91,7 +94,16 @@ public class GenerateXML {
 			grole.appendChild(getGlobalRole());
 			user.appendChild(grole);
 			
-
+			// Add Local Role
+			if(configuration.isLocalRole()) {
+				lrole.setAttribute("Id", "_2");
+				lrole.setAttribute("Type", "Local");
+				lrole.setAttribute("Action", "Assign");
+				Text lt = doc.createTextNode(configuration.getLocalRoleValue());
+				lrole.appendChild(lt);
+				user.appendChild(lrole);
+			}
+			
 			// Add Login
 			setLogin(doc.createTextNode(dt.getLoginField()+i));
 			login.appendChild((Text)getLogin());
@@ -156,7 +168,6 @@ public class GenerateXML {
 	 * @throws Exception
 	 */
 	public void GenerateXMLFile(IFile input, String output) throws Exception {
-		configuration = new Configuration(); // Load the Configuration.
 		
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
@@ -192,25 +203,35 @@ public class GenerateXML {
 			
 			
 			// Adds Local Role, if column does exist.
-			if(input.getColumn("Local Role").size() != 0) {			
+			if(input.getColumn(configuration.getLocalRoleLabel()).size() != 0) {			
 				lrole.setAttribute("Id", "_2");
 				lrole.setAttribute("Type", "Local");
 				lrole.setAttribute("Action", "Assign");
-				Text lt = doc.createTextNode((String) input.getColumn("Local Role").get(i));
+				Text lt = doc.createTextNode((String) input.getColumn(configuration.getLocalRoleLabel()).get(i));
 				lrole.appendChild(lt);
 				user.appendChild(lrole);
 			}
 
+			if(configuration.isLocalRole()) {
+				lrole.setAttribute("Id", "_2");
+				lrole.setAttribute("Type", "Local");
+				lrole.setAttribute("Action", "Assign");
+				Text lt = doc.createTextNode(configuration.getLocalRoleValue());
+				lrole.appendChild(lt);
+				user.appendChild(lrole);
+			}
+			
 			// Add Login, if Login column doesn't exist, The generate login from firstname.lastname
-			if(input.getColumn("Login").size() == 0 || configuration.isGenerateLogin()) {
+			if(configuration.isGenerateLogin()) {
 				// Add Login
-				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn("Firstname").get(i)+"."+(String)input.getColumn("Lastname").get(i))));
+//				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
+				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getMatriculationLabel()).get(i))));
 				login.appendChild((Text)getLogin());
 				user.appendChild(login);
 			}
 			else{// get the login column
 				// Add Login
-				setLogin(doc.createTextNode(removeSpaces((String) input.getColumn("Login").get(i))));
+				setLogin(doc.createTextNode(removeSpaces((String) input.getColumn(configuration.getLoginLabel()).get(i))));
 				login.appendChild((Text)getLogin());
 				user.appendChild(login);
 
@@ -223,15 +244,16 @@ public class GenerateXML {
 //			 System.out.println(input.getColumn("Login").get(i));
 			
 			// Add Password in MD5 Form, If Password column dosen't exist.
-			if(input.getColumn("Password").size() == 0 || configuration.isGenerateLogin()) { //If Password Column dosen't exists, then password will be auto generated combined from firstname.lastname
+			if(input.getColumn(configuration.getPasswordLabel()).size() == 0 || configuration.isGeneratePassword()) { //If Password Column dosen't exists, then password will be auto generated combined from firstname.lastname
 				password.setAttribute("Type", "ILIAS3");
-				Text pass = doc.createTextNode(MD5(removeSpaces((String)input.getColumn("Firstname").get(i)+"."+(String)input.getColumn("Lastname").get(i)))); 
+//				Text pass = doc.createTextNode(MD5(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
+				Text pass = doc.createTextNode(MD5(removeSpaces(configuration.getPasswordValue()))); 
 				password.appendChild(pass);
 				user.appendChild(password);
 			}
 			else{ // get the password column
 				password.setAttribute("Type", "ILIAS3");
-				Text pass = doc.createTextNode(MD5(removeSpaces((String) input.getColumn("Password").get(i))));
+				Text pass = doc.createTextNode(MD5(removeSpaces((String) input.getColumn(configuration.getPasswordLabel()).get(i))));
 				password.appendChild(pass);
 				user.appendChild(password);
 			}
@@ -244,39 +266,38 @@ public class GenerateXML {
 //				System.out.println(input.getColumn("Gender"));
 			}
 			else{// get the gender column
-				Text genderText = doc.createTextNode((String) input.getColumn("Gender").get(i));
+				Text genderText = doc.createTextNode((String) input.getColumn(configuration.getTitleLabel()).get(i));
 				gender.appendChild(genderText);
 				user.appendChild(gender);
 			}
 			
 			// Add Title, if column does exist.
 			if(input.getColumn("Title").size() != 0) {
-				Text titleText = doc.createTextNode((String) input.getColumn("Title").get(i));
+				Text titleText = doc.createTextNode((String) input.getColumn(configuration.getTitleLabel()).get(i));
 				title.appendChild(titleText);
 				user.appendChild(title);
 				System.out.println(input.getColumn("Title").size());
 			}
 			
 			// Add first Name
-			Text firstNameText = doc.createTextNode((String) input.getColumn("Firstname").get(i));
+			Text firstNameText = doc.createTextNode((String) input.getColumn(configuration.getFirstNameLabel()).get(i));
 			firstname.appendChild(firstNameText);
 			user.appendChild(firstname);
 			// System.out.println((String)input.getColumn("Firstname").get(i));
 
 			// Add Last Name
-			Text lastNameText = doc.createTextNode((String) input.getColumn("Lastname").get(i));
+			Text lastNameText = doc.createTextNode((String) input.getColumn(configuration.getLastNameLabel()).get(i));
 			lastname.appendChild(lastNameText);
 			user.appendChild(lastname);
 //			 System.out.println((String)input.getColumn("Lastname").get(i));
 
 			// Add email
-			Text mailt = doc.createTextNode((String) input.getColumn("Email").get(i));
+			Text mailt = doc.createTextNode((String) input.getColumn(configuration.getEmailLabel()).get(i));
 			email.appendChild(mailt);
 			user.appendChild(email);
 
 			// Add matriculation
-			Text matText = doc.createTextNode((String) input.getColumn(
-					"Matriculation").get(i));
+			Text matText = doc.createTextNode((String) input.getColumn(configuration.getMatriculationLabel()).get(i));
 			matriculation.appendChild(matText);
 			user.appendChild(matriculation);
 

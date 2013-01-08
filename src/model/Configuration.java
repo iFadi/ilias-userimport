@@ -26,38 +26,55 @@ package model;
  */
 public class Configuration {
 
-	private boolean password; 
+	private boolean generatePassword; 
 	private boolean generateLogin; // Generate Login based on firstname.lastname
+	private boolean localRole;
 	private boolean dummy; //Generate dummy data for testing.
+	
+	private String titleLabel;
 	private String firstNameLabel; 
 	private String lastNameLabel;
 	private String loginLabel;
 	private String globalRoleLabel;
-	private String globalLocalLabel;
+	private String localRoleLabel;
 	private String matriculationLabel;
 	private String passwordLabel;
 	private String genderLabel;
 	private String emailLabel;
 	
+	private String localRoleValue;
+	private String passwordValue;
+	
 	public Configuration() {
-		setLoginLabel("Login");
+//		setLoginLabel("Login");
+//		setPasswordLabel("Password");
+//		setFirstNameLabel("Firstname");
+//		setLastNameLabel("Lastname");
+//		setGlobalRoleLabel("Role");
+//		setMatriculationLabel("Matriculation");
+//		setEmailLabel("Email");
+//		setGenderLabel("Gender");
+//		setPassword(true);
+//		setGenerateLogin(true);
+		
+		// StudIP CSV
+		setTitleLabel("Titel");
+		setLoginLabel("Nutzernamen");
 		setPasswordLabel("Password");
-		setFirstNameLabel("Firstname");
-		setLastNameLabel("Lastname");
+		setFirstNameLabel("Vorname");
+		setLastNameLabel("Nachname");
 		setGlobalRoleLabel("Role");
-		setMatriculationLabel("Matriculation");
-		setEmailLabel("Email");
+		setLocalRoleLabel("Local Role");
+		setMatriculationLabel("matrikelnummer");
+		setEmailLabel("E-Mail");
 		setGenderLabel("Gender");
-		setPassword(true);
+		
+		setLocalRoleValue("Altendorf_Klausur_15.01.2013");
+		setPasswordValue("klausur");
+		
+		setLocalRole(true);
+		setGeneratePassword(true);
 		setGenerateLogin(true);
-	}
-
-	public boolean isPassword() {
-		return password;
-	}
-
-	public void setPassword(boolean password) {
-		this.password = password;
 	}
 
 	public boolean isDummy() {
@@ -139,20 +156,6 @@ public class Configuration {
 	}
 
 	/**
-	 * @return the globalLocalLabel
-	 */
-	public String getGlobalLocalLabel() {
-		return globalLocalLabel;
-	}
-
-	/**
-	 * @param globalLocalLabel the globalLocalLabel to set
-	 */
-	public void setGlobalLocalLabel(String globalLocalLabel) {
-		this.globalLocalLabel = globalLocalLabel;
-	}
-
-	/**
 	 * @return the matriculationLabel
 	 */
 	public String getMatriculationLabel() {
@@ -206,6 +209,90 @@ public class Configuration {
 	 */
 	public void setEmailLabel(String emailLabel) {
 		this.emailLabel = emailLabel;
+	}
+
+	/**
+	 * @return the titleLabel
+	 */
+	public String getTitleLabel() {
+		return titleLabel;
+	}
+
+	/**
+	 * @param titleLabel the titleLabel to set
+	 */
+	public void setTitleLabel(String titleLabel) {
+		this.titleLabel = titleLabel;
+	}
+
+	/**
+	 * @return the generatePassword
+	 */
+	public boolean isGeneratePassword() {
+		return generatePassword;
+	}
+
+	/**
+	 * @param generatePassword the generatePassword to set
+	 */
+	public void setGeneratePassword(boolean generatePassword) {
+		this.generatePassword = generatePassword;
+	}
+
+	/**
+	 * @return the localRoleLabel
+	 */
+	public String getLocalRoleLabel() {
+		return localRoleLabel;
+	}
+
+	/**
+	 * @param localRoleLabel the localRoleLabel to set
+	 */
+	public void setLocalRoleLabel(String localRoleLabel) {
+		this.localRoleLabel = localRoleLabel;
+	}
+
+	/**
+	 * @return the localRole
+	 */
+	public boolean isLocalRole() {
+		return localRole;
+	}
+
+	/**
+	 * @param localRole the localRole to set
+	 */
+	public void setLocalRole(boolean localRole) {
+		this.localRole = localRole;
+	}
+
+	/**
+	 * @return the localRoleValue
+	 */
+	public String getLocalRoleValue() {
+		return localRoleValue;
+	}
+
+	/**
+	 * @param localRoleValue the localRoleValue to set
+	 */
+	public void setLocalRoleValue(String localRoleValue) {
+		this.localRoleValue = localRoleValue;
+	}
+
+	/**
+	 * @return the passwordValue
+	 */
+	public String getPasswordValue() {
+		return passwordValue;
+	}
+
+	/**
+	 * @param passwordValue the passwordValue to set
+	 */
+	public void setPasswordValue(String passwordValue) {
+		this.passwordValue = passwordValue;
 	}
 
 }
