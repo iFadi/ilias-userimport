@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 /**
  * 
  * Configuration.java
@@ -29,7 +33,7 @@ public class Configuration {
 	private boolean generatePassword; 
 	private boolean generateLogin; // Generate Login based on firstname.lastname
 	private boolean localRole;
-	private boolean dummy; //Generate dummy data for testing.
+	private boolean dummy; // Generate dummy data for testing.
 	
 	private String titleLabel;
 	private String firstNameLabel; 
@@ -46,35 +50,35 @@ public class Configuration {
 	private String passwordValue;
 	
 	public Configuration() {
-//		setLoginLabel("Login");
-//		setPasswordLabel("Password");
-//		setFirstNameLabel("Firstname");
-//		setLastNameLabel("Lastname");
-//		setGlobalRoleLabel("Role");
-//		setMatriculationLabel("Matriculation");
-//		setEmailLabel("Email");
-//		setGenderLabel("Gender");
-//		setPassword(true);
-//		setGenerateLogin(true);
+				
+		try {
+			Properties properties = new Properties();
+			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("src/configuration.properties"));
+			properties.load(stream);
+			stream.close();
+			
+			setTitleLabel(properties.getProperty("titleLabel"));
+			setLoginLabel(properties.getProperty("loginLabel"));
+			setPasswordLabel(properties.getProperty("passwordLabel"));
+			setFirstNameLabel(properties.getProperty("firstNameLabel"));
+			setLastNameLabel(properties.getProperty("lastNameLabel"));
+			setGlobalRoleLabel(properties.getProperty("globalRoleLabel"));
+			setLocalRoleLabel(properties.getProperty("localRoleLabel"));
+			setMatriculationLabel(properties.getProperty("matriculationLabel"));
+			setEmailLabel(properties.getProperty("emailLabel"));
+			setGenderLabel(properties.getProperty("genderLabel"));
+			
+			setLocalRoleValue(properties.getProperty("localRoleValue"));
+			setPasswordValue(properties.getProperty("passwordValue"));
+			
+			setLocalRole(Boolean.parseBoolean(properties.getProperty("localRole")));
+			setGeneratePassword(Boolean.parseBoolean(properties.getProperty("generatePassword")));
+			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
+			
+		} catch (Exception e) {
+			System.out.println("No configuration.properties File Found.");
+		}
 		
-		// StudIP CSV
-		setTitleLabel("Titel");
-		setLoginLabel("Nutzernamen");
-		setPasswordLabel("Password");
-		setFirstNameLabel("Vorname");
-		setLastNameLabel("Nachname");
-		setGlobalRoleLabel("Role");
-		setLocalRoleLabel("Local Role");
-		setMatriculationLabel("matrikelnummer");
-		setEmailLabel("E-Mail");
-		setGenderLabel("Gender");
-		
-		setLocalRoleValue("Altendorf_Klausur_15.01.2013");
-		setPasswordValue("klausur");
-		
-		setLocalRole(true);
-		setGeneratePassword(true);
-		setGenerateLogin(true);
 	}
 
 	public boolean isDummy() {

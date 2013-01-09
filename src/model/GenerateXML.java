@@ -56,7 +56,8 @@ public class GenerateXML {
 	private Configuration configuration;
 	
 	public GenerateXML() {
-		
+		// Load the Configuration.
+		configuration = new Configuration();
 	}
 
 	public void GenerateXMLFile(DummyTab dt, String output) throws Exception {
@@ -64,9 +65,6 @@ public class GenerateXML {
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
 		Document doc = docBuilder.newDocument();
-
-		// Load the Configuration.
-		configuration = new Configuration();
 		
 		// create the root element and add it to the document
 		Element root = doc.createElement("Users");
@@ -142,7 +140,7 @@ public class GenerateXML {
 //			 System.out.println((String)input.getColumn("Lastname").get(i));
 
 			// Add email
-			Text mailt = doc.createTextNode("users@dummy.com");
+			Text mailt = doc.createTextNode("users@dummy.dummy");
 			email.appendChild(mailt);
 			user.appendChild(email);
 
@@ -221,7 +219,7 @@ public class GenerateXML {
 				user.appendChild(lrole);
 			}
 			
-			// Add Login, if Login column doesn't exist, The generate login from firstname.lastname
+			// Add Login, if Login column doesn't exist, The generate login from firstname.lastname or M-nr
 			if(configuration.isGenerateLogin()) {
 				// Add Login
 //				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
