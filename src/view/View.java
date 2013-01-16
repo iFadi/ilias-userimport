@@ -20,10 +20,11 @@ import net.iharder.dnd.FileDrop;
  * 
  * View.java
  * 
- * @author $Author$
- * @email fadi_asbih@yahoo.de
- * @version $Revision$
- * @copyright 2012
+ * $Author$
+ * $Revision$
+ * $HeadURL$
+ * $id$
+ * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

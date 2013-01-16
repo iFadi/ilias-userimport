@@ -24,6 +24,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.GenerateXML;
 import model.ParseExcel;
 
+/**
+ * 
+ * $Author$
+ * $Revision$
+ * $HeadURL$
+ * $id$
+ * $LastChangedDate$
+ *
+ */
 public class DummyTab extends JPanel implements ActionListener{
 	private static final long serialVersionUID = -335799796636612645L;
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd_HH:mm:ss";

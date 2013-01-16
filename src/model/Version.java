@@ -3,10 +3,11 @@ package model;
  * 
  * Version.java
  * 
- * @author Fadi M. H. Asbih
- * @email fadi_asbih@yahoo.de
- * @version 1.2.1  31/01/2012
- * @copyright 2012
+ * $Author$
+ * $Revision$
+ * $HeadURL$
+ * $id$
+ * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

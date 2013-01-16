@@ -9,10 +9,11 @@ import java.util.prefs.Preferences;
  * 
  * Configuration.java
  * 
- * @author Fadi Asbih
- * @email fadi_asbih@yahoo.de
- * @version 1.2.0  04/07/2012
- * @copyright 2012
+ * $Author$
+ * $Revision$
+ * $HeadURL$
+ * $id$
+ * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

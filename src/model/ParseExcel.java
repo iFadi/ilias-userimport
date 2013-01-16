@@ -17,10 +17,11 @@ import controller.IFile;
  * ReadExcel.java
  * Reads/Analyse an Excel File and Save it to a Vector.
  * 
- * @author Fadi Asbih
- * @email fadi_asbih@yahoo.de
- * @version 1.1.0  26/08/2011
- * @copyright 2011
+ * $Author$
+ * $Revision$
+ * $HeadURL$
+ * $id$
+ * $LastChangedDate$
  * 
  * 
  */
