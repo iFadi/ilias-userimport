@@ -20,9 +20,9 @@ import net.iharder.dnd.FileDrop;
  * 
  * View.java
  * 
- * @author Fadi Asbih
+ * @author $Author$
  * @email fadi_asbih@yahoo.de
- * @version 1.2.1  18/12/2012
+ * @version $Revision$
  * @copyright 2012
  * 
  * TERMS AND CONDITIONS:
