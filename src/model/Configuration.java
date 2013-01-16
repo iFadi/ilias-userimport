@@ -3,6 +3,7 @@ package model;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
+import java.util.prefs.Preferences;
 
 /**
  * 
@@ -34,7 +35,9 @@ public class Configuration {
 	private boolean generateLogin; // Generate Login based on firstname.lastname
 	private boolean localRole;
 	private boolean dummy; // Generate dummy data for testing.
+	private char timeLimitUnlimited;
 	
+	private String actionLabel;
 	private String titleLabel;
 	private String firstNameLabel; 
 	private String lastNameLabel;
@@ -47,16 +50,25 @@ public class Configuration {
 	private String emailLabel;
 	
 	private String localRoleValue;
+	private String timeLimitFrom;
+	private String timeLimitUntil;
+	private String actionValue;
 	private String passwordValue;
+	private String genderValue;
+	private char CSVSymbol;
 	
 	public Configuration() {
 				
 		try {
 			Properties properties = new Properties();
-			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("src/configuration.properties"));
+
+			
+			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("configuration.properties"));
 			properties.load(stream);
 			stream.close();
 			
+			//Labels
+			setActionLabel(properties.getProperty("actionLabel"));
 			setTitleLabel(properties.getProperty("titleLabel"));
 			setLoginLabel(properties.getProperty("loginLabel"));
 			setPasswordLabel(properties.getProperty("passwordLabel"));
@@ -68,9 +80,17 @@ public class Configuration {
 			setEmailLabel(properties.getProperty("emailLabel"));
 			setGenderLabel(properties.getProperty("genderLabel"));
 			
+			//Values
+			setActionValue(properties.getProperty("actionValue"));
 			setLocalRoleValue(properties.getProperty("localRoleValue"));
 			setPasswordValue(properties.getProperty("passwordValue"));
+			setGenderValue(properties.getProperty("genderValue"));
+			setCSVSymbol(properties.getProperty("CSV").charAt(0));
+			setTimeLimitUnlimited(Boolean.parseBoolean(properties.getProperty("timeLimitUnlimited")));
+			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
+			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
 			
+			//Boolean
 			setLocalRole(Boolean.parseBoolean(properties.getProperty("localRole")));
 			setGeneratePassword(Boolean.parseBoolean(properties.getProperty("generatePassword")));
 			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
@@ -297,6 +317,107 @@ public class Configuration {
 	 */
 	public void setPasswordValue(String passwordValue) {
 		this.passwordValue = passwordValue;
+	}
+
+	/**
+	 * @return the genderValue
+	 */
+	public String getGenderValue() {
+		return genderValue;
+	}
+
+	/**
+	 * @param genderValue the genderValue to set
+	 */
+	public void setGenderValue(String genderValue) {
+		this.genderValue = genderValue;
+	}
+
+	/**
+	 * @return the actionLabel
+	 */
+	public String getActionLabel() {
+		return actionLabel;
+	}
+
+	/**
+	 * @param actionLabel the actionLabel to set
+	 */
+	public void setActionLabel(String actionLabel) {
+		this.actionLabel = actionLabel;
+	}
+
+	/**
+	 * @return the actionValue
+	 */
+	public String getActionValue() {
+		return actionValue;
+	}
+
+	/**
+	 * @param actionValue the actionValue to set
+	 */
+	public void setActionValue(String actionValue) {
+		this.actionValue = actionValue;
+	}
+
+	/**
+	 * @return the cSVSymbol
+	 */
+	public char getCSVSymbol() {
+		return CSVSymbol;
+	}
+
+	/**
+	 * @param cSVSymbol the cSVSymbol to set
+	 */
+	public void setCSVSymbol(char cSVSymbol) {
+		CSVSymbol = cSVSymbol;
+	}
+
+	/**
+	 * @return the timeLimitFrom
+	 */
+	public String getTimeLimitFrom() {
+		return timeLimitFrom;
+	}
+
+	/**
+	 * @param timeLimitFrom the timeLimitFrom to set
+	 */
+	public void setTimeLimitFrom(String timeLimitFrom) {
+		this.timeLimitFrom = timeLimitFrom;
+	}
+
+	/**
+	 * @return the timeLimitUntil
+	 */
+	public String getTimeLimitUntil() {
+		return timeLimitUntil;
+	}
+
+	/**
+	 * @param timeLimitUntil the timeLimitUntil to set
+	 */
+	public void setTimeLimitUntil(String timeLimitUntil) {
+		this.timeLimitUntil = timeLimitUntil;
+	}
+
+	/**
+	 * @return the timeLimitUnlimited
+	 */
+	public char getTimeLimitUnlimited() {
+		return timeLimitUnlimited;
+	}
+
+	/**
+	 * @param timeLimitUnlimited the timeLimitUnlimited to set
+	 */
+	public void setTimeLimitUnlimited(boolean timeLimitUnlimited) {
+		if(timeLimitUnlimited)
+			this.timeLimitUnlimited = 0;
+		else
+			this.timeLimitUnlimited = 1;
 	}
 
 }

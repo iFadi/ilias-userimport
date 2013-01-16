@@ -42,13 +42,14 @@ public class ParseCSV implements IFile {
 
 	private Vector<String> table;
 	private List<String[]> myEntries;
+	private Configuration configuration;
 	
 	public ParseCSV() {
-		
+		configuration = new Configuration();
 	}
 	
 	public void ReadFile(String file) throws IOException {
-		CSVReader reader = new CSVReader(new FileReader(file), ';');
+		CSVReader reader = new CSVReader(new FileReader(file), configuration.getCSVSymbol());
 		myEntries = reader.readAll();
 	}
 
@@ -67,7 +68,11 @@ public class ParseCSV implements IFile {
 			for (String[] row : myEntries) {
 				table.addElement(row[mark]);
 		}
-		
+		getNumberOfColumns();
 		return table;
+	}
+	
+	public int getNumberOfColumns() {
+		return myEntries.get(0).length;
 	}
 }

@@ -122,7 +122,7 @@ public class GenerateXML {
 
 
 			// Add Gender
-			Text genderText = doc.createTextNode("f");
+			Text genderText = doc.createTextNode(configuration.getGenderValue());
 			gender.appendChild(genderText);
 			user.appendChild(gender);
 			
@@ -235,9 +235,9 @@ public class GenerateXML {
 
 			}
 			
-			// Add User
+			// Add, edit or delete User
 			user.setAttribute("Id", getLogin().getWholeText());
-			user.setAttribute("Action", "Insert");
+			user.setAttribute("Action", configuration.getActionValue());
 			root.appendChild(user);
 //			 System.out.println(input.getColumn("Login").get(i));
 			
@@ -258,13 +258,13 @@ public class GenerateXML {
 
 			// Add Gender, if Gender column doesn't exist
 			if(input.getColumn("Gender").size() == 0) {
-				Text genderText = doc.createTextNode("f");
+				Text genderText = doc.createTextNode(configuration.getGenderValue());
 				gender.appendChild(genderText);
 				user.appendChild(gender);
 //				System.out.println(input.getColumn("Gender"));
 			}
 			else{// get the gender column
-				Text genderText = doc.createTextNode((String) input.getColumn(configuration.getTitleLabel()).get(i));
+				Text genderText = doc.createTextNode((String) input.getColumn(configuration.getGenderLabel()).get(i));
 				gender.appendChild(genderText);
 				user.appendChild(gender);
 			}

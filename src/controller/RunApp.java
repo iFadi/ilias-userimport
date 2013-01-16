@@ -50,6 +50,7 @@ public class RunApp {
 		GenerateXML xml = new GenerateXML(); // Load the GenerateXML Model 
 		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
 		
+		
 		if(un.IsNewVersionAvailable()) {
 			Update av = new Update(input, xml, configuration); // Load The Update View
 		}

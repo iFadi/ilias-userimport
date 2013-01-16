@@ -50,17 +50,17 @@ public class View extends JFrame implements ChangeListener, IView  {
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 
-		JTabbedPane tabbedPane = new JTabbedPane();
+//		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		final InputTab it = new InputTab(input, xml, this); //Main Tab
-//		configurationTab ct = new configurationTab(); //Configuration Tab
-		DummyTab tb = new DummyTab(xml, this);
+//		ConfigurationTab ct = new ConfigurationTab(); //Configuration Tab
+//		DummyTab tb = new DummyTab(xml, this);
 		
-		tabbedPane.addTab("Input", null, it, null);
-//		tabbedPane.addTab("Settings", null, ct, "Here you need to choose an Excel file.");
-		tabbedPane.addTab("Dummy", null, tb, "Here you can generate an XML file without an input.");
+//		tabbedPane.addTab("Input", null, it, "Here you need to choose an input file(Excel or CSV).");
+//		tabbedPane.addTab("Configuration", null, ct, null);
+//		tabbedPane.addTab("Dummy", null, tb, "Here you can generate an XML file without an input.");
 		
-		this.add(tabbedPane, BorderLayout.CENTER);
+		this.add(it, BorderLayout.CENTER);
 		this.pack();
 		this.setSize(400, 220);
 		this.setLocation(500, 100);
@@ -74,9 +74,9 @@ public class View extends JFrame implements ChangeListener, IView  {
 		this.add(status, BorderLayout.NORTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
-		tabbedPane.addChangeListener(this);
+//		it.addChangeListener(this);
 
         //Drag n Drop functionality.
         new  FileDrop(this, new FileDrop.Listener()
@@ -117,6 +117,10 @@ public class View extends JFrame implements ChangeListener, IView  {
 			getStatus().setForeground(Color.black);
 		}
 		if(sourceTabbedPane.getSelectedIndex() == 1) {
+			getStatus().setText("Here you can change the settings.");
+			getStatus().setForeground(Color.black);
+		}
+		if(sourceTabbedPane.getSelectedIndex() == 2) {
 			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
 			getStatus().setForeground(Color.black);
 		}

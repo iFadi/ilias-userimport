@@ -138,4 +138,10 @@ public class ParseExcel implements IFile{
 		
 	}
 
+	@Override
+	public int getNumberOfColumns() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
