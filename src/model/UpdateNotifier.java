@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:

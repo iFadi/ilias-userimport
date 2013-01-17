@@ -16,10 +16,11 @@ import view.View;
  * RunApp.java
  * The Main Class to Start the App.
  * 
- * @author Fadi Asbih
- * @email fadi_asbih@yahoo.de
- * @version 1.2.1  18/12/2012
- * @copyright 2012
+ * $Author$
+ * $Revision$
+ * $HeadURL$
+ * $Id$
+ * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

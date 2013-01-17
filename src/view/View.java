@@ -23,7 +23,7 @@ import net.iharder.dnd.FileDrop;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:

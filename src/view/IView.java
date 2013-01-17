@@ -7,7 +7,7 @@ import javax.swing.JTextField;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  *
  */

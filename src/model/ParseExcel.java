@@ -20,7 +20,7 @@ import controller.IFile;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  * 
  * 

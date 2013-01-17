@@ -6,7 +6,7 @@ package model;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:

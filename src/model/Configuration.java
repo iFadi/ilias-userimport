@@ -12,7 +12,7 @@ import java.util.prefs.Preferences;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:

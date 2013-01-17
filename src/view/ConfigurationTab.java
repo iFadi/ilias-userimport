@@ -31,7 +31,7 @@ import javax.swing.border.TitledBorder;
  * $Author$
  * $Revision$
  * $HeadURL$
- * $id$
+ * $Id$
  * $LastChangedDate$
  * 
  * TERMS AND CONDITIONS:
