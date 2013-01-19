@@ -13,16 +13,28 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import controller.IFile;
 /**
- * 
- * ReadExcel.java
  * Reads/Analyse an Excel File and Save it to a Vector.
- * 
- * $Author$
- * $Revision$
- * $HeadURL$
  * $Id$
  * $LastChangedDate$
  * 
+ * @author Fadi M. H. Asbih
+ * @email fadi_asbih@yahoo.de
+ * @version $Revision$
+ * @copyright $Date$
+ * 
+ * TERMS AND CONDITIONS:
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
 public class ParseExcel implements IFile{

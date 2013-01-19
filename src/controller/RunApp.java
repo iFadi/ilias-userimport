@@ -12,15 +12,14 @@ import view.Update;
 import view.View;
 
 /**
- * 
- * RunApp.java
  * The Main Class to Start the App.
- * 
- * $Author$
- * $Revision$
- * $HeadURL$
  * $Id$
  * $LastChangedDate$
+ * 
+ * @author Fadi M. H. Asbih
+ * @email fadi_asbih@yahoo.de
+ * @version $Revision$
+ * @copyright $Date$
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
@@ -42,9 +41,6 @@ public class RunApp {
 	public static void main(String[] args) throws Exception {
 		
 		IFile input = null; // Interface for different input File Types.
-		
-//		input = new ParseExcel(); // Load the ReadExcel Model
-//		input = new ParseCSV(); // Load the ReadCSV Model
 		
 		Configuration configuration = new Configuration(); // Load the Standard Configuration
 		

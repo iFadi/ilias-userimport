@@ -13,16 +13,14 @@ import controller.IFile;
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
- * 
  * Reads/Analyse a CSV File and Save it to a Vector.
- * ReadCSV.java
- * 
- * 
- * $Author$
- * $Revision$
- * $HeadURL$
  * $Id$
  * $LastChangedDate$
+ * 
+ * @author Fadi M. H. Asbih
+ * @email fadi_asbih@yahoo.de
+ * @version $Revision$
+ * @copyright $Date$
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
