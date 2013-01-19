@@ -53,6 +53,7 @@ import model.ParseExcel;
 public class InputTab extends JPanel implements ActionListener{
 
 	private static final long serialVersionUID = -335799796636612645L;
+	private final static String REVISION = "$Rev$";
 	private JButton open;
 	private JButton generate;
 	private JButton exit;
@@ -64,11 +65,10 @@ public class InputTab extends JPanel implements ActionListener{
 	private IFile input;
 	private IView frame;
 	public Desktop d;
+
 	
 	public InputTab(final IFile input, GenerateXML xml, JFrame frame) {
 		this.xml = xml;
-//		this.input = input;
-//		this.view = (View)frame;
 		
 		if(frame instanceof View)
 			this.frame = (View)frame;
@@ -78,7 +78,7 @@ public class InputTab extends JPanel implements ActionListener{
 		this.setLayout(new BorderLayout());
 		
 		open = new JButton("Open");
-		generate = new JButton("Generate XML");
+		generate = new JButton("Revision: "+getRevision());
 		exit = new JButton("Exit");
 		bug = new JButton("Bug/Issue Report");
 		generate.setEnabled(false);
@@ -174,6 +174,7 @@ public class InputTab extends JPanel implements ActionListener{
 				input.ReadFile(getPath());
 				frame.getStatus().setText("READY TO GO");
 				frame.getStatus().setForeground(Color.blue.darker());
+				generate.setText("Generate XML");
 				generate.setEnabled(true);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -207,5 +208,12 @@ public class InputTab extends JPanel implements ActionListener{
 
 	public void setGenerate(JButton generate) {
 		this.generate = generate;
+	}
+
+	/**
+	 * @return the revision
+	 */
+	public static String getRevision() {
+		return REVISION.replaceAll("[\\D]", "");
 	}
 }

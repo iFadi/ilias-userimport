@@ -1,21 +1,26 @@
 ##
 lastNameLabel=Nachname
+firstNameLabel=Vorname
 actionLabel=Action
-actionValue=Insert
 globalRoleLabel=Role
+localRoleLabel=Local Role
 loginLabel=Nutzernamen
 passwordLabel=Password
-passwordValue=klausur
-localRoleLabel=Local Role
-localRoleValue=settings
 titleLabel=Titel
 genderLabel=Gender
 matriculationLabel=matrikelnummer
-genderValue=f
-firstNameLabel=Vorname
-localRole=true
-generatePassword=true
 emailLabel=E-Mail
+
+actionValue=Insert
+passwordValue=klausur
+localRoleValue=settings
+genderValue=f
+loginPrefix=ilias
+numberOfUsers=10
+
+localRole=true
+generateDummy=true;
+generatePassword=true
 generateLogin=true
 CSV=;
 

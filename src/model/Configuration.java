@@ -34,7 +34,7 @@ public class Configuration {
 	private boolean generatePassword; 
 	private boolean generateLogin; // Generate Login based on firstname.lastname
 	private boolean localRole;
-	private boolean dummy; // Generate dummy data for testing.
+	private boolean generateDummy; // Generate dummy data for testing.
 	private char timeLimitUnlimited;
 	
 	private String actionLabel;
@@ -63,7 +63,7 @@ public class Configuration {
 			Properties properties = new Properties();
 
 			
-			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("configuration.properties"));
+			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties"));
 			properties.load(stream);
 			stream.close();
 			
@@ -96,17 +96,9 @@ public class Configuration {
 			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
 			
 		} catch (Exception e) {
-			System.out.println("No configuration.properties File Found.");
+			System.out.println("No properties File Found.");
 		}
 		
-	}
-
-	public boolean isDummy() {
-		return dummy;
-	}
-
-	public void setDummy(boolean dummy) {
-		this.dummy = dummy;
 	}
 
 	/**
@@ -418,6 +410,20 @@ public class Configuration {
 			this.timeLimitUnlimited = 0;
 		else
 			this.timeLimitUnlimited = 1;
+	}
+
+	/**
+	 * @return the generateDummy
+	 */
+	public boolean isGenerateDummy() {
+		return generateDummy;
+	}
+
+	/**
+	 * @param generateDummy the generateDummy to set
+	 */
+	public void setGenerateDummy(boolean generateDummy) {
+		this.generateDummy = generateDummy;
 	}
 
 }

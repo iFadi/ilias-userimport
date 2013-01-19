@@ -48,18 +48,10 @@ public class View extends JFrame implements ChangeListener, IView  {
 
 	public View(final IFile input, GenerateXML xml, Configuration conf) throws Exception {
 
-		this.setTitle("ILIAS User Import "+REVISION); //The Title of the Window.
+		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
-
-//		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		final InputTab it = new InputTab(input, xml, this); //Main Tab
-//		ConfigurationTab ct = new ConfigurationTab(); //Configuration Tab
-//		DummyTab tb = new DummyTab(xml, this);
-		
-//		tabbedPane.addTab("Input", null, it, "Here you need to choose an input file(Excel or CSV).");
-//		tabbedPane.addTab("Configuration", null, ct, null);
-//		tabbedPane.addTab("Dummy", null, tb, "Here you can generate an XML file without an input.");
 		
 		this.add(it, BorderLayout.CENTER);
 		this.pack();
@@ -77,7 +69,6 @@ public class View extends JFrame implements ChangeListener, IView  {
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 		this.setVisible(true);
-//		it.addChangeListener(this);
 
         //Drag n Drop functionality.
         new  FileDrop(this, new FileDrop.Listener()
@@ -126,6 +117,10 @@ public class View extends JFrame implements ChangeListener, IView  {
 			getStatus().setForeground(Color.black);
 		}
 		
+	}
+
+	public static String getRevision() {
+		return REVISION.replaceAll("[\\D]", "");
 	}
 
 }
