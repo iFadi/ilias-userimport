@@ -43,11 +43,12 @@ import net.iharder.dnd.FileDrop;
 public class View extends JFrame implements ChangeListener, IView  {
 
 	private static final long serialVersionUID = 6177350218996491783L;
+	private final static String REVISION = "$Rev$";
 	private JTextField status;
 
 	public View(final IFile input, GenerateXML xml, Configuration conf) throws Exception {
 
-		this.setTitle("ILIAS User Import"); //The Title of the Window.
+		this.setTitle("ILIAS User Import "+REVISION); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 
 //		JTabbedPane tabbedPane = new JTabbedPane();
@@ -62,7 +63,7 @@ public class View extends JFrame implements ChangeListener, IView  {
 		
 		this.add(it, BorderLayout.CENTER);
 		this.pack();
-		this.setSize(400, 220);
+		this.setSize(400, 150);
 		this.setLocation(500, 100);
 
 		status = new JTextField();
