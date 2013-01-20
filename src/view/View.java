@@ -9,12 +9,9 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import controller.IFile;
-
 import model.Configuration;
 import model.GenerateXML;
-import model.ParseExcel;
-import net.iharder.dnd.FileDrop;
+import controller.IFile;
 
 /**
  * $Id$
@@ -51,18 +48,30 @@ public class View extends JFrame implements ChangeListener, IView  {
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 		
-		final InputTab it = new InputTab(input, xml, this); //Main Tab
+		if(conf.isGenerateDummy()) {
+			DummyTab panel = new DummyTab(xml, this); //generateDummy Panel
+			this.add(panel, BorderLayout.CENTER);
+		} else {
+			InputTab panel = new InputTab(input, xml, this);  //Input Panel
+			this.add(panel, BorderLayout.CENTER);
+		}
 		
-		this.add(it, BorderLayout.CENTER);
 		this.pack();
-		this.setSize(400, 150);
+		this.setSize(430, 150);
 		this.setLocation(500, 100);
 
 		status = new JTextField();
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
-		status.setText("Click Open to Choose a File or Drag one here.");
-		status.setForeground(Color.black.darker());
+		
+		if(conf.isGenerateDummy()) {
+			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
+			getStatus().setForeground(Color.black);
+		}
+		else {
+			getStatus().setText("Click Open to Choose a File.");
+			getStatus().setForeground(Color.black);
+		}
 
 		this.add(status, BorderLayout.NORTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,25 +80,25 @@ public class View extends JFrame implements ChangeListener, IView  {
 		this.setVisible(true);
 
         //Drag n Drop functionality.
-        new  FileDrop(this, new FileDrop.Listener()
-        {   public void  filesDropped( java.io.File[] files )
-            {   
-                it.setPath(files[0].getAbsolutePath());
-                it.setFilename(files[0].getName());
-                        try {
-                            input.ReadFile(it.getPath());
-                            getStatus().setText("READY TO GO");
-                            getStatus().setForeground(Color.blue.darker());
-                            it.getGenerate().setEnabled(true);
-                        } catch (Exception e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                            getStatus().setText("ERROR");
-                            getStatus().setForeground(Color.red.darker());
-                        }
-            }
-                        // System.out.println(dir+"/"+filename);
-        }); // end FD
+//        new  FileDrop(this, new FileDrop.Listener()
+//        {   public void  filesDropped( java.io.File[] files )
+//            {   
+//                panel.setPath(files[0].getAbsolutePath());
+//                panel.setFilename(files[0].getName());
+//                        try {
+//                            input.ReadFile(panel.getPath());
+//                            getStatus().setText("READY TO GO");
+//                            getStatus().setForeground(Color.blue.darker());
+//                            panel.getGenerate().setEnabled(true);
+//                        } catch (Exception e1) {
+//                            // TODO Auto-generated catch block
+//                            e1.printStackTrace();
+//                            getStatus().setText("ERROR");
+//                            getStatus().setForeground(Color.red.darker());
+//                        }
+//            }
+//                        // System.out.println(dir+"/"+filename);
+//        }); // end FD
 	}
 	
 	public JTextField getStatus() {

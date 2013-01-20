@@ -19,7 +19,7 @@ loginPrefix=ilias
 numberOfUsers=10
 
 localRole=true
-generateDummy=true;
+generateDummy=true
 generatePassword=true
 generateLogin=true
 CSV=;

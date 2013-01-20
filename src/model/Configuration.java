@@ -94,6 +94,7 @@ public class Configuration {
 			setLocalRole(Boolean.parseBoolean(properties.getProperty("localRole")));
 			setGeneratePassword(Boolean.parseBoolean(properties.getProperty("generatePassword")));
 			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
+			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
 			
 		} catch (Exception e) {
 			System.out.println("No properties File Found.");
