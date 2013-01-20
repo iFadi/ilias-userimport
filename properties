@@ -1,4 +1,5 @@
 ##
+# StudIP CSV Structure
 lastNameLabel=Nachname
 firstNameLabel=Vorname
 actionLabel=Action
@@ -11,19 +12,33 @@ genderLabel=Gender
 matriculationLabel=matrikelnummer
 emailLabel=E-Mail
 
+# Excel
+#lastNameLabel=Firstname
+#firstNameLabel=Lastname
+#actionLabel=Action
+#globalRoleLabel=Role
+#localRoleLabel=Local Role
+#loginLabel=Login
+#passwordLabel=Password
+#titleLabel=Title
+#genderLabel=Gender
+#matriculationLabel=Matriculation
+#emailLabel=Email
+
+generateDummy=false
 actionValue=Insert
-passwordValue=klausur
-localRoleValue=settings
 genderValue=f
-loginPrefix=ilias
-numberOfUsers=10
 
 localRole=true
-generateDummy=true
+localRoleValue=settings
+
 generatePassword=true
+passwordValue=klausur
+
 generateLogin=true
 CSV=;
 
+# not implemented yet
 timeLimitUnlimited=true
 timeLimitFrom=15.01.2013
 timeLimitUntil=16.01.2013

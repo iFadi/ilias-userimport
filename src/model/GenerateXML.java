@@ -54,11 +54,10 @@ public class GenerateXML {
 	private Text title;
 	private Configuration configuration;
 	
-	public GenerateXML() {
-		// Load the Configuration.
-		configuration = new Configuration();
+	public GenerateXML(Configuration configuration) {
+		this.configuration = configuration;
 	}
-
+	
 	public void GenerateXMLFile(DummyTab dt, String output) throws Exception {
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
@@ -208,7 +207,7 @@ public class GenerateXML {
 				lrole.appendChild(lt);
 				user.appendChild(lrole);
 			}
-
+			// or Add it if specified in the properties file.
 			if(configuration.isLocalRole()) {
 				lrole.setAttribute("Id", "_2");
 				lrole.setAttribute("Type", "Local");
@@ -218,7 +217,7 @@ public class GenerateXML {
 				user.appendChild(lrole);
 			}
 			
-			// Add Login, if Login column doesn't exist, The generate login from firstname.lastname or M-nr
+			// Add Login, if Login column doesn't exist
 			if(configuration.isGenerateLogin()) {
 				// Add Login
 //				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));

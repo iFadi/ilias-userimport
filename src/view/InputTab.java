@@ -67,13 +67,9 @@ public class InputTab extends JPanel implements ActionListener{
 	public Desktop d;
 
 	
-	public InputTab(final IFile input, GenerateXML xml, JFrame frame) {
+	public InputTab(final IFile input, GenerateXML xml) {
 		this.xml = xml;
-		
-		if(frame instanceof View)
-			this.frame = (View)frame;
-		else 
-			this.frame = (Update)frame;
+//		this.frame = frame;
 		
 		this.setLayout(new BorderLayout());
 		

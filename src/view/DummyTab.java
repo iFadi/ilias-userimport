@@ -71,13 +71,10 @@ public class DummyTab extends JPanel implements ActionListener{
 	private IView frame;
 	public Desktop d;
 	
-	public DummyTab(GenerateXML xml, JFrame frame) {
+	public DummyTab(GenerateXML xml) {
 		this.xml = xml;
 		
-		if(frame instanceof View)
-			this.frame = (View)frame;
-		else
-			this.frame = (Update)frame;
+
 		
 		this.setLayout(new BorderLayout());
 		

@@ -5,10 +5,6 @@ package controller;
 
 import model.Configuration;
 import model.GenerateXML;
-import model.ParseCSV;
-import model.ParseExcel;
-import model.UpdateNotifier;
-import view.Update;
 import view.View;
 
 /**
@@ -41,18 +37,8 @@ public class RunApp {
 	public static void main(String[] args) throws Exception {
 		
 		IFile input = null; // Interface for different input File Types.
-		
-		Configuration configuration = new Configuration(); // Load the Standard Configuration
-		
-		GenerateXML xml = new GenerateXML(); // Load the GenerateXML Model 
-		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
-		
-		
-		if(un.IsNewVersionAvailable()) {
-			Update av = new Update(input, xml, configuration); // Load The Update View
-		}
-		else {
-			View view = new View(input, xml, configuration); // Load The Normal App View
-		}	
+		Configuration configuration = new Configuration(); // Load the Standard Configuration		
+		GenerateXML xml = new GenerateXML(configuration); // Load the GenerateXML Model 
+		View view = new View(input, xml, configuration); // Load The Normal App View
 	}
 }

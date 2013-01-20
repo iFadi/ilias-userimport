@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import model.Configuration;
 import model.GenerateXML;
+import model.UpdateNotifier;
 import controller.IFile;
 
 /**
@@ -37,22 +35,23 @@ import controller.IFile;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class View extends JFrame implements ChangeListener, IView  {
+public class View extends JFrame implements IView  {
 
 	private static final long serialVersionUID = 6177350218996491783L;
-	private final static String REVISION = "$Rev$";
 	private JTextField status;
 
 	public View(final IFile input, GenerateXML xml, Configuration conf) throws Exception {
+		
+		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 		
 		if(conf.isGenerateDummy()) {
-			DummyTab panel = new DummyTab(xml, this); //generateDummy Panel
+			DummyTab panel = new DummyTab(xml); //generateDummy Panel
 			this.add(panel, BorderLayout.CENTER);
 		} else {
-			InputTab panel = new InputTab(input, xml, this);  //Input Panel
+			InputTab panel = new InputTab(input, xml);  //Input Panel
 			this.add(panel, BorderLayout.CENTER);
 		}
 		
@@ -66,6 +65,10 @@ public class View extends JFrame implements ChangeListener, IView  {
 		
 		if(conf.isGenerateDummy()) {
 			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
+			getStatus().setForeground(Color.black);
+		}
+		else if(un.IsNewVersionAvailable()) {
+			getStatus().setText("NEW VERSION IS AVAILABLE.");
 			getStatus().setForeground(Color.black);
 		}
 		else {
@@ -108,28 +111,4 @@ public class View extends JFrame implements ChangeListener, IView  {
 	public void setStatus(JTextField status) {
 		this.status = status;
 	}
-
-	@Override
-	public void stateChanged(ChangeEvent changeEvent) {
-		JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
-//		System.out.println("Tab changed to: " + sourceTabbedPane.getSelectedIndex());
-		if(sourceTabbedPane.getSelectedIndex() == 0) {
-			getStatus().setText("Click Open to Choose a File or Drag one here.");
-			getStatus().setForeground(Color.black);
-		}
-		if(sourceTabbedPane.getSelectedIndex() == 1) {
-			getStatus().setText("Here you can change the settings.");
-			getStatus().setForeground(Color.black);
-		}
-		if(sourceTabbedPane.getSelectedIndex() == 2) {
-			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
-			getStatus().setForeground(Color.black);
-		}
-		
-	}
-
-	public static String getRevision() {
-		return REVISION.replaceAll("[\\D]", "");
-	}
-
 }
