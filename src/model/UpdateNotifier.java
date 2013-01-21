@@ -30,8 +30,8 @@ import java.net.UnknownHostException;
  * 
  */
 public class UpdateNotifier {
-	final String majorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.3.0.jar";
-	final String minorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.2.1.jar";
+	final String minorUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.3.0.jar";
+	final String bugUpdate = "http://ilias-userimport.googlecode.com/files/IUI_1.2.1.jar";
 	
 	public UpdateNotifier() {
 		
@@ -65,7 +65,7 @@ public class UpdateNotifier {
     }
 	
 	public boolean IsNewVersionAvailable() {
-		if(check(majorUpdate) || check(minorUpdate))
+		if(check(minorUpdate) || check(bugUpdate))
 			return true;
 		else
 			return false;

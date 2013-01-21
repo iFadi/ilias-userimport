@@ -35,7 +35,7 @@ import controller.IFile;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class View extends JFrame implements IView  {
+public class View extends JFrame {
 
 	private static final long serialVersionUID = 6177350218996491783L;
 	private JTextField status;
@@ -48,10 +48,10 @@ public class View extends JFrame implements IView  {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 		
 		if(conf.isGenerateDummy()) {
-			DummyTab panel = new DummyTab(xml); //generateDummy Panel
+			DummyPanel panel = new DummyPanel(xml, this); //generateDummy Panel
 			this.add(panel, BorderLayout.CENTER);
 		} else {
-			InputTab panel = new InputTab(input, xml);  //Input Panel
+			InputPanel panel = new InputPanel(input, xml, this);  //Input Panel
 			this.add(panel, BorderLayout.CENTER);
 		}
 		
@@ -79,7 +79,7 @@ public class View extends JFrame implements IView  {
 		this.add(status, BorderLayout.NORTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setResizable(true);
+		this.setResizable(false);
 		this.setVisible(true);
 
         //Drag n Drop functionality.

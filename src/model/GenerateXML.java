@@ -19,7 +19,7 @@ import org.w3c.dom.Text;
 
 import controller.IFile;
 
-import view.DummyTab;
+import view.DummyPanel;
 
 /**
  * Generates XML Users File for the import in the ILIAS E-Learning System.
@@ -58,7 +58,7 @@ public class GenerateXML {
 		this.configuration = configuration;
 	}
 	
-	public void GenerateXMLFile(DummyTab dt, String output) throws Exception {
+	public void GenerateXMLFile(DummyPanel dt, String output) throws Exception {
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();

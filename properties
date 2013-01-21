@@ -25,11 +25,11 @@ emailLabel=E-Mail
 #matriculationLabel=Matriculation
 #emailLabel=Email
 
-generateDummy=false
+generateDummy=true
 actionValue=Insert
 genderValue=f
 
-localRole=true
+localRole=false
 localRoleValue=settings
 
 generatePassword=true
