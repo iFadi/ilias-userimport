@@ -3,7 +3,6 @@ package model;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
-import java.util.prefs.Preferences;
 
 /**
  * $Id$
@@ -31,9 +30,7 @@ import java.util.prefs.Preferences;
  */
 public class Configuration {
 
-	private boolean generatePassword; 
 	private boolean generateLogin; // Generate Login based on firstname.lastname
-	private boolean localRole;
 	private boolean generateDummy; // Generate dummy data for testing.
 	private char timeLimitUnlimited;
 	
@@ -53,7 +50,7 @@ public class Configuration {
 	private String timeLimitFrom;
 	private String timeLimitUntil;
 	private String actionValue;
-	private String passwordValue;
+	private String password;
 	private String genderValue;
 	private char CSVSymbol;
 	
@@ -62,7 +59,6 @@ public class Configuration {
 		try {
 			Properties properties = new Properties();
 
-			
 			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties"));
 			properties.load(stream);
 			stream.close();
@@ -82,8 +78,8 @@ public class Configuration {
 			
 			//Values
 			setActionValue(properties.getProperty("actionValue"));
-			setLocalRoleValue(properties.getProperty("localRoleValue"));
-			setPasswordValue(properties.getProperty("passwordValue"));
+			setLocalRoleValue(properties.getProperty("localRole"));
+			setPasswordValue(properties.getProperty("password"));
 			setGenderValue(properties.getProperty("genderValue"));
 			setCSVSymbol(properties.getProperty("CSV").charAt(0));
 			setTimeLimitUnlimited(Boolean.parseBoolean(properties.getProperty("timeLimitUnlimited")));
@@ -91,8 +87,6 @@ public class Configuration {
 			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
 			
 			//Boolean
-			setLocalRole(Boolean.parseBoolean(properties.getProperty("localRole")));
-			setGeneratePassword(Boolean.parseBoolean(properties.getProperty("generatePassword")));
 			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
 			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
 			
@@ -106,7 +100,10 @@ public class Configuration {
 	 * @return the firstNameLabel
 	 */
 	public String getFirstNameLabel() {
-		return firstNameLabel;
+		if(firstNameLabel==null)
+			return "Firstname";
+		else
+			return firstNameLabel;
 	}
 
 	/**
@@ -120,7 +117,10 @@ public class Configuration {
 	 * @return the lastNameLabel
 	 */
 	public String getLastNameLabel() {
-		return lastNameLabel;
+		if(lastNameLabel==null)
+			return "Lastname";
+		else
+			return lastNameLabel;
 	}
 
 	/**
@@ -148,7 +148,10 @@ public class Configuration {
 	 * @return the loginLabel
 	 */
 	public String getLoginLabel() {
-		return loginLabel;
+		if(loginLabel==null)
+			return "Login";
+		else
+			return loginLabel;
 	}
 
 	/**
@@ -162,7 +165,10 @@ public class Configuration {
 	 * @return the globalRoleLabel
 	 */
 	public String getGlobalRoleLabel() {
-		return globalRoleLabel;
+		if(globalRoleLabel==null) 
+			return "role";
+		else
+			return globalRoleLabel;
 	}
 
 	/**
@@ -176,7 +182,10 @@ public class Configuration {
 	 * @return the matriculationLabel
 	 */
 	public String getMatriculationLabel() {
-		return matriculationLabel;
+		if(matriculationLabel==null)
+			return "Matriculation";
+		else
+			return matriculationLabel;
 	}
 
 	/**
@@ -190,7 +199,10 @@ public class Configuration {
 	 * @return the passwordLabel
 	 */
 	public String getPasswordLabel() {
-		return passwordLabel;
+		if(passwordLabel==null)
+			return "Password";
+		else
+			return passwordLabel;
 	}
 
 	/**
@@ -204,7 +216,10 @@ public class Configuration {
 	 * @return the genderLabel
 	 */
 	public String getGenderLabel() {
-		return genderLabel;
+		if(genderLabel == null)
+			return "Gender";
+		else
+			return genderLabel;
 	}
 
 	/**
@@ -218,7 +233,10 @@ public class Configuration {
 	 * @return the emailLabel
 	 */
 	public String getEmailLabel() {
-		return emailLabel;
+		if(emailLabel==null)
+			return "Email";
+		else
+			return emailLabel;
 	}
 
 	/**
@@ -232,7 +250,10 @@ public class Configuration {
 	 * @return the titleLabel
 	 */
 	public String getTitleLabel() {
-		return titleLabel;
+		if(titleLabel==null)
+			return "Title";
+		else
+			return titleLabel;
 	}
 
 	/**
@@ -246,21 +267,20 @@ public class Configuration {
 	 * @return the generatePassword
 	 */
 	public boolean isGeneratePassword() {
-		return generatePassword;
-	}
-
-	/**
-	 * @param generatePassword the generatePassword to set
-	 */
-	public void setGeneratePassword(boolean generatePassword) {
-		this.generatePassword = generatePassword;
+		if(password == null)
+			return false;
+		else
+			return true;
 	}
 
 	/**
 	 * @return the localRoleLabel
 	 */
 	public String getLocalRoleLabel() {
-		return localRoleLabel;
+		if(localRoleLabel==null)
+			return "Local Role";
+		else
+			return localRoleLabel;
 	}
 
 	/**
@@ -274,14 +294,10 @@ public class Configuration {
 	 * @return the localRole
 	 */
 	public boolean isLocalRole() {
-		return localRole;
-	}
-
-	/**
-	 * @param localRole the localRole to set
-	 */
-	public void setLocalRole(boolean localRole) {
-		this.localRole = localRole;
+		if(localRoleValue == null) 
+			return false;
+		else
+			return true;
 	}
 
 	/**
@@ -302,21 +318,24 @@ public class Configuration {
 	 * @return the passwordValue
 	 */
 	public String getPasswordValue() {
-		return passwordValue;
+		return password;
 	}
 
 	/**
 	 * @param passwordValue the passwordValue to set
 	 */
 	public void setPasswordValue(String passwordValue) {
-		this.passwordValue = passwordValue;
+		this.password = passwordValue;
 	}
 
 	/**
 	 * @return the genderValue
 	 */
 	public String getGenderValue() {
-		return genderValue;
+		if(genderValue==null)
+			return "f";
+		else
+			return genderValue;
 	}
 
 	/**
@@ -330,7 +349,10 @@ public class Configuration {
 	 * @return the actionLabel
 	 */
 	public String getActionLabel() {
-		return actionLabel;
+		if(actionLabel==null)
+			return "Action";
+		else
+			return actionLabel;
 	}
 
 	/**
@@ -344,7 +366,10 @@ public class Configuration {
 	 * @return the actionValue
 	 */
 	public String getActionValue() {
-		return actionValue;
+		if(actionValue == null)
+			return "Insert";
+		else
+			return actionValue;
 	}
 
 	/**
@@ -355,7 +380,7 @@ public class Configuration {
 	}
 
 	/**
-	 * @return the cSVSymbol
+	 * @return the CSVSymbol
 	 */
 	public char getCSVSymbol() {
 		return CSVSymbol;
@@ -364,8 +389,8 @@ public class Configuration {
 	/**
 	 * @param cSVSymbol the cSVSymbol to set
 	 */
-	public void setCSVSymbol(char cSVSymbol) {
-		CSVSymbol = cSVSymbol;
+	public void setCSVSymbol(char CSVSymbol) {
+		this.CSVSymbol = CSVSymbol;
 	}
 
 	/**

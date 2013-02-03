@@ -32,13 +32,13 @@ import view.View;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class RunApp {
+public class StartApp {
 
 	public static void main(String[] args) throws Exception {
 		
 		IFile input = null; // Interface for different input File Types.
 		Configuration configuration = new Configuration(); // Load the Standard Configuration		
 		GenerateXML xml = new GenerateXML(configuration); // Load the GenerateXML Model 
-		View view = new View(input, xml, configuration); // Load The Normal App View
+		View view = new View(input, xml, configuration); // Load the GUI.
 	}
 }

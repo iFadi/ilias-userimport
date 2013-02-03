@@ -150,7 +150,7 @@ public class InputPanel extends JPanel implements ActionListener{
 		c.setMultiSelectionEnabled(false);
 		c.setAcceptAllFileFilterUsed(false);
 		FileNameExtensionFilter filter1 = new FileNameExtensionFilter("Excel 97-2004", "xls");
-		FileNameExtensionFilter filter2 = new FileNameExtensionFilter("CSV (;)", "csv");
+		FileNameExtensionFilter filter2 = new FileNameExtensionFilter("CSV", "csv");
 		c.setFileFilter(filter1);
 		c.setFileFilter(filter2);
 		
@@ -179,35 +179,39 @@ public class InputPanel extends JPanel implements ActionListener{
 			// System.out.println(dir+"/"+getFilename());
 		}
 	}
-	
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
-	public String getFilename() {
-		return filename;
-	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-	public JButton getGenerate() {
-		return generate;
-	}
-
-	public void setGenerate(JButton generate) {
-		this.generate = generate;
-	}
 
 	/**
 	 * @return the revision
 	 */
 	public static String getRevision() {
 		return REVISION.replaceAll("[\\D]", "");
+	}
+
+	/**
+	 * @return the filename
+	 */
+	public String getFilename() {
+		return filename;
+	}
+
+	/**
+	 * @param filename the filename to set
+	 */
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	/**
+	 * @return the path
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * @param path the path to set
+	 */
+	public void setPath(String path) {
+		this.path = path;
 	}
 }
