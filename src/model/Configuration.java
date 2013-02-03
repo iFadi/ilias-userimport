@@ -52,10 +52,18 @@ public class Configuration {
 	private String actionValue;
 	private String password;
 	private String genderValue;
-	private char CSVSymbol;
+	private String CSVSymbol;
+	
+	private Version version;
 	
 	public Configuration() {
+		new Configuration(version);
+	}
+	
+	public Configuration(Version version) {
 				
+		this.setVersion(version);
+		
 		try {
 			Properties properties = new Properties();
 
@@ -81,7 +89,7 @@ public class Configuration {
 			setLocalRoleValue(properties.getProperty("localRole"));
 			setPasswordValue(properties.getProperty("password"));
 			setGenderValue(properties.getProperty("genderValue"));
-			setCSVSymbol(properties.getProperty("CSV").charAt(0));
+			setCSVSymbol(properties.getProperty("CSV"));
 			setTimeLimitUnlimited(Boolean.parseBoolean(properties.getProperty("timeLimitUnlimited")));
 			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
 			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
@@ -91,7 +99,7 @@ public class Configuration {
 			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
 			
 		} catch (Exception e) {
-			System.out.println("No properties File Found.");
+			System.out.println("No properties file is loaded, Standard settings will be used.");
 		}
 		
 	}
@@ -134,7 +142,10 @@ public class Configuration {
 	 * @return the generateLogin
 	 */
 	public boolean isGenerateLogin() {
-		return generateLogin;
+		if(generateLogin)
+			return true;
+		else
+			return false;
 	}
 
 	/**
@@ -382,15 +393,18 @@ public class Configuration {
 	/**
 	 * @return the CSVSymbol
 	 */
-	public char getCSVSymbol() {
+	public String getCSVSymbol() {
 		return CSVSymbol;
 	}
 
 	/**
 	 * @param cSVSymbol the cSVSymbol to set
 	 */
-	public void setCSVSymbol(char CSVSymbol) {
-		this.CSVSymbol = CSVSymbol;
+	public void setCSVSymbol(String CSVSymbol) {
+		if(CSVSymbol == null)
+			this.CSVSymbol = ";";
+		else
+			this.CSVSymbol = CSVSymbol;
 	}
 
 	/**
@@ -449,7 +463,25 @@ public class Configuration {
 	 * @param generateDummy the generateDummy to set
 	 */
 	public void setGenerateDummy(boolean generateDummy) {
-		this.generateDummy = generateDummy;
+		if(generateDummy) {
+			this.generateDummy = generateDummy;
+		}
+		else
+			this.generateDummy = false;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public Version getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(Version version) {
+		this.version = version;
 	}
 
 }

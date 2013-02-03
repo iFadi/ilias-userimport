@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.GenerateXML;
 import model.ParseCSV;
 import model.ParseExcel;
+import model.Version;
 import controller.IFile;
 
 /**
@@ -72,7 +73,7 @@ public class InputPanel extends JPanel implements ActionListener{
 		this.setLayout(new BorderLayout());
 		
 		open = new JButton("Open");
-		generate = new JButton("Revision: "+getRevision());
+		generate = new JButton("Version: " + xml.getConfiguration().getVersion().getVersion());
 		exit = new JButton("Exit");
 		bug = new JButton("Bug/Issue Report");
 		generate.setEnabled(false);

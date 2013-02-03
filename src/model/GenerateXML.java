@@ -272,7 +272,7 @@ public class GenerateXML {
 				Text titleText = doc.createTextNode((String) input.getColumn(configuration.getTitleLabel()).get(i));
 				title.appendChild(titleText);
 				user.appendChild(title);
-				System.out.println(input.getColumn("Title").size());
+//				System.out.println(input.getColumn("Title").size());
 			}
 			
 			// Add first Name

@@ -1,5 +1,5 @@
 ###################################
-# StudIP CSV Structure #
+## StudIP CSV Structure ##
 # lastNameLabel=Nachname
 # firstNameLabel=Vorname
 # loginLabel=Nutzernamen
@@ -8,14 +8,13 @@
 # matriculationLabel=matrikelnummer
 # emailLabel=E-Mail
 # CSV=;
+
+# generateLogin=true
+# localRole=settings
+# password=klausur
 ###################################
 
-generateDummy=false #will enable the dummy panel.
-generateLogin=true #if Set true login will be m-nr.
-
-localRole=settings #Add local role if needed
-password=klausur #Add a common password for all users.
-
+# generateDummy=true
 
 # not implemented yet
 timeLimitUnlimited=true
