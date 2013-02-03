@@ -56,7 +56,7 @@ public class View extends JFrame {
 		}
 		
 		this.pack();
-		this.setSize(430, 150);
+		this.setSize(400, 150);
 		this.setLocation(500, 100);
 
 		status = new JTextField();
@@ -68,8 +68,8 @@ public class View extends JFrame {
 			getStatus().setForeground(Color.black);
 		}
 		else if(un.IsNewVersionAvailable()) {
-			getStatus().setText("NEW VERSION IS AVAILABLE.");
-			getStatus().setForeground(Color.black);
+			getStatus().setText("NEW VERSION IS AVAILABLE");
+			getStatus().setForeground(Color.MAGENTA);
 		}
 		else {
 			getStatus().setText("Click Open to Choose a File.");

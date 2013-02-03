@@ -5,6 +5,7 @@ package controller;
 
 import model.Configuration;
 import model.GenerateXML;
+import model.Version;
 import view.View;
 
 /**
@@ -32,13 +33,14 @@ import view.View;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class RunApp {
+public class StartApp {
 
 	public static void main(String[] args) throws Exception {
 		
+		Version version = new Version(1, 3, 0); // The App Version.
 		IFile input = null; // Interface for different input File Types.
-		Configuration configuration = new Configuration(); // Load the Standard Configuration		
+		Configuration configuration = new Configuration(version); // Load the Standard Configuration		
 		GenerateXML xml = new GenerateXML(configuration); // Load the GenerateXML Model 
-		View view = new View(input, xml, configuration); // Load The Normal App View
+		View view = new View(input, xml, configuration); // Load the GUI.
 	}
 }
