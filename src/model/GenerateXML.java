@@ -29,7 +29,7 @@ import view.DummyPanel;
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
  * @version $Revision$
- * @copyright $Date$
+ * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
@@ -272,7 +272,7 @@ public class GenerateXML {
 				Text titleText = doc.createTextNode((String) input.getColumn(configuration.getTitleLabel()).get(i));
 				title.appendChild(titleText);
 				user.appendChild(title);
-				System.out.println(input.getColumn("Title").size());
+//				System.out.println(input.getColumn("Title").size());
 			}
 			
 			// Add first Name

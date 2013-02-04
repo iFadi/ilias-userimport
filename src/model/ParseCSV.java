@@ -48,7 +48,7 @@ public class ParseCSV implements IFile {
 	}
 	
 	public void ReadFile(String file) throws IOException {
-		CSVReader reader = new CSVReader(new FileReader(file), configuration.getCSVSymbol());
+		CSVReader reader = new CSVReader(new FileReader(file), configuration.getCSVSymbol().charAt(0));
 		myEntries = reader.readAll();
 	}
 

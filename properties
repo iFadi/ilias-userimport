@@ -1,42 +1,21 @@
-##
-# StudIP CSV Structure
-lastNameLabel=Nachname
-firstNameLabel=Vorname
-actionLabel=Action
-globalRoleLabel=Role
-localRoleLabel=Local Role
-loginLabel=Nutzernamen
-passwordLabel=Password
-titleLabel=Titel
-genderLabel=Gender
-matriculationLabel=matrikelnummer
-emailLabel=E-Mail
+###################################
+## StudIP CSV Structure ##
+## uncomment the following lines if you are importing the CSV from StudIP
+###################################
+# lastNameLabel=Nachname
+# firstNameLabel=Vorname
+# loginLabel=Nutzernamen
+# passwordLabel=Password
+# titleLabel=Titel
+# matriculationLabel=matrikelnummer
+# emailLabel=E-Mail
+# CSV=;
 
-# Excel
-#lastNameLabel=Firstname
-#firstNameLabel=Lastname
-#actionLabel=Action
-#globalRoleLabel=Role
-#localRoleLabel=Local Role
-#loginLabel=Login
-#passwordLabel=Password
-#titleLabel=Title
-#genderLabel=Gender
-#matriculationLabel=Matriculation
-#emailLabel=Email
+# generateLogin=true
+# localRole=klausur18.01
+# password=klausur
 
-generateDummy=true
-actionValue=Insert
-genderValue=f
-
-localRole=false
-localRoleValue=settings
-
-generatePassword=true
-passwordValue=klausur
-
-generateLogin=true
-CSV=;
+# generateDummy=true
 
 # not implemented yet
 timeLimitUnlimited=true

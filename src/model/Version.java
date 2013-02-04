@@ -30,9 +30,13 @@ public class Version {
 	private int bug;
 	
 	public Version() {
-		setMajor(1);
-		setMinor(0);
-		setBug(0);
+		new Version(1, 3, 0);
+	}
+	
+	public Version(int major, int minor, int bug) {
+		setMajor(major);
+		setMinor(minor);
+		setBug(bug);
 	}
 
 	/**
@@ -77,7 +81,7 @@ public class Version {
 		this.bug = bug;
 	}
 	
-	public String toString() {
+	public String getVersion() {
 		return getMajor()+"."+getMinor()+"."+getBug();
 	}
 }
