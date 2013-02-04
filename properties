@@ -1,5 +1,7 @@
 ###################################
 ## StudIP CSV Structure ##
+## uncomment the following lines if you are importing the CSV from StudIP
+###################################
 # lastNameLabel=Nachname
 # firstNameLabel=Vorname
 # loginLabel=Nutzernamen
@@ -10,9 +12,8 @@
 # CSV=;
 
 # generateLogin=true
-# localRole=settings
+# localRole=klausur18.01
 # password=klausur
-###################################
 
 # generateDummy=true
 
