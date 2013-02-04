@@ -394,16 +394,16 @@ public class Configuration {
 	 * @return the CSVSymbol
 	 */
 	public String getCSVSymbol() {
-		return CSVSymbol;
+		if(CSVSymbol == null)
+			return ";";
+		else
+			return CSVSymbol;
 	}
 
 	/**
 	 * @param cSVSymbol the cSVSymbol to set
 	 */
 	public void setCSVSymbol(String CSVSymbol) {
-		if(CSVSymbol == null)
-			this.CSVSymbol = ";";
-		else
 			this.CSVSymbol = CSVSymbol;
 	}
 
