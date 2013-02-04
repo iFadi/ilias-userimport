@@ -52,6 +52,9 @@ public class View extends JFrame {
 			this.add(panel, BorderLayout.CENTER);
 		} else {
 			InputPanel panel = new InputPanel(input, xml, this);  //Input Panel
+			if(un.IsNewVersionAvailable()) {
+				panel.getBugOrDownload().setText("DOWNLOAD NOW"); //Download link to the new App
+			}
 			this.add(panel, BorderLayout.CENTER);
 		}
 		
@@ -82,26 +85,6 @@ public class View extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 
-        //Drag n Drop functionality.
-//        new  FileDrop(this, new FileDrop.Listener()
-//        {   public void  filesDropped( java.io.File[] files )
-//            {   
-//                panel.setPath(files[0].getAbsolutePath());
-//                panel.setFilename(files[0].getName());
-//                        try {
-//                            input.ReadFile(panel.getPath());
-//                            getStatus().setText("READY TO GO");
-//                            getStatus().setForeground(Color.blue.darker());
-//                            panel.getGenerate().setEnabled(true);
-//                        } catch (Exception e1) {
-//                            // TODO Auto-generated catch block
-//                            e1.printStackTrace();
-//                            getStatus().setText("ERROR");
-//                            getStatus().setForeground(Color.red.darker());
-//                        }
-//            }
-//                        // System.out.println(dir+"/"+filename);
-//        }); // end FD
 	}
 	
 	public JTextField getStatus() {
