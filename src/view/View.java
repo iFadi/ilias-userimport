@@ -51,7 +51,7 @@ public class View extends JFrame {
 			DummyPanel panel = new DummyPanel(xml, this); //generateDummy Panel
 			this.add(panel, BorderLayout.CENTER);
 		} else {
-			InputPanel panel = new InputPanel(input, xml, this);  //Input Panel
+			InputPanel panel = new InputPanel(input, xml, this, conf);  //Input Panel
 			if(un.IsNewVersionAvailable()) {
 				panel.getBugOrDownload().setText("DOWNLOAD NOW"); //Download link to the new App
 			}
@@ -60,7 +60,7 @@ public class View extends JFrame {
 		
 		this.pack();
 		this.setSize(400, 150);
-		this.setLocation(500, 100);
+		this.setLocationRelativeTo(null);
 
 		status = new JTextField();
 		status.setHorizontalAlignment(JTextField.CENTER);

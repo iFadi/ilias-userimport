@@ -12,12 +12,12 @@
 # CSV=;
 
 # generateLogin=true
-# localRole=klausur18.01
+localRole=klausur18.01
 password=klausur
 
 # generateDummy=true
 
 # not implemented yet
-timeLimitUnlimited=true
-timeLimitFrom=15.01.2013
-timeLimitUntil=16.01.2013
+#timeLimitUnlimited=true
+#timeLimitFrom=15.01.2013
+#timeLimitUntil=16.01.2013

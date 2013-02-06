@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.util.Observable;
 import java.util.Properties;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Properties;
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
  * @version $Revision$
- * @copyright $Date$
+ * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
@@ -55,48 +56,49 @@ public class Configuration {
 	private String CSVSymbol;
 	
 	private Version version;
+	private DBConnect db;
 	
 	public Configuration() {
-		new Configuration(version);
+		new Configuration(version, db);
 	}
 	
-	public Configuration(Version version) {
+	public Configuration(Version version, DBConnect db) {
 				
 		this.setVersion(version);
-		
+		this.db = db;
 		try {
-			Properties properties = new Properties();
+//			Properties properties = new Properties();
 
-			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties"));
-			properties.load(stream);
-			stream.close();
+//			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties"));
+//			properties.load(stream);
+//			stream.close();
 			
 			//Labels
-			setActionLabel(properties.getProperty("actionLabel"));
-			setTitleLabel(properties.getProperty("titleLabel"));
-			setLoginLabel(properties.getProperty("loginLabel"));
-			setPasswordLabel(properties.getProperty("passwordLabel"));
-			setFirstNameLabel(properties.getProperty("firstNameLabel"));
-			setLastNameLabel(properties.getProperty("lastNameLabel"));
-			setGlobalRoleLabel(properties.getProperty("globalRoleLabel"));
-			setLocalRoleLabel(properties.getProperty("localRoleLabel"));
-			setMatriculationLabel(properties.getProperty("matriculationLabel"));
-			setEmailLabel(properties.getProperty("emailLabel"));
-			setGenderLabel(properties.getProperty("genderLabel"));
+//			setActionLabel(properties.getProperty("actionLabel"));
+//			setTitleLabel(properties.getProperty("titleLabel"));
+//			setLoginLabel(properties.getProperty("loginLabel"));
+//			setPasswordLabel(properties.getProperty("passwordLabel"));
+//			setFirstNameLabel(properties.getProperty("firstNameLabel"));
+//			setLastNameLabel(properties.getProperty("lastNameLabel"));
+//			setGlobalRoleLabel(properties.getProperty("globalRoleLabel"));
+//			setLocalRoleLabel(properties.getProperty("localRoleLabel"));
+//			setMatriculationLabel(properties.getProperty("matriculationLabel"));
+//			setEmailLabel(properties.getProperty("emailLabel"));
+//			setGenderLabel(properties.getProperty("genderLabel"));
 			
 			//Values
-			setActionValue(properties.getProperty("actionValue"));
-			setLocalRoleValue(properties.getProperty("localRole"));
-			setPasswordValue(properties.getProperty("password"));
-			setGenderValue(properties.getProperty("genderValue"));
-			setCSVSymbol(properties.getProperty("CSV"));
-			setTimeLimitUnlimited(Boolean.parseBoolean(properties.getProperty("timeLimitUnlimited")));
-			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
-			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
-			
+//			setActionValue(properties.getProperty("actionValue"));
+			setLocalRoleValue(db.getValue("localRoleValue"));
+			setPasswordValue(db.getValue("passwordValue"));
+//			setGenderValue(properties.getProperty("genderValue"));
+			setCSVSymbol(db.getValue("CSVSymbol"));
+//			setTimeLimitUnlimited(Boolean.parseBoolean(properties.getProperty("timeLimitUnlimited")));
+//			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
+//			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
+//			System.out.println(localRoleValue);
 			//Boolean
-			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
-			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
+//			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
+//			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
 			
 		} catch (Exception e) {
 			System.out.println("No properties file is loaded, Standard settings will be used.");
@@ -315,6 +317,7 @@ public class Configuration {
 	 * @return the localRoleValue
 	 */
 	public String getLocalRoleValue() {
+//		System.out.println(localRoleValue);
 		return localRoleValue;
 	}
 
@@ -482,6 +485,10 @@ public class Configuration {
 	 */
 	public void setVersion(Version version) {
 		this.version = version;
+	}
+	
+	public void UpdateDB(String name) {
+		db.update(name);
 	}
 
 }

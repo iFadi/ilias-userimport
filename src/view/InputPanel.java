@@ -6,6 +6,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +14,18 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import model.Configuration;
 import model.GenerateXML;
 import model.ParseCSV;
 import model.ParseExcel;
@@ -57,6 +64,8 @@ public class InputPanel extends JPanel implements ActionListener {
 	private JButton generate;
 	private JButton exit;
 	private JButton bugOrDownload;
+	private JButton config;
+	private JLabel version;
 	private String filename;
 	private String dir;
 	private String path;
@@ -64,30 +73,58 @@ public class InputPanel extends JPanel implements ActionListener {
 	private IFile input;
 	private View frame;
 	public Desktop d;
+	ConfigurationDialog cd;
+	private Configuration conf;
 
-	public InputPanel(final IFile input, GenerateXML xml, View frame) {
+	public InputPanel(final IFile input, GenerateXML xml, View frame, Configuration conf) {
 		this.xml = xml;
 		this.frame = frame;
+		this.conf = conf;
 
-		this.setLayout(new BorderLayout());
-
-		open = new JButton("Open");
-		generate = new JButton("Version: "
-				+ xml.getConfiguration().getVersion().toString());
+		setLayout(null);
+		
+		ImageIcon icon = new ImageIcon("img/config.png");
+		config = new JButton(icon);
+//		config.setPreferredSize(new Dimension(25, 25));
+		config.setEnabled(true);
+		config.addActionListener(this);
+		config.setBorder(new MatteBorder(null));
+		config.setToolTipText("Show Config Dialog");
+		config.setBounds(15, 20, 35, 35);
+		
+//		ImageIcon icon2 = new ImageIcon("img/config.png");
+//		config2 = new JButton(icon2);
+//		config2.setPreferredSize(new Dimension(25, 25));
+//		config2.setEnabled(true);
+//		config2.addActionListener(this);
+//		config2.setBorder(new MatteBorder(null));
+//		config2.setToolTipText("Show Config Dialog");
+		
+		setOpen(new JButton("Open"));
+		getOpen().setBounds(230, 20, 160, 35);
+		setGenerate(new JButton("Version: " + xml.getConfiguration().getVersion().toString()));
+		version = new JLabel(xml.getConfiguration().getVersion().toString());
+		version.setBounds(15,60,35,35);
+		getGenerate().setBounds(60, 20, 160, 35);
 		exit = new JButton("Exit");
+		exit.setBounds(230, 60, 160, 35);
 		setBugOrDownload(new JButton("Bug/Issue Report"));
-		generate.setEnabled(false);
+		getBugOrDownload().setBounds(60, 60, 160, 35);
+		getGenerate().setEnabled(false);
 
 		this.setBorder(new TitledBorder(
 				"Generates XML File to Import in ILIAS e-Learning System"));
-		this.add(generate);
+		this.add(config);
+		this.add(version);
+		this.add(getGenerate());
 		this.add(open);
+//		this.add(config2);
 		this.add(getBugOrDownload());
 		this.add(exit);
-		this.setLayout(new GridLayout(2, 2));
+//		this.setLayout(new GridLayout(2, 2));
 
-		generate.addActionListener(this);
-		open.addActionListener(this);
+		getGenerate().addActionListener(this);
+		getOpen().addActionListener(this);
 		exit.addActionListener(this);
 		getBugOrDownload().addActionListener(this);
 	}
@@ -153,6 +190,11 @@ public class InputPanel extends JPanel implements ActionListener {
 				frame.getStatus().setText("ERROR");
 				frame.getStatus().setForeground(Color.red.darker());
 			}
+		}
+		
+		if (e.getSource() == config) {
+			cd = new ConfigurationDialog(conf, this);
+			cd.setVisible(true);
 		}
 	}
 
@@ -249,5 +291,38 @@ public class InputPanel extends JPanel implements ActionListener {
 
 	public void setBugOrDownload(JButton bugOrDownload) {
 		this.bugOrDownload = bugOrDownload;
+	}
+	
+	/**
+	 * 
+	 * Just used to load the images from a JAR file
+	 * 
+	 * @param path where the images are saved
+	 * @return the image from the JAR file
+	 */		
+	private ImageIcon createImageIcon(String path) {
+	    java.net.URL imgURL = this.getClass().getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL);
+	    } else {
+	        System.err.println("Couldn't find file: " + path);
+	        return null;
+	    }
+	}
+
+	public JButton getGenerate() {
+		return generate;
+	}
+
+	public void setGenerate(JButton generate) {
+		this.generate = generate;
+	}
+
+	public JButton getOpen() {
+		return open;
+	}
+
+	public void setOpen(JButton open) {
+		this.open = open;
 	}
 }
