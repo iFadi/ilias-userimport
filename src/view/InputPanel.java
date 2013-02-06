@@ -8,12 +8,17 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -59,7 +64,8 @@ import controller.IFile;
 public class InputPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = -335799796636612645L;
-	private final static String REVISION = "$Rev$";
+	private static final String DATE_FORMAT_NOW = "yyyy-MM-dd_HH:mm:ss";
+	private static final String REVISION = "$Rev$";
 	private JButton open;
 	private JButton generate;
 	private JButton exit;
@@ -74,35 +80,34 @@ public class InputPanel extends JPanel implements ActionListener {
 	private View frame;
 	public Desktop d;
 	ConfigurationDialog cd;
-	private Configuration conf;
+	private Configuration configuration;
 
-	public InputPanel(final IFile input, GenerateXML xml, View frame, Configuration conf) {
+	public InputPanel(final IFile input, GenerateXML xml, View frame, Configuration configuration) {
 		this.xml = xml;
 		this.frame = frame;
-		this.conf = conf;
+		this.configuration = configuration;
 
 		setLayout(null);
+
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		URL resource = classLoader.getResource("img/config.png");
+		ImageIcon icon = new ImageIcon(resource);
 		
-		ImageIcon icon = new ImageIcon("img/config.png");
+//		ClassLoader cl = this.getClass().getClassLoader(); 
+//		ImageIcon icon = new ImageIcon(cl.getResource("src/img/config.png"));
+//		ImageIcon icon = new ImageIcon("src/img/config.png");
 		config = new JButton(icon);
-//		config.setPreferredSize(new Dimension(25, 25));
+
+		
 		config.setEnabled(true);
 		config.addActionListener(this);
 		config.setBorder(new MatteBorder(null));
-		config.setToolTipText("Show Config Dialog");
+		config.setToolTipText("Show the configuartion dialog");
 		config.setBounds(15, 20, 35, 35);
-		
-//		ImageIcon icon2 = new ImageIcon("img/config.png");
-//		config2 = new JButton(icon2);
-//		config2.setPreferredSize(new Dimension(25, 25));
-//		config2.setEnabled(true);
-//		config2.addActionListener(this);
-//		config2.setBorder(new MatteBorder(null));
-//		config2.setToolTipText("Show Config Dialog");
-		
+				
 		setOpen(new JButton("Open"));
 		getOpen().setBounds(230, 20, 160, 35);
-		setGenerate(new JButton("Version: " + xml.getConfiguration().getVersion().toString()));
+		setGenerate(new JButton("Input Mode"));
 		version = new JLabel(xml.getConfiguration().getVersion().toString());
 		version.setBounds(15,60,35,35);
 		getGenerate().setBounds(60, 20, 160, 35);
@@ -136,10 +141,16 @@ public class InputPanel extends JPanel implements ActionListener {
 		}
 		if (e.getActionCommand().equals("Generate XML")) {
 			try {
-				xml.GenerateXMLFile(input,
-						getFileNameWithoutExtension(getFilename()) + ".xml");
-				frame.getStatus().setText("XML File has been Generated");
-				frame.getStatus().setForeground(Color.green.darker());
+				if(configuration.isGenerateDummy()) {
+					xml.GenerateXMLFile("dummy_"+now()+".xml");
+					frame.getStatus().setText("XML File has been Generated");
+					frame.getStatus().setForeground(Color.green.darker());
+				}
+				else {
+					xml.GenerateXMLFile(input, getFileNameWithoutExtension(getFilename()) + ".xml");
+					frame.getStatus().setText("XML File has been Generated");
+					frame.getStatus().setForeground(Color.green.darker());
+				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				frame.getStatus().setText("ERROR");
@@ -193,7 +204,7 @@ public class InputPanel extends JPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == config) {
-			cd = new ConfigurationDialog(conf, this);
+			cd = new ConfigurationDialog(configuration, this);
 			cd.setVisible(true);
 		}
 	}
@@ -228,7 +239,7 @@ public class InputPanel extends JPanel implements ActionListener {
 			if (c.getFileFilter() == filter1)
 				input = new ParseExcel();
 			if (c.getFileFilter() == filter2)
-				input = new ParseCSV();
+				input = new ParseCSV(configuration);
 			setFilename(c.getSelectedFile().getName());
 			dir = c.getCurrentDirectory().toString();
 			setPath(dir + "/" + getFilename());
@@ -293,23 +304,6 @@ public class InputPanel extends JPanel implements ActionListener {
 		this.bugOrDownload = bugOrDownload;
 	}
 	
-	/**
-	 * 
-	 * Just used to load the images from a JAR file
-	 * 
-	 * @param path where the images are saved
-	 * @return the image from the JAR file
-	 */		
-	private ImageIcon createImageIcon(String path) {
-	    java.net.URL imgURL = this.getClass().getResource(path);
-	    if (imgURL != null) {
-	        return new ImageIcon(imgURL);
-	    } else {
-	        System.err.println("Couldn't find file: " + path);
-	        return null;
-	    }
-	}
-
 	public JButton getGenerate() {
 		return generate;
 	}
@@ -324,5 +318,12 @@ public class InputPanel extends JPanel implements ActionListener {
 
 	public void setOpen(JButton open) {
 		this.open = open;
+	}
+	
+	public static String now() {
+	    Calendar cal = Calendar.getInstance();
+	    SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+	    return sdf.format(cal.getTime());
+
 	}
 }

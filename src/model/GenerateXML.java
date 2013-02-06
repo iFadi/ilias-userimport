@@ -58,7 +58,7 @@ public class GenerateXML {
 		this.configuration = configuration;
 	}
 	
-	public void GenerateXMLFile(DummyPanel dt, String output) throws Exception {
+	public void GenerateXMLFile(String output) throws Exception {
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
@@ -68,7 +68,7 @@ public class GenerateXML {
 		Element root = doc.createElement("Users");
 		doc.appendChild(root);
 
-		for (int i = 1; i <= dt.getNumberField(); i++) {
+		for (int i = 1; i <= configuration.getNumberOfUsers(); i++) {
 			// create child element, add an attribute, and add to root
 //			Element title = doc.createElement("Title");
 			Element user = doc.createElement("User");
@@ -81,6 +81,9 @@ public class GenerateXML {
 			Element lastname = doc.createElement("Lastname");
 			Element email = doc.createElement("Email");
 			Element matriculation = doc.createElement("Matriculation");
+			Element limited = doc.createElement("TimeLimitUnlimited");
+			Element from = doc.createElement("TimeLimitFrom");
+			Element until = doc.createElement("TimeLimitUntil");
 
 			// Add Global Role
 			grole.setAttribute("Id", "_1");
@@ -101,7 +104,7 @@ public class GenerateXML {
 			}
 			
 			// Add Login
-			setLogin(doc.createTextNode(dt.getLoginField()+i));
+			setLogin(doc.createTextNode(configuration.getLoginPrefix()+i));
 			login.appendChild((Text)getLogin());
 			user.appendChild(login);
 
@@ -114,7 +117,7 @@ public class GenerateXML {
 			
 			// Add Password in MD5 Form
 			password.setAttribute("Type", "ILIAS3");
-			setPassword(doc.createTextNode(MD5(removeSpaces(dt.getPasswordField()))));
+			setPassword(doc.createTextNode(MD5(removeSpaces(configuration.getPasswordValue()))));
 			password.appendChild(getPassword());
 			user.appendChild(password);
 
@@ -126,7 +129,7 @@ public class GenerateXML {
 			
 			
 			// Add first Name
-			Text firstNameText = doc.createTextNode(dt.getLoginField());
+			Text firstNameText = doc.createTextNode(configuration.getLoginPrefix());
 			firstname.appendChild(firstNameText);
 			user.appendChild(firstname);
 			// System.out.println((String)input.getColumn("Firstname").get(i));
@@ -146,6 +149,23 @@ public class GenerateXML {
 			Text matText = doc.createTextNode("xxxxxx");
 			matriculation.appendChild(matText);
 			user.appendChild(matriculation);
+			
+			// Add Limited Account
+			Text TimeLimit = doc.createTextNode(configuration.getTimeLimitUnlimited());
+			limited.appendChild(TimeLimit);
+			user.appendChild(limited);
+			
+			// From
+			// Add Limited Account
+			Text TimeFrom = doc.createTextNode(configuration.getTimeLimitFrom());
+			from.appendChild(TimeFrom);
+			user.appendChild(from);
+			
+			// Until
+			// Add Limited Account
+			Text TimeUntil = doc.createTextNode(configuration.getTimeLimitUntil());
+			until.appendChild(TimeUntil);
+			user.appendChild(until);
 
 		}
 
@@ -187,6 +207,9 @@ public class GenerateXML {
 			Element lastname = doc.createElement("Lastname");
 			Element email = doc.createElement("Email");
 			Element matriculation = doc.createElement("Matriculation");
+			Element limited = doc.createElement("TimeLimitUnlimited");
+			Element from = doc.createElement("TimeLimitFrom");
+			Element until = doc.createElement("TimeLimitUntil");
 
 			
 			// Add Global Role
@@ -198,15 +221,16 @@ public class GenerateXML {
 			user.appendChild(grole);
 			
 			
-			// Adds Local Role, if column does exist.
-			if(input.getColumn(configuration.getLocalRoleLabel()).size() != 0) {			
-				lrole.setAttribute("Id", "_2");
-				lrole.setAttribute("Type", "Local");
-				lrole.setAttribute("Action", "Assign");
-				Text lt = doc.createTextNode((String) input.getColumn(configuration.getLocalRoleLabel()).get(i));
-				lrole.appendChild(lt);
-				user.appendChild(lrole);
-			}
+//			// Adds Local Role, if column does exist.
+//			if(input.getColumn(configuration.getLocalRoleLabel()).size() != 0) {			
+//				lrole.setAttribute("Id", "_2");
+//				lrole.setAttribute("Type", "Local");
+//				lrole.setAttribute("Action", "Assign");
+//				Text lt = doc.createTextNode((String) input.getColumn(configuration.getLocalRoleLabel()).get(i));
+//				lrole.appendChild(lt);
+//				user.appendChild(lrole);
+////				System.out.println((String) input.getColumn(configuration.getLocalRoleLabel()).get(i));
+//			}
 			// or Add it if specified in the properties file.
 			if(configuration.isLocalRole()) {
 				lrole.setAttribute("Id", "_2");
@@ -215,6 +239,7 @@ public class GenerateXML {
 				Text lt = doc.createTextNode(configuration.getLocalRoleValue());
 				lrole.appendChild(lt);
 				user.appendChild(lrole);
+//				System.out.println(configuration.getLocalRoleValue());
 			}
 			
 			// Add Login, if Login column doesn't exist
@@ -285,17 +310,35 @@ public class GenerateXML {
 			Text lastNameText = doc.createTextNode((String) input.getColumn(configuration.getLastNameLabel()).get(i));
 			lastname.appendChild(lastNameText);
 			user.appendChild(lastname);
-//			 System.out.println((String)input.getColumn("Lastname").get(i));
+//			System.out.println((String)input.getColumn(configuration.getLastNameLabel()).get(i));
 
 			// Add email
 			Text mailt = doc.createTextNode((String) input.getColumn(configuration.getEmailLabel()).get(i));
 			email.appendChild(mailt);
 			user.appendChild(email);
+//			System.out.println((String)input.getColumn(configuration.getEmailLabel()).get(i));
 
 			// Add matriculation
 			Text matText = doc.createTextNode((String) input.getColumn(configuration.getMatriculationLabel()).get(i));
 			matriculation.appendChild(matText);
 			user.appendChild(matriculation);
+			
+			// Add Limited Account
+			Text TimeLimit = doc.createTextNode(configuration.getTimeLimitUnlimited());
+			limited.appendChild(TimeLimit);
+			user.appendChild(limited);
+			
+			// From
+			// Add Limited Account
+			Text TimeFrom = doc.createTextNode(configuration.getTimeLimitFrom());
+			from.appendChild(TimeFrom);
+			user.appendChild(from);
+			
+			// Until
+			// Add Limited Account
+			Text TimeUntil = doc.createTextNode(configuration.getTimeLimitUntil());
+			until.appendChild(TimeUntil);
+			user.appendChild(until);
 
 		}
 

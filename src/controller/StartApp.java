@@ -44,5 +44,7 @@ public class StartApp {
 		Configuration configuration = new Configuration(version, db); // Load the Standard Configuration		
 		GenerateXML xml = new GenerateXML(configuration); // Load the GenerateXML Model 
 		View view = new View(input, xml, configuration); // Load the GUI.
+		
+		configuration.addObserver(view); // Tell the view if Configuration values changes.
 	}
 }

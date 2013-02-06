@@ -120,7 +120,7 @@ public class DummyPanel extends JPanel implements ActionListener {
 		}
 		if (e.getActionCommand().equals("Generate XML")) {
 			try {
-				xml.GenerateXMLFile(this, getFilename()+".xml");
+				xml.GenerateXMLFile(getFilename()+".xml");
 				frame.getStatus().setText("XML File has been Generated");
 				frame.getStatus().setForeground(Color.green.darker());
 			} catch (Exception e1) {

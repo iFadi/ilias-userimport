@@ -1,9 +1,6 @@
 package model;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.util.Observable;
-import java.util.Properties;
 
 /**
  * $Id$
@@ -29,12 +26,14 @@ import java.util.Properties;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class Configuration {
+public class Configuration extends Observable {
 
-	private boolean generateLogin; // Generate Login based on firstname.lastname
-	private boolean generateDummy; // Generate dummy data for testing.
-	private char timeLimitUnlimited;
-	
+	private boolean generateLogin;
+	private boolean generateDummy;
+	private boolean limited;
+	private boolean studip;
+
+	private String timeLimitUnlimited;
 	private String actionLabel;
 	private String titleLabel;
 	private String firstNameLabel; 
@@ -54,6 +53,8 @@ public class Configuration {
 	private String password;
 	private String genderValue;
 	private String CSVSymbol;
+	private String loginPrefix;
+	private int numberOfUsers;
 	
 	private Version version;
 	private DBConnect db;
@@ -66,33 +67,36 @@ public class Configuration {
 				
 		this.setVersion(version);
 		this.db = db;
+		
 		try {
-//			Properties properties = new Properties();
-
-//			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties"));
-//			properties.load(stream);
-//			stream.close();
-			
-			//Labels
-//			setActionLabel(properties.getProperty("actionLabel"));
-//			setTitleLabel(properties.getProperty("titleLabel"));
-//			setLoginLabel(properties.getProperty("loginLabel"));
-//			setPasswordLabel(properties.getProperty("passwordLabel"));
-//			setFirstNameLabel(properties.getProperty("firstNameLabel"));
-//			setLastNameLabel(properties.getProperty("lastNameLabel"));
-//			setGlobalRoleLabel(properties.getProperty("globalRoleLabel"));
-//			setLocalRoleLabel(properties.getProperty("localRoleLabel"));
-//			setMatriculationLabel(properties.getProperty("matriculationLabel"));
-//			setEmailLabel(properties.getProperty("emailLabel"));
-//			setGenderLabel(properties.getProperty("genderLabel"));
+			setStudip(db.getValue("studip"));
+//			//Labels
+////			setActionLabel(db.getValue("actionLabel"));
+////			setGlobalRoleLabel(db.getValue("globalRoleLabel"));
+////			setGenderLabel(db.getValue("genderLabel"));
+//			if(isStudip()) {
+//				setTitleLabel(db.getValue("titleLabel"));
+//				setLoginLabel(db.getValue("loginLabel"));
+//				setPasswordLabel(db.getValue("passwordLabel"));
+//				setFirstNameLabel(db.getValue("firstNameLabel"));
+//				setLastNameLabel(db.getValue("lastNameLabel"));
+//				setLocalRoleLabel(db.getValue("localRoleLabel"));
+//				setMatriculationLabel(db.getValue("matriculationLabel"));
+//				setEmailLabel(db.getValue("emailLabel"));
+//			}
 			
 			//Values
-//			setActionValue(properties.getProperty("actionValue"));
+//			setActionValue(db.getValue("actionValue"));
 			setLocalRoleValue(db.getValue("localRoleValue"));
 			setPasswordValue(db.getValue("passwordValue"));
-//			setGenderValue(properties.getProperty("genderValue"));
+			setNumberOfUsers(Integer.parseInt(db.getValue("numberOfUsers")));
+			setLoginPrefix(db.getValue("loginPrefix"));
+//			setGenderValue(db.getValue("genderValue"));
 			setCSVSymbol(db.getValue("CSVSymbol"));
-//			setTimeLimitUnlimited(Boolean.parseBoolean(properties.getProperty("timeLimitUnlimited")));
+			setTimeLimitUnlimited(db.getValue("timeLimitUnlimited"));
+			setTimeLimitFrom(db.getValue("timeLimitFrom"));
+			setTimeLimitUntil(db.getValue("timeLimitUntil"));
+			setGenerateLogin(true);
 //			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
 //			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
 //			System.out.println(localRoleValue);
@@ -101,6 +105,7 @@ public class Configuration {
 //			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("No properties file is loaded, Standard settings will be used.");
 		}
 		
@@ -441,18 +446,28 @@ public class Configuration {
 	/**
 	 * @return the timeLimitUnlimited
 	 */
-	public char getTimeLimitUnlimited() {
+	public String getTimeLimitUnlimited() {
 		return timeLimitUnlimited;
 	}
 
 	/**
 	 * @param timeLimitUnlimited the timeLimitUnlimited to set
 	 */
-	public void setTimeLimitUnlimited(boolean timeLimitUnlimited) {
-		if(timeLimitUnlimited)
-			this.timeLimitUnlimited = 0;
+	public void setTimeLimitUnlimited(String timeLimitUnlimited) {
+		if(getTimeLimitUnlimited() == "1") // For me 1 is ON.
+			this.timeLimitUnlimited = "0"; // On in ILIAS
 		else
-			this.timeLimitUnlimited = 1;
+			this.timeLimitUnlimited = "1"; // Off in ILIAS
+	}
+	
+	/**
+	 * @param timeLimitUnlimited the timeLimitUnlimited to set
+	 */
+	public void setTimeLimitUnlimited(boolean timeLimitUnlimited) {
+		if(timeLimitUnlimited) // For me 1 is ON.
+			this.timeLimitUnlimited = "0"; // On in ILIAS
+		else
+			this.timeLimitUnlimited = "1"; // Off in ILIAS
 	}
 
 	/**
@@ -466,11 +481,12 @@ public class Configuration {
 	 * @param generateDummy the generateDummy to set
 	 */
 	public void setGenerateDummy(boolean generateDummy) {
-		if(generateDummy) {
+		if(generateDummy)
 			this.generateDummy = generateDummy;
-		}
 		else
 			this.generateDummy = false;
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -487,8 +503,82 @@ public class Configuration {
 		this.version = version;
 	}
 	
-	public void UpdateDB(String name) {
-		db.update(name);
+	public int getNumberOfUsers() {
+		return numberOfUsers;
 	}
 
+	public void setNumberOfUsers(int numberOfUsers) {
+		this.numberOfUsers = numberOfUsers;
+	}
+
+	public String getLoginPrefix() {
+		return loginPrefix;
+	}
+
+	public void setLoginPrefix(String loginPrefix) {
+		this.loginPrefix = loginPrefix;
+	}
+
+	/**
+	 * @return the limited
+	 */
+	public boolean isLimited() {
+		if(getTimeLimitUnlimited() == "0")
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * @return the studip
+	 */
+	public boolean isStudip() {
+		return studip;
+	}
+
+	/**
+	 * @param studip the studip to set
+	 */
+	public void setStudip(String studip) {
+		if(studip.equals("0"))
+			this.studip = false;
+		else
+			this.studip = true;
+	}
+	
+	/**
+	 * @param studip the studip to set
+	 */
+	public void setStudip(boolean studip) {
+		if(studip) {
+			this.studip = true;
+			setStudIPCSV();
+		}
+		else {
+			this.studip = false;
+			removeStudIPCSV();
+		}
+	}
+	
+	public void setStudIPCSV() {
+		setTitleLabel(db.getValue("titleLabel"));
+		setLoginLabel(db.getValue("loginLabel"));
+		setPasswordLabel(db.getValue("passwordLabel"));
+		setFirstNameLabel(db.getValue("firstNameLabel"));
+		setLastNameLabel(db.getValue("lastNameLabel"));
+		setLocalRoleLabel(db.getValue("localRoleLabel"));
+		setMatriculationLabel(db.getValue("matriculationLabel"));
+		setEmailLabel(db.getValue("emailLabel"));
+	}
+	
+	public void removeStudIPCSV() {
+		setTitleLabel(null);
+		setLoginLabel(null);
+		setPasswordLabel(null);
+		setFirstNameLabel(null);
+		setLastNameLabel(null);
+		setLocalRoleLabel(null);
+		setMatriculationLabel(null);
+		setEmailLabel(null);
+	}
 }

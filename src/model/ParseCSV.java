@@ -43,8 +43,8 @@ public class ParseCSV implements IFile {
 	private List<String[]> myEntries;
 	private Configuration configuration;
 	
-	public ParseCSV() {
-		configuration = new Configuration();
+	public ParseCSV(Configuration configuration) {
+		this.configuration = configuration;
 	}
 	
 	public void ReadFile(String file) throws IOException {
