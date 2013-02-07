@@ -52,7 +52,7 @@ public class View extends JFrame implements Observer {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 		
 
-		InputPanel panel = new InputPanel(input, xml, this, configuration);  //Input Panel
+		panel = new InputPanel(input, xml, this, configuration);  //Input Panel
 		
 		if(un.IsNewVersionAvailable()) {
 			panel.getBugOrDownload().setText("DOWNLOAD NOW"); //Download link to the new App
@@ -107,6 +107,5 @@ public class View extends JFrame implements Observer {
 			getStatus().setText("Click Open to Choose a File.");
 			getStatus().setForeground(Color.black);
 		}
-		
 	}
 }

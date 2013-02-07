@@ -54,6 +54,7 @@ public class Configuration extends Observable {
 	private String genderValue;
 	private String CSVSymbol;
 	private String loginPrefix;
+	private String studipLogin;
 	private int numberOfUsers;
 	
 	private Version version;
@@ -96,6 +97,7 @@ public class Configuration extends Observable {
 			setTimeLimitUnlimited(db.getValue("timeLimitUnlimited"));
 			setTimeLimitFrom(db.getValue("timeLimitFrom"));
 			setTimeLimitUntil(db.getValue("timeLimitUntil"));
+			setStudipLogin(db.getValue("studipLogin"));
 			setGenerateLogin(true);
 //			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
 //			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
@@ -580,5 +582,19 @@ public class Configuration extends Observable {
 		setLocalRoleLabel(null);
 		setMatriculationLabel(null);
 		setEmailLabel(null);
+	}
+
+	/**
+	 * @return the studipLogin
+	 */
+	public String getStudipLogin() {
+		return studipLogin;
+	}
+
+	/**
+	 * @param studipLogin the studipLogin to set
+	 */
+	public void setStudipLogin(String studipLogin) {
+		this.studipLogin = studipLogin;
 	}
 }

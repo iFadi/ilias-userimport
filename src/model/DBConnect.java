@@ -18,7 +18,7 @@ public class DBConnect {
 
 		try {
 			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:properties.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:IUI.db");
 			statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
@@ -42,6 +42,7 @@ public class DBConnect {
 			statement.executeUpdate("insert into config values(13, 'titleLabel', 'Titel')");
 			statement.executeUpdate("insert into config values(14, 'matriculationLabel', 'matrikelnummer')");
 			statement.executeUpdate("insert into config values(15, 'emailLabel', 'E-Mail')");
+			statement.executeUpdate("insert into config values(16, 'studipLogin', 'matriculation')");
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
@@ -61,8 +62,7 @@ public class DBConnect {
 
 		ResultSet rs;
 		try {
-			connection = DriverManager
-					.getConnection("jdbc:sqlite:properties.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:IUI.db");
 			statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 			rs = statement.executeQuery("select * from config");

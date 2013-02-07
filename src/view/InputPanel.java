@@ -3,12 +3,8 @@
  */
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -18,14 +14,11 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -92,13 +85,8 @@ public class InputPanel extends JPanel implements ActionListener {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		URL resource = classLoader.getResource("img/config.png");
 		ImageIcon icon = new ImageIcon(resource);
-		
-//		ClassLoader cl = this.getClass().getClassLoader(); 
-//		ImageIcon icon = new ImageIcon(cl.getResource("src/img/config.png"));
-//		ImageIcon icon = new ImageIcon("src/img/config.png");
-		config = new JButton(icon);
 
-		
+		config = new JButton(icon);		
 		config.setEnabled(true);
 		config.addActionListener(this);
 		config.setBorder(new MatteBorder(null));
@@ -110,6 +98,7 @@ public class InputPanel extends JPanel implements ActionListener {
 		setGenerate(new JButton("Input Mode"));
 		version = new JLabel(xml.getConfiguration().getVersion().toString());
 		version.setBounds(15,60,35,35);
+		version.setToolTipText("Revision: " + getRevision());
 		getGenerate().setBounds(60, 20, 160, 35);
 		exit = new JButton("Exit");
 		exit.setBounds(230, 60, 160, 35);
@@ -123,10 +112,8 @@ public class InputPanel extends JPanel implements ActionListener {
 		this.add(version);
 		this.add(getGenerate());
 		this.add(open);
-//		this.add(config2);
 		this.add(getBugOrDownload());
 		this.add(exit);
-//		this.setLayout(new GridLayout(2, 2));
 
 		getGenerate().addActionListener(this);
 		getOpen().addActionListener(this);

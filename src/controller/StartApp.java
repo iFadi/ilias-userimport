@@ -3,6 +3,9 @@
  */
 package controller;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import model.Configuration;
 import model.DBConnect;
 import model.GenerateXML;
@@ -38,6 +41,14 @@ public class StartApp {
 
 	public static void main(String[] args) throws Exception {
 		
+//		try {
+//		     // Set System L&F
+//		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+//		} 
+//		catch (UnsupportedLookAndFeelException e) {
+//		     // handle exception
+//		}
+		 
 		Version version = new Version(1, 3, 0); // The App Version.
 		IFile input = null; // Interface for different input File Types.
 		DBConnect db = new DBConnect();

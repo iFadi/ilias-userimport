@@ -19,8 +19,6 @@ import org.w3c.dom.Text;
 
 import controller.IFile;
 
-import view.DummyPanel;
-
 /**
  * Generates XML Users File for the import in the ILIAS E-Learning System.
  * $Id$
@@ -245,8 +243,12 @@ public class GenerateXML {
 			// Add Login, if Login column doesn't exist
 			if(configuration.isGenerateLogin()) {
 				// Add Login
-//				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
-				setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getMatriculationLabel()).get(i))));
+				if(configuration.getStudipLogin().equals("matriculation"))
+					setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getMatriculationLabel()).get(i))));
+				if(configuration.getStudipLogin().equals("first.lastname"))
+					setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
+				if(configuration.getStudipLogin().equals("email"))
+					setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getEmailLabel()).get(i))));
 				login.appendChild((Text)getLogin());
 				user.appendChild(login);
 			}
