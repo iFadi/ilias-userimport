@@ -30,7 +30,7 @@ import java.util.Vector;
 public interface IFile {
 	
 	public void ReadFile(String file) throws Exception;
-	public Vector getColumn(String title);
+	public Vector<String> getColumn(String title);
 	public int getNumberOfColumns();
 	
 }

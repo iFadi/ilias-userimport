@@ -81,7 +81,7 @@ public class Version {
 		this.bug = bug;
 	}
 	
-	public String getVersion() {
+	public String toString() {
 		return getMajor()+"."+getMinor()+"."+getBug();
 	}
 }

@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -35,35 +37,38 @@ import controller.IFile;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class View extends JFrame {
+public class View extends JFrame implements Observer {
 
 	private static final long serialVersionUID = 6177350218996491783L;
+	private Configuration configuration;
 	private JTextField status;
+	private InputPanel panel;
 
-	public View(final IFile input, GenerateXML xml, Configuration conf) throws Exception {
-		
+	public View(final IFile input, GenerateXML xml, Configuration configuration) throws Exception {
+		this.configuration = configuration;
 		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 		
-		if(conf.isGenerateDummy()) {
-			DummyPanel panel = new DummyPanel(xml, this); //generateDummy Panel
-			this.add(panel, BorderLayout.CENTER);
-		} else {
-			InputPanel panel = new InputPanel(input, xml, this);  //Input Panel
-			this.add(panel, BorderLayout.CENTER);
+
+		panel = new InputPanel(input, xml, this, configuration);  //Input Panel
+		
+		if(un.IsNewVersionAvailable()) {
+			panel.getBugOrDownload().setText("DOWNLOAD NOW"); //Download link to the new App
 		}
+		
+		this.add(panel, BorderLayout.CENTER);
 		
 		this.pack();
 		this.setSize(400, 150);
-		this.setLocation(500, 100);
+		this.setLocationRelativeTo(null);
 
 		status = new JTextField();
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
 		
-		if(conf.isGenerateDummy()) {
+		if(configuration.isGenerateDummy()) {
 			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
 			getStatus().setForeground(Color.black);
 		}
@@ -82,26 +87,6 @@ public class View extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 
-        //Drag n Drop functionality.
-//        new  FileDrop(this, new FileDrop.Listener()
-//        {   public void  filesDropped( java.io.File[] files )
-//            {   
-//                panel.setPath(files[0].getAbsolutePath());
-//                panel.setFilename(files[0].getName());
-//                        try {
-//                            input.ReadFile(panel.getPath());
-//                            getStatus().setText("READY TO GO");
-//                            getStatus().setForeground(Color.blue.darker());
-//                            panel.getGenerate().setEnabled(true);
-//                        } catch (Exception e1) {
-//                            // TODO Auto-generated catch block
-//                            e1.printStackTrace();
-//                            getStatus().setText("ERROR");
-//                            getStatus().setForeground(Color.red.darker());
-//                        }
-//            }
-//                        // System.out.println(dir+"/"+filename);
-//        }); // end FD
 	}
 	
 	public JTextField getStatus() {
@@ -110,5 +95,17 @@ public class View extends JFrame {
 
 	public void setStatus(JTextField status) {
 		this.status = status;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(configuration.isGenerateDummy()) {
+			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
+			getStatus().setForeground(Color.black);
+		}
+		else {
+			getStatus().setText("Click Open to Choose a File.");
+			getStatus().setForeground(Color.black);
+		}
 	}
 }
