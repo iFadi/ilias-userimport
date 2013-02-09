@@ -46,7 +46,7 @@ public class View extends JFrame implements Observer {
 
 	public View(final IFile input, GenerateXML xml, Configuration configuration) throws Exception {
 		this.configuration = configuration;
-		UpdateNotifier un = new UpdateNotifier(); // Notify if Update is available 
+		UpdateNotifier un = new UpdateNotifier(configuration.getVersion()); // Notify if Update is available 
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.

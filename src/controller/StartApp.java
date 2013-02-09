@@ -3,9 +3,6 @@
  */
 package controller;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import model.Configuration;
 import model.DBConnect;
 import model.GenerateXML;
@@ -49,7 +46,7 @@ public class StartApp {
 //		     // handle exception
 //		}
 		 
-		Version version = new Version(1, 3, 0); // The App Version.
+		Version version = new Version(1, 2, 0); // The App Version. with each release.
 		IFile input = null; // Interface for different input File Types.
 		DBConnect db = new DBConnect();
 		Configuration configuration = new Configuration(version, db); // Load the Standard Configuration		

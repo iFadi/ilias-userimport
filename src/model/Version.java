@@ -30,7 +30,7 @@ public class Version {
 	private int bug;
 	
 	public Version() {
-		new Version(1, 3, 0);
+		
 	}
 	
 	public Version(int major, int minor, int bug) {
