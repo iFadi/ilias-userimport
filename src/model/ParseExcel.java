@@ -14,13 +14,10 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import controller.IFile;
 /**
  * Reads/Analyse an Excel File and Save it to a Vector.
- * $Id$
- * $LastChangedDate$
  * 
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version $Revision$
- * @copyright $Date$
+ * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

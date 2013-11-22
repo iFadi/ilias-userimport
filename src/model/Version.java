@@ -1,12 +1,9 @@
 package model;
 /**
- * $Id$
- * $LastChangedDate$
  * 
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version $Revision$
- * @copyright $Date$
+ * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify

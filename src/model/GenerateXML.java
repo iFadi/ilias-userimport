@@ -21,12 +21,9 @@ import controller.IFile;
 
 /**
  * Generates XML Users File for the import in the ILIAS E-Learning System.
- * $Id$
- * $LastChangedDate$
  * 
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version $Revision$
  * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
@@ -193,6 +190,10 @@ public class GenerateXML {
 		doc.appendChild(root);
 
 		for (int i = 1; i < input.getColumn(configuration.getFirstNameLabel()).size(); i++) {
+			if(input.getColumn(configuration.getMatriculationLabel()).get(i).isEmpty()) {// Consider only persons with matriculation.
+//				System.out.println("OK");
+				continue; // The purpose is only to import students, no tutors or dozents.
+			}
 			// create child element, add an attribute, and add to root
 			Element title = doc.createElement("Title");
 			Element user = doc.createElement("User");
@@ -322,6 +323,7 @@ public class GenerateXML {
 
 			// Add matriculation
 			Text matText = doc.createTextNode((String) input.getColumn(configuration.getMatriculationLabel()).get(i));
+//			System.out.println(input.getColumn(configuration.getMatriculationLabel()).get(i));
 			matriculation.appendChild(matText);
 			user.appendChild(matriculation);
 			

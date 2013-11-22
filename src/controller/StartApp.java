@@ -11,13 +11,10 @@ import view.View;
 
 /**
  * The Main Class to Start the App.
- * $Id$
- * $LastChangedDate$
  * 
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version $Revision$
- * @copyright $Date$
+ * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
@@ -37,18 +34,10 @@ import view.View;
 public class StartApp {
 
 	public static void main(String[] args) throws Exception {
-		
-//		try {
-//		     // Set System L&F
-//		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//		} 
-//		catch (UnsupportedLookAndFeelException e) {
-//		     // handle exception
-//		}
-		 
-		Version version = new Version(1, 2, 0); // The App Version. with each release.
+				 
+		Version version = new Version(1, 3, 1); // The App Version. with each release.
 		IFile input = null; // Interface for different input File Types.
-		DBConnect db = new DBConnect();
+		DBConnect db = new DBConnect(); // Create the DB for saving the settings.
 		Configuration configuration = new Configuration(version, db); // Load the Standard Configuration		
 		GenerateXML xml = new GenerateXML(configuration); // Load the GenerateXML Model 
 		View view = new View(input, xml, configuration); // Load the GUI.

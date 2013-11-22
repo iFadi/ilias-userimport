@@ -14,13 +14,10 @@ import au.com.bytecode.opencsv.CSVReader;
 
 /**
  * Reads/Analyse a CSV File and Save it to a Vector.
- * $Id$
- * $LastChangedDate$
  * 
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version $Revision$
- * @copyright $Date$
+ * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
  * This program is free software: you can redistribute it and/or modify
@@ -50,6 +47,7 @@ public class ParseCSV implements IFile {
 	public void ReadFile(String file) throws IOException {
 		CSVReader reader = new CSVReader(new FileReader(file), configuration.getCSVSymbol().charAt(0));
 		myEntries = reader.readAll();
+		reader.close();
 	}
 
 	@Override
@@ -67,7 +65,8 @@ public class ParseCSV implements IFile {
 			for (String[] row : myEntries) {
 				table.addElement(row[mark]);
 		}
-		getNumberOfColumns();
+//		System.out.println(getNumberOfColumns());
+//		System.out.println(table);
 		return table;
 	}
 	

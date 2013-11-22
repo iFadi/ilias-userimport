@@ -3,12 +3,9 @@ package model;
 import java.util.Observable;
 
 /**
- * $Id$
- * $LastChangedDate$
  * 
  * @author Fadi M. H. Asbih
  * @email fadi_asbih@yahoo.de
- * @version $Revision$
  * @copyright 2013
  * 
  * TERMS AND CONDITIONS:
