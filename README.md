@@ -3,7 +3,7 @@ This simple App generates a XML file from an Excel or CSV file as input.
 The generated XML file can then be imported into [ILIAS e-Learning System](http://www.ilias.de/).
 
 ## Latest Release
-  * [1.3.0](http://ilias-userimport.googlecode.com/files/IUI_1.3.0.jar) (10.02.2013)
+  * [1.3.1](http://ilias-userimport.googlecode.com/files/IUI_1.3.0.jar) (25.11.2013)
 
 ## Features
   * Runs on all Operating Systems (MAC OS, LINUX, WINDOWS).

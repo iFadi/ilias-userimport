@@ -150,7 +150,7 @@ public class InputPanel extends JPanel implements ActionListener {
 				URI u;
 				d = Desktop.getDesktop();
 				u = new URI(
-						"http://code.google.com/p/ilias-userimport/issues/list");
+						"https://github.com/iFadi/ilias-userimport/issues");
 				d.browse(u);
 
 			} catch (URISyntaxException e1) {

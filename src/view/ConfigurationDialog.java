@@ -19,6 +19,9 @@ import model.Configuration;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Color;
 
 /**
  * 
@@ -73,6 +76,23 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
+		chckbxStudipCsv = new JCheckBox("StudIP CSV");
+		comboBox = new JComboBox();
+
+		chckbxStudipCsv.setToolTipText("Can import the CSV exported from StudIP Courses. (German Translated Headers)");
+		chckbxStudipCsv.setSelected(configuration.isStudip());
+		chckbxStudipCsv.setBounds(271, 166, 128, 23);
+		chckbxStudipCsv.addActionListener(this);
+		contentPanel.add(chckbxStudipCsv);
+		
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"matriculation", "first.lastname", "email"}));
+		comboBox.setSelectedItem(configuration.getStudipLogin());
+		comboBox.setBounds(310, 203, 134, 27);
+		comboBox.addActionListener(this);
+		
+		contentPanel.add(comboBox);
+		
+
 		JLabel lblLocalRole = new JLabel("Local Role");
 		lblLocalRole.setToolTipText("Add a common local role to all imported users.");
 		lblLocalRole.setBounds(6, 46, 102, 28);
@@ -108,32 +128,32 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		
 		JLabel lblLoginPrefix = new JLabel("Login Prefix");
 		lblLoginPrefix.setToolTipText("the login user will be for example ilias6 or ilias10.");
-		lblLoginPrefix.setBounds(6, 215, 102, 28);
+		lblLoginPrefix.setBounds(6, 201, 102, 28);
 		contentPanel.add(lblLoginPrefix);
 		
 		JLabel lblNumberOfUsers = new JLabel("Number of users");
-		lblNumberOfUsers.setBounds(6, 255, 118, 28);
+		lblNumberOfUsers.setBounds(6, 241, 118, 28);
 		lblNumberOfUsers.setToolTipText("Enter the number of the dummy users you want to generate.");
 		contentPanel.add(lblNumberOfUsers);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(125, 215, 134, 28);
+		textField_3.setBounds(125, 201, 134, 28);
 		contentPanel.add(textField_3);
 		textField_3.setText(configuration.getLoginPrefix());
 				
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(125, 255, 134, 28);
+		textField_4.setBounds(125, 241, 134, 28);
 		contentPanel.add(textField_4);
 		textField_4.setText(configuration.getNumberOfUsers()+"");
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(6, 156, 450, 12);
+		separator.setBounds(0, 156, 456, 12);
 		contentPanel.add(separator);
 		
 		chckbxDummyInterface = new JCheckBox("Dummy Interface");
-		chckbxDummyInterface.setBounds(6, 180, 156, 23);
+		chckbxDummyInterface.setBounds(6, 166, 156, 23);
 		chckbxDummyInterface.setToolTipText("Enable the dummy interface, in order to generate dummy user accounts.");
 		chckbxDummyInterface.setSelected(configuration.isGenerateDummy());
 		chckbxDummyInterface.addActionListener(this);
@@ -187,31 +207,21 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		if(chckbxDummyInterface.isSelected()) {
 			textField_3.setEnabled(true);
 			textField_4.setEnabled(true);
+			chckbxStudipCsv.setEnabled(false);
+			comboBox.setEnabled(false);
 		}
 		else {
 			textField_3.setEnabled(false);
 			textField_4.setEnabled(false);
+			chckbxStudipCsv.setEnabled(true);
+			comboBox.setEnabled(true);
 		}
 
 		
-		chckbxStudipCsv = new JCheckBox("StudIP CSV");
-		chckbxStudipCsv.setToolTipText("Can import the CSV exported from StudIP Courses. (German Translated Headers)");
-		chckbxStudipCsv.setSelected(configuration.isStudip());
-		chckbxStudipCsv.setBounds(271, 180, 128, 23);
-		chckbxStudipCsv.addActionListener(this);
-		contentPanel.add(chckbxStudipCsv);
-		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"matriculation", "first.lastname", "email"}));
-		comboBox.setSelectedItem(configuration.getStudipLogin());
-		comboBox.setBounds(310, 237, 134, 27);
-		comboBox.addActionListener(this);
-		
-		contentPanel.add(comboBox);
-		
+
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setToolTipText("the login will be for example the matriculation or email.");
-		lblLogin.setBounds(271, 236, 102, 28);
+		lblLogin.setBounds(271, 201, 102, 28);
 		contentPanel.add(lblLogin);
 		
 		JLabel lblGlobalRole = new JLabel("Global Role");
@@ -224,6 +234,11 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		textField_7.setColumns(10);
 		textField_7.setBounds(125, 6, 134, 28);
 		contentPanel.add(textField_7);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		separator_2.setBounds(259, 158, 19, 125);
+		contentPanel.add(separator_2);
 		
 		{
 			JPanel buttonPane = new JPanel();
@@ -246,12 +261,16 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		
 		if(chckbxStudipCsv.isSelected()) {
 			comboBox.setEnabled(true);
+			chckbxDummyInterface.setEnabled(false);
 		}
-		else
+		else {
 			comboBox.setEnabled(false);
+			chckbxDummyInterface.setEnabled(true);
+		}
 		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setVisible(true);
 		setResizable(false);
 	}
 
@@ -278,6 +297,8 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 				ip.getOpen().setText("Dummy Mode");
 				textField_3.setEnabled(true);
 				textField_4.setEnabled(true);
+				chckbxStudipCsv.setEnabled(false);
+				comboBox.setEnabled(false);
 			}
 			else {
 				ip.getOpen().setEnabled(true);
@@ -286,15 +307,24 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 				ip.getGenerate().setEnabled(false);
 				textField_3.setEnabled(false);
 				textField_4.setEnabled(false);
+				chckbxStudipCsv.setEnabled(true);
+//				comboBox.setEnabled(true);
 			}
 		}
 		
 		if(e.getActionCommand().equals("StudIP CSV")) {
 			if(chckbxStudipCsv.isSelected()) {
 				comboBox.setEnabled(true);
+				chckbxDummyInterface.setEnabled(false);
+				textField_3.setEnabled(false);
+				textField_4.setEnabled(false);
 			}
-			else
+			else {
 				comboBox.setEnabled(false);
+				chckbxDummyInterface.setEnabled(true);
+//				textField_3.setEnabled(true);
+//				textField_4.setEnabled(true);
+			}
 		}
 		
 		if(e.getActionCommand().equals("OK")) {
