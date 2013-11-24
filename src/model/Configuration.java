@@ -27,7 +27,6 @@ public class Configuration extends Observable {
 
 	private boolean generateLogin;
 	private boolean generateDummy;
-	private boolean limited;
 	private boolean studip;
 
 	private String timeLimitUnlimited;
@@ -43,6 +42,7 @@ public class Configuration extends Observable {
 	private String genderLabel;
 	private String emailLabel;
 	
+	private String globalRoleValue;
 	private String localRoleValue;
 	private String timeLimitFrom;
 	private String timeLimitUntil;
@@ -68,23 +68,10 @@ public class Configuration extends Observable {
 		
 		try {
 			setStudip(db.getValue("studip"));
-//			//Labels
-////			setActionLabel(db.getValue("actionLabel"));
-////			setGlobalRoleLabel(db.getValue("globalRoleLabel"));
-////			setGenderLabel(db.getValue("genderLabel"));
-//			if(isStudip()) {
-//				setTitleLabel(db.getValue("titleLabel"));
-//				setLoginLabel(db.getValue("loginLabel"));
-//				setPasswordLabel(db.getValue("passwordLabel"));
-//				setFirstNameLabel(db.getValue("firstNameLabel"));
-//				setLastNameLabel(db.getValue("lastNameLabel"));
-//				setLocalRoleLabel(db.getValue("localRoleLabel"));
-//				setMatriculationLabel(db.getValue("matriculationLabel"));
-//				setEmailLabel(db.getValue("emailLabel"));
-//			}
 			
 			//Values
 //			setActionValue(db.getValue("actionValue"));
+			setGlobalRoleValue(db.getValue("globalRoleValue"));
 			setLocalRoleValue(db.getValue("localRoleValue"));
 			setPasswordValue(db.getValue("passwordValue"));
 			setNumberOfUsers(Integer.parseInt(db.getValue("numberOfUsers")));
@@ -95,6 +82,8 @@ public class Configuration extends Observable {
 			setTimeLimitFrom(db.getValue("timeLimitFrom"));
 			setTimeLimitUntil(db.getValue("timeLimitUntil"));
 			setStudipLogin(db.getValue("studipLogin"));
+			setGenerateDummy(db.getValue("generateDummy"));
+			
 			setGenerateLogin(true);
 //			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
 //			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
@@ -159,6 +148,7 @@ public class Configuration extends Observable {
 	 */
 	public void setGenerateLogin(boolean generateLogin) {
 		this.generateLogin = generateLogin;
+//		db.setValue("generateLogin", generateLogin);
 	}
 
 	/**
@@ -330,6 +320,7 @@ public class Configuration extends Observable {
 	 */
 	public void setLocalRoleValue(String localRoleValue) {
 		this.localRoleValue = localRoleValue;
+		db.setValue("localRoleValue", localRoleValue);
 	}
 
 	/**
@@ -344,6 +335,7 @@ public class Configuration extends Observable {
 	 */
 	public void setPasswordValue(String passwordValue) {
 		this.password = passwordValue;
+		db.setValue("passwordValue", passwordValue);
 	}
 
 	/**
@@ -412,6 +404,7 @@ public class Configuration extends Observable {
 	 */
 	public void setCSVSymbol(String CSVSymbol) {
 			this.CSVSymbol = CSVSymbol;
+			db.setValue("CSVSymbol", CSVSymbol);
 	}
 
 	/**
@@ -426,6 +419,7 @@ public class Configuration extends Observable {
 	 */
 	public void setTimeLimitFrom(String timeLimitFrom) {
 		this.timeLimitFrom = timeLimitFrom;
+		db.setValue("timeLimitFrom", timeLimitFrom);
 	}
 
 	/**
@@ -440,6 +434,7 @@ public class Configuration extends Observable {
 	 */
 	public void setTimeLimitUntil(String timeLimitUntil) {
 		this.timeLimitUntil = timeLimitUntil;
+		db.setValue("timeLimitUntil", timeLimitUntil);
 	}
 
 	/**
@@ -453,20 +448,24 @@ public class Configuration extends Observable {
 	 * @param timeLimitUnlimited the timeLimitUnlimited to set
 	 */
 	public void setTimeLimitUnlimited(String timeLimitUnlimited) {
-		if(getTimeLimitUnlimited() == "1") // For me 1 is ON.
-			this.timeLimitUnlimited = "0"; // On in ILIAS
+		if(timeLimitUnlimited == "1") 
+			setTimeLimitUnlimited(true);
 		else
-			this.timeLimitUnlimited = "1"; // Off in ILIAS
+			setTimeLimitUnlimited(false);
 	}
 	
 	/**
 	 * @param timeLimitUnlimited the timeLimitUnlimited to set
 	 */
 	public void setTimeLimitUnlimited(boolean timeLimitUnlimited) {
-		if(timeLimitUnlimited) // For me 1 is ON.
-			this.timeLimitUnlimited = "0"; // On in ILIAS
-		else
-			this.timeLimitUnlimited = "1"; // Off in ILIAS
+		if(timeLimitUnlimited) {// For me 1 is ON.
+			this.timeLimitUnlimited = "1"; // On in ILIAS
+			db.setValue("timeLimitUnlimited", "1");
+		}
+		else {
+			this.timeLimitUnlimited = "0"; // Off in ILIAS
+			db.setValue("timeLimitUnlimited", "0");
+		}
 	}
 
 	/**
@@ -480,14 +479,25 @@ public class Configuration extends Observable {
 	 * @param generateDummy the generateDummy to set
 	 */
 	public void setGenerateDummy(boolean generateDummy) {
-		if(generateDummy)
+		if(generateDummy) {
 			this.generateDummy = generateDummy;
-		else
+			db.setValue("generateDummy", "1");
+		}
+		else {
 			this.generateDummy = false;
+			db.setValue("generateDummy", "0");
+		}
 		setChanged();
 		notifyObservers();
 	}
 
+	public void setGenerateDummy(String generateDummy) {
+		if(generateDummy.equals("1"))
+			setGenerateDummy(true);
+		else
+			setGenerateDummy(false);
+	}
+	
 	/**
 	 * @return the version
 	 */
@@ -508,6 +518,7 @@ public class Configuration extends Observable {
 
 	public void setNumberOfUsers(int numberOfUsers) {
 		this.numberOfUsers = numberOfUsers;
+		db.setValue("numberOfUsers", numberOfUsers+"");
 	}
 
 	public String getLoginPrefix() {
@@ -516,16 +527,7 @@ public class Configuration extends Observable {
 
 	public void setLoginPrefix(String loginPrefix) {
 		this.loginPrefix = loginPrefix;
-	}
-
-	/**
-	 * @return the limited
-	 */
-	public boolean isLimited() {
-		if(getTimeLimitUnlimited() == "0")
-			return true;
-		else
-			return false;
+		db.setValue("loginPrefix", loginPrefix);
 	}
 
 	/**
@@ -552,10 +554,12 @@ public class Configuration extends Observable {
 		if(studip) {
 			this.studip = true;
 			setStudIPCSV();
+			db.setValue("studip", "1");
 		}
 		else {
 			this.studip = false;
 			removeStudIPCSV();
+			db.setValue("studip", "0");
 		}
 	}
 	
@@ -593,5 +597,21 @@ public class Configuration extends Observable {
 	 */
 	public void setStudipLogin(String studipLogin) {
 		this.studipLogin = studipLogin;
+		db.setValue("studipLogin", studipLogin);
+	}
+
+	/**
+	 * @return the globalRoleValue
+	 */
+	public String getGlobalRoleValue() {
+		return globalRoleValue;
+	}
+
+	/**
+	 * @param globalRoleValue the globalRoleValue to set
+	 */
+	public void setGlobalRoleValue(String globalRoleValue) {
+		this.globalRoleValue = globalRoleValue;
+		db.setValue("globalRoleValue", globalRoleValue);
 	}
 }

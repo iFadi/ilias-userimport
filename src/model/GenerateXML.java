@@ -215,7 +215,7 @@ public class GenerateXML {
 			grole.setAttribute("Id", "_1");
 			grole.setAttribute("Type", "Global");
 			grole.setAttribute("Action", "Assign");
-			setGlobalRole(doc.createTextNode("User")); //Standard Role in ILIAS.
+			setGlobalRole(doc.createTextNode(configuration.getGlobalRoleValue())); //User: Standard Role in ILIAS.
 			grole.appendChild(getGlobalRole());
 			user.appendChild(grole);
 			

@@ -65,8 +65,8 @@ public class ParseCSV implements IFile {
 			for (String[] row : myEntries) {
 				table.addElement(row[mark]);
 		}
-//		System.out.println(getNumberOfColumns());
-//		System.out.println(table);
+		System.out.println(getNumberOfColumns());
+		System.out.println(table);
 		return table;
 	}
 	

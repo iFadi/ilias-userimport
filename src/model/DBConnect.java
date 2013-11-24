@@ -42,9 +42,9 @@ public class DBConnect {
 			connection = DriverManager.getConnection("jdbc:sqlite:IUI.db");
 			statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-			statement.executeUpdate("drop table if exists config");
-			statement.executeUpdate("create table config (id integer, name string, value string)");
+			
+//			statement.executeUpdate("drop table if exists config");
+			statement.executeUpdate("create table if not exists config (id integer, name string, value string)");
 			statement.executeUpdate("insert into config values(0, 'studip', '0')");
 			statement.executeUpdate("insert into config values(1, 'localRoleValue', 'test18.02')");
 			statement.executeUpdate("insert into config values(2, 'passwordValue', '123456')");
@@ -54,8 +54,6 @@ public class DBConnect {
 			statement.executeUpdate("insert into config values(6, 'timeLimitUnlimited', '0')");
 			statement.executeUpdate("insert into config values(7, 'timeLimitFrom', '01.02.2013')");
 			statement.executeUpdate("insert into config values(8, 'timeLimitUntil', '01.03.2013')");
-			
-			// For StudIP CSV
 			statement.executeUpdate("insert into config values(9, 'lastNameLabel', 'Nachname')");
 			statement.executeUpdate("insert into config values(10, 'firstNameLabel', 'Vorname')");
 			statement.executeUpdate("insert into config values(11, 'loginLabel', 'Nutzernamen')");
@@ -64,6 +62,9 @@ public class DBConnect {
 			statement.executeUpdate("insert into config values(14, 'matriculationLabel', 'matrikelnummer')");
 			statement.executeUpdate("insert into config values(15, 'emailLabel', 'E-Mail')");
 			statement.executeUpdate("insert into config values(16, 'studipLogin', 'matriculation')");
+			statement.executeUpdate("insert into config values(17, 'generateDummy', '0')");
+			statement.executeUpdate("insert into config values(18, 'globalRoleValue', 'User')");
+
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
@@ -79,6 +80,11 @@ public class DBConnect {
 		}
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @return settings value from the DB.
+	 */
 	public String getValue(String name) {
 
 		ResultSet rs;
@@ -109,5 +115,35 @@ public class DBConnect {
 			}
 		}
 		return value;
+	}
+	
+	/**
+	 * Set new value for the setting.
+	 * 
+	 * @param name
+	 * @param value
+	 */
+	public void setValue(String name, String value) {
+		try {
+			connection = DriverManager.getConnection("jdbc:sqlite:IUI.db");
+			statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("update config set value="+"'"+value+"'"+"where name = '"+name+"' ");
+//			System.out.println("name: "+name+" value= "+value);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connection != null)
+
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e);
+			}
+		}
 	}
 }
