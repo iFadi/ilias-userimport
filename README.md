@@ -3,12 +3,12 @@ This simple App generates a XML file from an Excel or CSV file as input.
 The generated XML file can then be imported into [ILIAS e-Learning System](http://www.ilias.de/).
 
 ## Latest Release
-  * [1.3.1](http://ilias-userimport.googlecode.com/files/IUI_1.3.0.jar) (25.11.2013)
+  * [1.3.1](https://github.com/iFadi/ilias-userimport/releases/download/1.3.1/IUI_1.3.1.jar) (25.11.2013)
 
 ## Features
   * Runs on all Operating Systems (MAC OS, LINUX, WINDOWS).
-  * Don't need to have Microsoft Office in order to generate the XML file.
   * Generates XML file from Excel 97-2004 or CSV file type.
+  * Support CSV Structure import from [StudIP](http://www.studip.de/home/) Courses (German Language).
   * Generates XML file without input for test purposes.
   * Suitable for [ILIAS-EA](http://www.ilias.de/docu/goto_docu_cat_2349.html), i.e. importing users for E-Exams.
   * GUI Interface to add additional fields for imported users.
