@@ -5,6 +5,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 /**
  * 
  * @author Fadi M. H. Asbih
@@ -28,11 +32,14 @@ import java.net.UnknownHostException;
  */
 public class UpdateNotifier {
 	private String projectURL;
+	private String downloadURL;
+	private String latestVersion;
 	private Version version;
 	
-	public UpdateNotifier(Version version) {
+	public UpdateNotifier(Version version) throws IOException {
 		setVersion(version);
-		setProjectURL("http://ilias-userimport.googlecode.com/files/IUI_");
+		setProjectURL("https://github.com/iFadi/ilias-userimport/releases/latest");
+		parsePage(); // Parse the project page.
 	}
 	
 	/**
@@ -68,11 +75,13 @@ public class UpdateNotifier {
 	 * @return true if new version is available
 	 */
 	public boolean IsNewVersionAvailable() {
-		if(check(getProjectURL()+(getVersion().getMajor()+1)+"."+getVersion().getMinor()+"."+getVersion().getBug()+".jar")) 
+		String[] version = getLatestVersion().split("\\.");
+
+		if(Integer.parseInt(version[0]) > getVersion().getMajor()) 
 			return true;
-		else if(check(getProjectURL()+getVersion().getMajor()+"."+(getVersion().getMinor()+1)+"."+getVersion().getBug()+".jar"))
+		else if(Integer.parseInt(version[1]) > getVersion().getMinor())
 			return true;
-		else if(check(getProjectURL()+getVersion().getMajor()+"."+getVersion().getMinor()+"."+(getVersion().getBug()+1)+".jar"))
+		else if(Integer.parseInt(version[2]) > getVersion().getBug())
 			return true;
 		else
 			return false;
@@ -104,5 +113,44 @@ public class UpdateNotifier {
 	 */
 	public void setProjectURL(String projectURL) {
 		this.projectURL = projectURL;
-	}	
+	}
+	
+	public void parsePage() throws IOException {
+		Document document = Jsoup.connect(getProjectURL()).get();
+		Element links = document.getElementsByClass("release-downloads").first().getElementsContainingOwnText("jar").first();
+
+		String url = links.attr("abs:href");
+		String[] result = url.split("/");
+
+		setLatestVersion(result[(result.length)-2]); // Get the Tag number to compare if there is a new version.
+		setDownloadURL(url);// download link for the latest version.
+	}
+
+	/**
+	 * @return the downloadURL
+	 */
+	public String getDownloadURL() {
+		return downloadURL;
+	}
+
+	/**
+	 * @param downloadURL the downloadURL to set
+	 */
+	public void setDownloadURL(String downloadURL) {
+		this.downloadURL = downloadURL;
+	}
+
+	/**
+	 * @return the latestVersion
+	 */
+	public String getLatestVersion() {
+		return latestVersion;
+	}
+
+	/**
+	 * @param latestVersion the latestVersion to set
+	 */
+	public void setLatestVersion(String latestVersion) {
+		this.latestVersion = latestVersion;
+	}
 }

@@ -89,7 +89,7 @@ public class InputPanel extends JPanel implements ActionListener {
 		config.setBorder(new MatteBorder(null));
 		config.setToolTipText("Show the configuartion dialog");
 		config.setBounds(15, 20, 35, 35);
-				
+						
 		setOpen(new JButton("Open"));
 		getOpen().setBounds(230, 20, 160, 35);
 		setGenerate(new JButton("Input Mode"));
@@ -112,6 +112,13 @@ public class InputPanel extends JPanel implements ActionListener {
 		this.add(getBugOrDownload());
 		this.add(exit);
 
+		if(configuration.isGenerateDummy()) {
+			getGenerate().setText("Generate XML");
+			getGenerate().setEnabled(true);
+			getOpen().setEnabled(false);
+			getOpen().setText("Dummy Mode");
+		}
+		
 		getGenerate().addActionListener(this);
 		getOpen().addActionListener(this);
 		exit.addActionListener(this);
@@ -171,7 +178,7 @@ public class InputPanel extends JPanel implements ActionListener {
 				URI u;
 				d = Desktop.getDesktop();
 				u = new URI(
-						"http://code.google.com/p/ilias-userimport/downloads/list");
+						"https://github.com/iFadi/ilias-userimport/releases/latest");
 				d.browse(u);
 
 			} catch (URISyntaxException e1) {

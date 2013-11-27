@@ -53,6 +53,7 @@ public class View extends JFrame implements Observer {
 		
 		if(un.IsNewVersionAvailable()) {
 			panel.getBugOrDownload().setText("DOWNLOAD NOW"); //Download link to the new App
+//			System.out.println("New Version is there.");
 		}
 		
 		this.add(panel, BorderLayout.CENTER);
@@ -65,13 +66,13 @@ public class View extends JFrame implements Observer {
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
 		
-		if(configuration.isGenerateDummy()) {
-			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
-			getStatus().setForeground(Color.black);
-		}
-		else if(un.IsNewVersionAvailable()) {
+		if(un.IsNewVersionAvailable()) {
 			getStatus().setText("NEW VERSION IS AVAILABLE");
 			getStatus().setForeground(Color.MAGENTA);
+		}
+		else if(configuration.isGenerateDummy()) {
+			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
+			getStatus().setForeground(Color.black);
 		}
 		else {
 			getStatus().setText("Click Open to Choose a File.");
