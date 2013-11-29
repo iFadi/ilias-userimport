@@ -28,6 +28,7 @@ public class Configuration extends Observable {
 	private boolean generateLogin;
 	private boolean generateDummy;
 	private boolean studip;
+	private boolean generateOutput;
 
 	private String timeLimitUnlimited;
 	private String actionLabel;
@@ -68,9 +69,6 @@ public class Configuration extends Observable {
 		
 		try {
 			setStudip(db.getValue("studip"));
-			
-			//Values
-//			setActionValue(db.getValue("actionValue"));
 			setGlobalRoleValue(db.getValue("globalRoleValue"));
 			setLocalRoleValue(db.getValue("localRoleValue"));
 			setPasswordValue(db.getValue("passwordValue"));
@@ -83,6 +81,7 @@ public class Configuration extends Observable {
 			setTimeLimitUntil(db.getValue("timeLimitUntil"));
 			setStudipLogin(db.getValue("studipLogin"));
 			setGenerateDummy(db.getValue("generateDummy"));
+			setGenerateOutput(Boolean.parseBoolean(db.getValue("generateOutput")));
 			
 			setGenerateLogin(true);
 //			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
@@ -613,5 +612,14 @@ public class Configuration extends Observable {
 	public void setGlobalRoleValue(String globalRoleValue) {
 		this.globalRoleValue = globalRoleValue;
 		db.setValue("globalRoleValue", globalRoleValue);
+	}
+
+	public boolean isGenerateOutput() {
+		return generateOutput;
+	}
+
+	public void setGenerateOutput(boolean generateOutput) {
+		this.generateOutput = generateOutput;
+		db.setValue("generateOutput", String.valueOf(generateOutput));
 	}
 }

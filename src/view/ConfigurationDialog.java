@@ -22,6 +22,8 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Color;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 /**
  * 
@@ -58,11 +60,12 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 	private JTextField textField_4;
 	private InputPanel ip;
 	private Configuration configuration;
-	private JCheckBox chckbxDummyInterface, chckbxLimitedAccess, chckbxStudipCsv;
+	private JCheckBox chckbxDummyInterface, chckbxLimitedAccess, chckbxStudipCsv, chckbxOutput;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JComboBox comboBox;
 	private JTextField textField_7;
+	private JButton okButton;
 
 	/**
 	 * Create the dialog.
@@ -85,7 +88,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		chckbxStudipCsv.addActionListener(this);
 		contentPanel.add(chckbxStudipCsv);
 		
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"matriculation", "first.lastname", "email"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"matriculation", "first.lastname", "email", "random"}));
 		comboBox.setSelectedItem(configuration.getStudipLogin());
 		comboBox.setBounds(310, 203, 134, 27);
 		comboBox.addActionListener(this);
@@ -242,19 +245,44 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			buttonPane.setBounds(0, 288, 450, 34);
+			contentPanel.add(buttonPane);
+			
+			chckbxOutput = new JCheckBox("Generate output");
+			chckbxOutput.setSelected(configuration.isGenerateOutput());
+			chckbxOutput.setToolTipText("If you choose Random Login/Password, you can check this box.");
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("OK");
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 				okButton.addActionListener(this);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				GroupLayout gl_buttonPane = new GroupLayout(buttonPane);
+				gl_buttonPane.setHorizontalGroup(
+					gl_buttonPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_buttonPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(chckbxOutput)
+							.addGap(145)
+							.addComponent(okButton)
+							.addGap(5)
+							.addComponent(cancelButton))
+				);
+				gl_buttonPane.setVerticalGroup(
+					gl_buttonPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_buttonPane.createSequentialGroup()
+							.addGap(5)
+							.addGroup(gl_buttonPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(okButton)
+								.addComponent(chckbxOutput)))
+						.addGroup(gl_buttonPane.createSequentialGroup()
+							.addGap(5)
+							.addComponent(cancelButton))
+				);
+				buttonPane.setLayout(gl_buttonPane);
 				cancelButton.addActionListener(this);
 			}
 		}
@@ -333,6 +361,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 				ip.getGenerate().setEnabled(false);
 			}
 			
+			configuration.setGenerateOutput(chckbxOutput.isSelected());
 			configuration.setLocalRoleValue(textField.getText());
 			configuration.setGlobalRoleValue(textField_7.getText());
 			configuration.setPasswordValue(textField_1.getText());

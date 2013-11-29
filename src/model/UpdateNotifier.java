@@ -59,7 +59,7 @@ public class UpdateNotifier {
                     //trying to retrieve data from the source. If there
                     //is no connection, this line will fail
                     Object objData = urlConnect.getContent();
-                    System.out.println(objData);
+//                    System.out.println(objData);
 
             } catch (UnknownHostException e) {
                     return false;
@@ -75,15 +75,19 @@ public class UpdateNotifier {
 	 * @return true if new version is available
 	 */
 	public boolean IsNewVersionAvailable() {
-		String[] version = getLatestVersion().split("\\.");
+		if(check(getProjectURL())) {
+			String[] version = getLatestVersion().split("\\.");
 
-		if(Integer.parseInt(version[0]) > getVersion().getMajor()) 
-			return true;
-		else if(Integer.parseInt(version[1]) > getVersion().getMinor())
-			return true;
-		else if(Integer.parseInt(version[2]) > getVersion().getBug())
-			return true;
-		else
+			if(Integer.parseInt(version[0]) > getVersion().getMajor()) 
+				return true;
+			else if(Integer.parseInt(version[1]) > getVersion().getMinor())
+				return true;
+			else if(Integer.parseInt(version[2]) > getVersion().getBug())
+				return true;
+			else
+				return false;
+		}
+		else 
 			return false;
 	}
 
@@ -116,14 +120,18 @@ public class UpdateNotifier {
 	}
 	
 	public void parsePage() throws IOException {
-		Document document = Jsoup.connect(getProjectURL()).get();
-		Element links = document.getElementsByClass("release-downloads").first().getElementsContainingOwnText("jar").first();
+		if(check(getProjectURL())) {
+			Document document = Jsoup.connect(getProjectURL()).get();
+			Element links = document.getElementsByClass("release-downloads").first().getElementsContainingOwnText("jar").first();
 
-		String url = links.attr("abs:href");
-		String[] result = url.split("/");
+			String url = links.attr("abs:href");
+			String[] result = url.split("/");
 
-		setLatestVersion(result[(result.length)-2]); // Get the Tag number to compare if there is a new version.
-		setDownloadURL(url);// download link for the latest version.
+			setLatestVersion(result[(result.length)-2]); // Get the Tag number to compare if there is a new version.
+			setDownloadURL(url);// download link for the latest version.
+		}
+		else
+			System.out.println("No Internet Connection.");
 	}
 
 	/**

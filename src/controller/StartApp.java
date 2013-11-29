@@ -35,7 +35,7 @@ public class StartApp {
 
 	public static void main(String[] args) throws Exception {
 				 
-		Version version = new Version(1, 3, 1); // The App Version. with each release.
+		Version version = new Version(1, 3, 2); // The App Version. with each release.
 		IFile input = null; // Interface for different input File Types.
 		DBConnect db = new DBConnect(); // Create the DB for saving the settings.
 		Configuration configuration = new Configuration(version, db); // Load the Standard Configuration		

@@ -64,6 +64,7 @@ public class DBConnect {
 			statement.executeUpdate("insert into config values(16, 'studipLogin', 'matriculation')");
 			statement.executeUpdate("insert into config values(17, 'generateDummy', '0')");
 			statement.executeUpdate("insert into config values(18, 'globalRoleValue', 'User')");
+			statement.executeUpdate("insert into config values(19, 'generateOutput', '0')");
 
 		} catch (SQLException e) {
 			// if the error message is "out of memory",

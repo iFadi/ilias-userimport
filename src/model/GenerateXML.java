@@ -1,11 +1,14 @@
 package model;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.StringTokenizer;
 
+import javax.swing.plaf.metal.MetalBorders.Flush3DBorder;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -44,15 +47,24 @@ import controller.IFile;
 public class GenerateXML {
 	
 	private Text login;
+	private Text firstName;
+	private Text lastName;
 	private Text password;
+	private Text matriculation;
 	private Text globalRole;
 	private Text title;
+	private FileWriter writer;
 	private Configuration configuration;
 	
 	public GenerateXML(Configuration configuration) {
 		this.configuration = configuration;
 	}
 	
+	/**
+	 * This method is actually at the moment for the dummy interface
+	 * @param output
+	 * @throws Exception
+	 */
 	public void GenerateXMLFile(String output) throws Exception {
 		// We need a Document
 		DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
@@ -189,6 +201,11 @@ public class GenerateXML {
 		Element root = doc.createElement("Users");
 		doc.appendChild(root);
 
+		if(configuration.isGenerateOutput()) {
+			writer = new FileWriter("dozent_output.csv");
+			writer.append("Login, Passwort, Vorname, Nachname, Matikelnummer\n");
+		}
+		
 		for (int i = 1; i < input.getColumn(configuration.getFirstNameLabel()).size(); i++) {
 			if(input.getColumn(configuration.getMatriculationLabel()).get(i).isEmpty()) {// Consider only persons with matriculation.
 //				System.out.println("OK");
@@ -250,6 +267,8 @@ public class GenerateXML {
 					setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
 				if(configuration.getStudipLogin().equals("email"))
 					setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getEmailLabel()).get(i))));
+				if(configuration.getStudipLogin().equals("random"))
+					setLogin(doc.createTextNode(generatePassword()));
 				login.appendChild((Text)getLogin());
 				user.appendChild(login);
 			}
@@ -271,8 +290,8 @@ public class GenerateXML {
 			if(input.getColumn(configuration.getPasswordLabel()).size() == 0 || configuration.isGeneratePassword()) { //If Password Column dosen't exists, then password will be auto generated combined from firstname.lastname
 				password.setAttribute("Type", "ILIAS3");
 //				Text pass = doc.createTextNode(MD5(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
-				Text pass = doc.createTextNode(MD5(removeSpaces(configuration.getPasswordValue()))); 
-				password.appendChild(pass);
+				setPassword(doc.createTextNode(MD5(removeSpaces(configuration.getPasswordValue())))); 
+				password.appendChild(getPassword());
 				user.appendChild(password);
 			}
 			else{ // get the password column
@@ -304,14 +323,14 @@ public class GenerateXML {
 			}
 			
 			// Add first Name
-			Text firstNameText = doc.createTextNode((String) input.getColumn(configuration.getFirstNameLabel()).get(i));
-			firstname.appendChild(firstNameText);
+			setFirstName(doc.createTextNode((String) input.getColumn(configuration.getFirstNameLabel()).get(i)));
+			firstname.appendChild(getFirstName());
 			user.appendChild(firstname);
 			// System.out.println((String)input.getColumn("Firstname").get(i));
 
 			// Add Last Name
-			Text lastNameText = doc.createTextNode((String) input.getColumn(configuration.getLastNameLabel()).get(i));
-			lastname.appendChild(lastNameText);
+			setLastName(doc.createTextNode((String) input.getColumn(configuration.getLastNameLabel()).get(i)));
+			lastname.appendChild(getLastName());
 			user.appendChild(lastname);
 //			System.out.println((String)input.getColumn(configuration.getLastNameLabel()).get(i));
 
@@ -322,9 +341,9 @@ public class GenerateXML {
 //			System.out.println((String)input.getColumn(configuration.getEmailLabel()).get(i));
 
 			// Add matriculation
-			Text matText = doc.createTextNode((String) input.getColumn(configuration.getMatriculationLabel()).get(i));
+			setMatriculation(doc.createTextNode((String) input.getColumn(configuration.getMatriculationLabel()).get(i)));
 //			System.out.println(input.getColumn(configuration.getMatriculationLabel()).get(i));
-			matriculation.appendChild(matText);
+			matriculation.appendChild(getMatriculation());
 			user.appendChild(matriculation);
 			
 			// Add Limited Account
@@ -343,9 +362,16 @@ public class GenerateXML {
 			Text TimeUntil = doc.createTextNode(configuration.getTimeLimitUntil());
 			until.appendChild(TimeUntil);
 			user.appendChild(until);
+			
+			if(configuration.isGenerateOutput()) {
+//				System.out.println("Here comes a new function");
+				writer.append(getLogin().getTextContent()+","+configuration.getPasswordValue()+","+getFirstName().getTextContent()+","+getLastName().getTextContent()+","+getMatriculation().getTextContent()+"\n");
+			}
 
 		}
-
+		writer.flush();
+		writer.close();
+		
 		// write the content into xml file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
@@ -409,6 +435,23 @@ public class GenerateXML {
 		md.update(text.getBytes("iso-8859-1"), 0, text.length());
 		md5hash = md.digest();
 		return convertToHex(md5hash);
+	}
+	
+	/**
+	 * A function to generate a random password.
+	 * @return
+	 */
+	public static String generatePassword() {
+		char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 8; i++) {
+		    char c = chars[random.nextInt(chars.length)];
+		    sb.append(c);
+		}
+		String output = sb.toString();
+//		System.out.println(output);
+		return output;
 	}
 
 	/**
@@ -487,5 +530,39 @@ public class GenerateXML {
 	public void setPassword(Text password) {
 		this.password = password;
 	}
+
+	public Text getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(Text firstName) {
+		this.firstName = firstName;
+	}
+
+	public Text getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(Text lastName) {
+		this.lastName = lastName;
+	}
+
+	public Text getMatriculation() {
+		return matriculation;
+	}
+
+	public void setMatriculation(Text matriculation) {
+		this.matriculation = matriculation;
+	}
+
+	public FileWriter getWriter() {
+		return writer;
+	}
+
+	public void setWriter(FileWriter writer) {
+		this.writer = writer;
+	}
+	
+	
 	
 }
