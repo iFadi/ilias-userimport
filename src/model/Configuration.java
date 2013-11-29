@@ -29,6 +29,7 @@ public class Configuration extends Observable {
 	private boolean generateDummy;
 	private boolean studip;
 	private boolean generateOutput;
+	private boolean generatePassword;
 
 	private String timeLimitUnlimited;
 	private String actionLabel;
@@ -82,6 +83,7 @@ public class Configuration extends Observable {
 			setStudipLogin(db.getValue("studipLogin"));
 			setGenerateDummy(db.getValue("generateDummy"));
 			setGenerateOutput(Boolean.parseBoolean(db.getValue("generateOutput")));
+			setGeneratePassword(Boolean.parseBoolean(db.getValue("generatePassword")));
 			
 			setGenerateLogin(true);
 //			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
@@ -267,16 +269,6 @@ public class Configuration extends Observable {
 	 */
 	public void setTitleLabel(String titleLabel) {
 		this.titleLabel = titleLabel;
-	}
-
-	/**
-	 * @return the generatePassword
-	 */
-	public boolean isGeneratePassword() {
-		if(password == null)
-			return false;
-		else
-			return true;
 	}
 
 	/**
@@ -621,5 +613,19 @@ public class Configuration extends Observable {
 	public void setGenerateOutput(boolean generateOutput) {
 		this.generateOutput = generateOutput;
 		db.setValue("generateOutput", String.valueOf(generateOutput));
+		setChanged();
+		notifyObservers();
 	}
+
+	public void setGeneratePassword(boolean generatePassword) {
+		this.generatePassword = generatePassword;
+		db.setValue("generatePassword", String.valueOf(generatePassword));
+		setChanged();
+		notifyObservers();
+	}
+
+	public boolean isGeneratePassword() {
+		return generatePassword;
+	}
+	
 }

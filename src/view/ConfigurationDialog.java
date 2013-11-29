@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -16,14 +17,22 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import model.Configuration;
+
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JRadioButton;
 
 /**
  * 
@@ -46,7 +55,7 @@ import javax.swing.GroupLayout.Alignment;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-public class ConfigurationDialog extends JDialog implements ActionListener {
+public class ConfigurationDialog extends JDialog implements ActionListener, Observer {
 
 	/**
 	 * 
@@ -66,6 +75,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 	private JComboBox comboBox;
 	private JTextField textField_7;
 	private JButton okButton;
+	private JRadioButton rdbtnRandom, radioButton;
 
 	/**
 	 * Create the dialog.
@@ -78,6 +88,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		configuration.addObserver(this);
 		
 		chckbxStudipCsv = new JCheckBox("StudIP CSV");
 		comboBox = new JComboBox();
@@ -112,8 +123,8 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		lblPassword.setBounds(6, 86, 102, 28);
 		contentPanel.add(lblPassword);
 		
-		JLabel lblCsvSeperator = new JLabel("CSV Seperator");
-		lblCsvSeperator.setBounds(6, 126, 102, 28);
+		JLabel lblCsvSeperator = new JLabel("CSV");
+		lblCsvSeperator.setBounds(271, 126, 102, 28);
 		lblCsvSeperator.setToolTipText("You can change the CSV seperator, i.e. if your imported CSV has ',' als seprator.");
 		contentPanel.add(lblCsvSeperator);
 		
@@ -125,7 +136,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(125, 126, 134, 28);
+		textField_2.setBounds(310, 126, 134, 28);
 		contentPanel.add(textField_2);
 		textField_2.setText(configuration.getCSVSymbol());
 		
@@ -283,10 +294,23 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 							.addComponent(cancelButton))
 				);
 				buttonPane.setLayout(gl_buttonPane);
+				
+				rdbtnRandom = new JRadioButton("Random");
+				rdbtnRandom.setBounds(103, 128, 141, 23);
+				rdbtnRandom.setSelected(configuration.isGeneratePassword());
+				contentPanel.add(rdbtnRandom);
+				
+				radioButton = new JRadioButton("");
+				radioButton.setBounds(103, 86, 141, 23);
+				contentPanel.add(radioButton);
 				cancelButton.addActionListener(this);
 			}
 		}
 		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnRandom);
+		bg.add(radioButton);
+						
 		if(chckbxStudipCsv.isSelected()) {
 			comboBox.setEnabled(true);
 			chckbxDummyInterface.setEnabled(false);
@@ -361,6 +385,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 				ip.getGenerate().setEnabled(false);
 			}
 			
+			configuration.setGeneratePassword(rdbtnRandom.isSelected());
 			configuration.setGenerateOutput(chckbxOutput.isSelected());
 			configuration.setLocalRoleValue(textField.getText());
 			configuration.setGlobalRoleValue(textField_7.getText());
@@ -380,5 +405,19 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 				configuration.setTimeLimitUnlimited("1");
 			dispose();
 		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(rdbtnRandom.isSelected()) {
+			textField_1.setEditable(false);
+			System.out.println("Randmn");
+		}
+		else {
+			configuration.setGeneratePassword(false);
+			textField_1.setEditable(true);
+			System.out.println("one p");
+		}
+		
 	}
 }

@@ -50,6 +50,7 @@ public class GenerateXML {
 	private Text firstName;
 	private Text lastName;
 	private Text password;
+	private String decryptedPassword;
 	private Text matriculation;
 	private Text globalRole;
 	private Text title;
@@ -268,7 +269,7 @@ public class GenerateXML {
 				if(configuration.getStudipLogin().equals("email"))
 					setLogin(doc.createTextNode(removeSpaces((String)input.getColumn(configuration.getEmailLabel()).get(i))));
 				if(configuration.getStudipLogin().equals("random"))
-					setLogin(doc.createTextNode(generatePassword()));
+					setLogin(doc.createTextNode(generateRandomString(5)));
 				login.appendChild((Text)getLogin());
 				user.appendChild(login);
 			}
@@ -290,17 +291,25 @@ public class GenerateXML {
 			if(input.getColumn(configuration.getPasswordLabel()).size() == 0 || configuration.isGeneratePassword()) { //If Password Column dosen't exists, then password will be auto generated combined from firstname.lastname
 				password.setAttribute("Type", "ILIAS3");
 //				Text pass = doc.createTextNode(MD5(removeSpaces((String)input.getColumn(configuration.getFirstNameLabel()).get(i)+"."+(String)input.getColumn(configuration.getLastNameLabel()).get(i))));
+				configuration.setPasswordValue(generateRandomString(8));
+				setPassword(doc.createTextNode(MD5(configuration.getPasswordValue()))); 
+				password.appendChild(getPassword());
+				user.appendChild(password);
+			}
+			else{ 
+				if(!configuration.isGeneratePassword()) {
+				password.setAttribute("Type", "ILIAS3");
 				setPassword(doc.createTextNode(MD5(removeSpaces(configuration.getPasswordValue())))); 
 				password.appendChild(getPassword());
 				user.appendChild(password);
 			}
 			else{ // get the password column
 				password.setAttribute("Type", "ILIAS3");
-				Text pass = doc.createTextNode(MD5(removeSpaces((String) input.getColumn(configuration.getPasswordLabel()).get(i))));
-				password.appendChild(pass);
+				setPassword(doc.createTextNode(MD5(removeSpaces((String) input.getColumn(configuration.getPasswordLabel()).get(i)))));
+				password.appendChild(getPassword());
 				user.appendChild(password);
 			}
-
+			} 
 			// Add Gender, if Gender column doesn't exist
 			if(input.getColumn("Gender").size() == 0) {
 				Text genderText = doc.createTextNode(configuration.getGenderValue());
@@ -441,11 +450,11 @@ public class GenerateXML {
 	 * A function to generate a random password.
 	 * @return
 	 */
-	public static String generatePassword() {
+	public static String generateRandomString(int length) {
 		char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < length; i++) {
 		    char c = chars[random.nextInt(chars.length)];
 		    sb.append(c);
 		}
@@ -561,6 +570,14 @@ public class GenerateXML {
 
 	public void setWriter(FileWriter writer) {
 		this.writer = writer;
+	}
+
+	public String getDecryptedPassword() {
+		return decryptedPassword;
+	}
+
+	public void setDecryptedPassword(String decryptedPassword) {
+		this.decryptedPassword = decryptedPassword;
 	}
 	
 	
