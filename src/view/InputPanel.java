@@ -14,6 +14,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -79,9 +80,7 @@ public class InputPanel extends JPanel implements ActionListener {
 
 		setLayout(null);
 
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		URL resource = classLoader.getResource("img/config.png");
-		ImageIcon icon = new ImageIcon(resource);
+		ImageIcon icon = new ImageIcon(getClass().getResource("/config.png"));
 
 		config = new JButton(icon);		
 		config.setEnabled(true);

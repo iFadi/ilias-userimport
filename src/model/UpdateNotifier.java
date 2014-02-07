@@ -76,16 +76,23 @@ public class UpdateNotifier {
 	 */
 	public boolean IsNewVersionAvailable() {
 		if(check(getProjectURL())) {
-			String[] version = getLatestVersion().split("\\.");
-
-			if(Integer.parseInt(version[0]) > getVersion().getMajor()) 
-				return true;
-			else if(Integer.parseInt(version[1]) > getVersion().getMinor())
-				return true;
-			else if(Integer.parseInt(version[2]) > getVersion().getBug())
-				return true;
-			else
+			try {
+				String[] version = getLatestVersion().split("\\.");
+				if(Integer.parseInt(version[0]) > getVersion().getMajor()) 
+					return true;
+				else if(Integer.parseInt(version[1]) > getVersion().getMinor())
+					return true;
+				else if(Integer.parseInt(version[2]) > getVersion().getBug())
+					return true;
+				else
+					return false;
+			}
+			catch(NullPointerException e) {
+				System.out.println("SHIT!");
 				return false;
+			}
+
+
 		}
 		else 
 			return false;
@@ -127,7 +134,12 @@ public class UpdateNotifier {
 			String url = links.attr("abs:href");
 			String[] result = url.split("/");
 
-			setLatestVersion(result[(result.length)-2]); // Get the Tag number to compare if there is a new version.
+			try {
+				setLatestVersion(result[(result.length)-2]); // Get the Tag number to compare if there is a new version.
+			}
+			catch(ArrayIndexOutOfBoundsException e){
+				System.out.println("SHIT!");
+			}
 			setDownloadURL(url);// download link for the latest version.
 		}
 		else
