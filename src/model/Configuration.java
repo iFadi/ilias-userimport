@@ -60,44 +60,44 @@ public class Configuration extends Observable {
 	private DBConnect db;
 	
 	public Configuration() {
-		new Configuration(version, db);
+		new Configuration(version);
 	}
 	
-	public Configuration(Version version, DBConnect db) {
+	public Configuration(Version version) {
 				
 		this.setVersion(version);
 		this.db = db;
 		
-		try {
-			setStudip(db.getValue("studip"));
-			setGlobalRoleValue(db.getValue("globalRoleValue"));
-			setLocalRoleValue(db.getValue("localRoleValue"));
-			setPasswordValue(db.getValue("passwordValue"));
-			setNumberOfUsers(Integer.parseInt(db.getValue("numberOfUsers")));
-			setLoginPrefix(db.getValue("loginPrefix"));
-//			setGenderValue(db.getValue("genderValue"));
-			setCSVSymbol(db.getValue("CSVSymbol"));
-			setTimeLimitUnlimited(db.getValue("timeLimitUnlimited"));
-			setTimeLimitFrom(db.getValue("timeLimitFrom"));
-			setTimeLimitUntil(db.getValue("timeLimitUntil"));
-			setStudipLogin(db.getValue("studipLogin"));
-			setGenerateDummy(db.getValue("generateDummy"));
-			setGenerateOutput(Boolean.parseBoolean(db.getValue("generateOutput")));
-			setGeneratePassword(Boolean.parseBoolean(db.getValue("generatePassword")));
-			
-			setGenerateLogin(true);
-//			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
-//			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
-//			System.out.println(localRoleValue);
-			//Boolean
-//			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
-//			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("No properties file is loaded, Standard settings will be used.");
-		}
-		
+//		try {
+//			setStudip(db.getValue("studip"));
+//			setGlobalRoleValue(db.getValue("globalRoleValue"));
+//			setLocalRoleValue(db.getValue("localRoleValue"));
+//			setPasswordValue(db.getValue("passwordValue"));
+//			setNumberOfUsers(Integer.parseInt(db.getValue("numberOfUsers")));
+//			setLoginPrefix(db.getValue("loginPrefix"));
+////			setGenderValue(db.getValue("genderValue"));
+//			setCSVSymbol(db.getValue("CSVSymbol"));
+//			setTimeLimitUnlimited(db.getValue("timeLimitUnlimited"));
+//			setTimeLimitFrom(db.getValue("timeLimitFrom"));
+//			setTimeLimitUntil(db.getValue("timeLimitUntil"));
+//			setStudipLogin(db.getValue("studipLogin"));
+//			setGenerateDummy(db.getValue("generateDummy"));
+//			setGenerateOutput(Boolean.parseBoolean(db.getValue("generateOutput")));
+//			setGeneratePassword(Boolean.parseBoolean(db.getValue("generatePassword")));
+//			
+//			setGenerateLogin(true);
+////			setTimeLimitFrom(properties.getProperty("timeLimitFrom"));
+////			setTimeLimitFrom(properties.getProperty("timeLimitUntil"));
+////			System.out.println(localRoleValue);
+//			//Boolean
+////			setGenerateLogin(Boolean.parseBoolean(properties.getProperty("generateLogin")));
+////			setGenerateDummy(Boolean.parseBoolean(properties.getProperty("generateDummy")));
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("No properties file is loaded, Standard settings will be used.");
+//		}
+//		
 	}
 
 	/**

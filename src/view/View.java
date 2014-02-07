@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 
 import model.Configuration;
 import model.GenerateXML;
-import model.UpdateNotifier;
 import controller.IFile;
 
 /**
@@ -43,19 +42,13 @@ public class View extends JFrame implements Observer {
 
 	public View(final IFile input, GenerateXML xml, Configuration configuration) throws Exception {
 		this.configuration = configuration;
-		UpdateNotifier un = new UpdateNotifier(configuration.getVersion()); // Notify if Update is available 
 
 		this.setTitle("ILIAS User Import"); //The Title of the Window.
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //When clicking on the x the window will close.
 		
 
 		panel = new InputPanel(input, xml, this, configuration);  //Input Panel
-		
-		if(un.IsNewVersionAvailable()) {
-			panel.getBugOrDownload().setText("DOWNLOAD NOW"); //Download link to the new App
-//			System.out.println("New Version is there.");
-		}
-		
+				
 		this.add(panel, BorderLayout.CENTER);
 		
 		this.pack();
@@ -66,11 +59,7 @@ public class View extends JFrame implements Observer {
 		status.setHorizontalAlignment(JTextField.CENTER);
 		status.setEditable(false);
 		
-		if(un.IsNewVersionAvailable()) {
-			getStatus().setText("NEW VERSION IS AVAILABLE");
-			getStatus().setForeground(Color.MAGENTA);
-		}
-		else if(configuration.isGenerateDummy()) {
+		if(configuration.isGenerateDummy()) {
 			getStatus().setText("Generate dummy user accounts i.e. for test purposes.");
 			getStatus().setForeground(Color.black);
 		}
