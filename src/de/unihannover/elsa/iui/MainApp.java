@@ -34,6 +34,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
 import de.unihannover.elsa.iui.view.RootLayoutController;
+import de.unihannover.elsa.iui.view.SettingsDialogController;
 import de.unihannover.elsa.iui.view.UserEditDialogController;
 import de.unihannover.elsa.iui.view.UserOverviewController;
 
@@ -59,6 +60,39 @@ public class MainApp extends Application {
     public MainApp() {
 
     }
+    
+    public boolean showSettingsDialog() {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SettingsDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Settings");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Give the controller access to the main app.
+            SettingsDialogController controller = loader.getController();
+            controller.setMainApp(this);
+            
+            controller.setDialogStage(dialogStage);
+
+            
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     /**
      * Opens a dialog to edit details for the specified person. If the user
      * clicks OK, the changes are saved into the provided person object and true
@@ -200,12 +234,12 @@ public class MainApp extends Application {
             prefs.put("filePath", file.getPath());
 
             // Update the stage title.
-            primaryStage.setTitle("AddressApp - " + file.getName());
+            primaryStage.setTitle("ILIAS User Import - " + file.getName());
         } else {
             prefs.remove("filePath");
 
             // Update the stage title.
-            primaryStage.setTitle("AddressApp");
+            primaryStage.setTitle("ILIAS User Import");
         }
     }
     
@@ -281,6 +315,7 @@ public class MainApp extends Application {
 	        //nextLine[1] is for firstName, nextLine[2] for secondName in Stud.IP CSV.
 	        User user = new User(nextLine[1], nextLine[2]);
 	        user.setLogin(nextLine[4]);
+	        user.setEmail(nextLine[7]);
 	        user.setMatriculation(nextLine[22]);
 	        userData.add(user);
 	    }

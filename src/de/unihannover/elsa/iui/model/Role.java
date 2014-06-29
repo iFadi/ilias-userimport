@@ -1,7 +1,7 @@
 package de.unihannover.elsa.iui.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlValue;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-@XmlRootElement(name="Role")
+
+@XmlType(name="Role")
 public class Role {
 
 	private String id;
@@ -33,6 +34,10 @@ public class Role {
 	
 	public Role() {
 		this(null,null);
+	}
+	
+	public Role(String type) {
+		this(null,type);
 	}
 	
 	public Role(String id, String type) {
@@ -86,10 +91,6 @@ public class Role {
 		this.action = action;
 	}
 	
-	public String toString() {
-		return this.id;
-	}
-
 	/**
 	 * @return the value
 	 */

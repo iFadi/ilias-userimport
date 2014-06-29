@@ -42,6 +42,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Global Role" />
@@ -49,37 +50,39 @@
                         <Label text="Login" GridPane.rowIndex="2" />
                         <Label text="First Name" GridPane.rowIndex="3" />
                         <Label text="Last Name" GridPane.rowIndex="4" />
-                        <Label text="Matriculation" GridPane.rowIndex="5" />
-                        <Label text="Gender" GridPane.rowIndex="6" />
-                        <Label text="Street" GridPane.rowIndex="7" />
-                        <Label text="Postal Code" GridPane.rowIndex="8" />
-                        <Label text="City" GridPane.rowIndex="9" />
+                        <Label text="Email" GridPane.rowIndex="5" />
+                        <Label text="Matriculation" GridPane.rowIndex="6" />
+                        <Label text="Gender" GridPane.rowIndex="7" />
+                        <Label text="Street" GridPane.rowIndex="8" />
+                        <Label text="Postal Code" GridPane.rowIndex="9" />
+                        <Label text="City" GridPane.rowIndex="10" />
                         <Label fx:id="globalRoleLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="localRoleLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="loginLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="matriculationLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="genderLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="matriculationLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="genderLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                      </children>
                   </GridPane>
-                  <HBox layoutX="245.0" layoutY="304.0">
+                  <HBox layoutX="192.0" layoutY="304.0">
                      <children>
-                        <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" text="New">
+                        <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></Button>
-                        <Button layoutX="265.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Edit">
+                        <Button layoutX="265.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="30.0" prefWidth="100.0" text="Edit">
                            <padding>
                               <Insets right="5.0" />
                            </padding>
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></Button>
-                        <Button layoutX="342.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete">
+                        <Button layoutX="342.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" prefWidth="100.0" text="Delete">
                            <padding>
                               <Insets right="5.0" />
                            </padding>

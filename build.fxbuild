@@ -2,7 +2,7 @@
 <anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://org.eclipse.fx.ide.jdt/1.0" buildDirectory="${project}/build">
   <deploy packagingFormat="dmg">
     <application name="AddressApp" mainclass="de.unihannover.elsa.iui.MainApp" version="2.0"/>
-    <info title="ILIAS User Import" vendor="Fadi Asbih"/>
+    <info title="ILIASUserImport" vendor="Fadi Asbih"/>
   </deploy>
   <signjar/>
 </anttasks:AntTask>

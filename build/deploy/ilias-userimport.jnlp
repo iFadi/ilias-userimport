@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ilias-userimport.jnlp">
+  <information>
+    <title>ilias-userimport</title>
+    <vendor>Fadi Asbih</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <jfx:javafx-runtime version="2.2+" href="http://javadl.sun.com/webapps/download/GetFile/javafx-latest/windows-i586/javafx2.jnlp"/>
+  </resources>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="ilias-userimport.jar" size="24002" download="eager" />
+    <jar href="libs/commons-io-2.4.jar" size="185140" download="eager" />
+    <jar href="libs/controlsfx-8.0.6.jar" size="848492" download="eager" />
+    <jar href="libs/opencsv-2.3.jar" size="14146" download="eager" />
+    <jar href="libs/poi-3.10-FINAL-20140208.jar" size="1950905" download="eager" />
+  </resources>
+  <applet-desc  width="0" height="0" main-class="com.javafx.main.NoJavaFXFallback"  name="ILIASUserImport" >
+    <param name="requiredFXVersion" value="2.2+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="0" height="0" main-class="de.unihannover.elsa.iui.MainApp"  name="ILIASUserImport" />
+  <update check="background"/>
+</jnlp>

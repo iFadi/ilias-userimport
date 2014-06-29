@@ -35,6 +35,8 @@ public class UserOverviewController {
     @FXML
     private Label lastNameLabel;
     @FXML
+    private Label emailLabel;
+    @FXML
     private Label matriculationLabel;
     @FXML
     private Label genderLabel;
@@ -65,11 +67,15 @@ public class UserOverviewController {
     private void showPersonDetails(User user) {
         if (user != null) {
             // Fill the labels with info from the person object.
-            globalRoleLabel.setText(user.getGlobalRole().toString());
-            localRoleLabel.setText(user.getLocalRole().toString());
+            globalRoleLabel.setText(user.getGlobalRole().getValue());
+            System.out.println("global: "+user.getGlobalRole().getValue());
+            localRoleLabel.setText(user.getLocalRole().getValue());
+            System.out.println("Local: "+user.getLocalRole().getValue());
         	loginLabel.setText(user.getLogin());
+//        	System.out.println(user.getLogin());
             firstNameLabel.setText(user.getFirstName());
             lastNameLabel.setText(user.getLastName());
+            emailLabel.setText(user.getEmail());
             matriculationLabel.setText(user.getMatriculation());
             genderLabel.setText(user.getGender());
             streetLabel.setText(user.getStreet());
@@ -83,6 +89,7 @@ public class UserOverviewController {
             loginLabel.setText("");
             firstNameLabel.setText("");
             lastNameLabel.setText("");
+            emailLabel.setText("");
             matriculationLabel.setText("");
             genderLabel.setText("");
             streetLabel.setText("");

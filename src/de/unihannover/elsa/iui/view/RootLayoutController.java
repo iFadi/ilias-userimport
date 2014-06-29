@@ -75,10 +75,10 @@ public class RootLayoutController {
         // Set extension filter        
         FileChooser.ExtensionFilter filter1 = new FileChooser.ExtensionFilter(
                 "Stud.IP CSV file (*.csv)", "*.csv");
-        FileChooser.ExtensionFilter filter2 = new FileChooser.ExtensionFilter(
-        		"Excel 97-2004 (*.xls)", "*.xls");
+//        FileChooser.ExtensionFilter filter2 = new FileChooser.ExtensionFilter(
+//        		"Excel 97-2004 (*.xls)", "*.xls");
         fileChooser.getExtensionFilters().add(filter1);
-        fileChooser.getExtensionFilters().add(filter2);
+//        fileChooser.getExtensionFilters().add(filter2);
 		
         // Show save file dialog
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
@@ -136,11 +136,19 @@ public class RootLayoutController {
      * Opens an about dialog.
      */
     @FXML
+    private void handleSettings() {
+    	mainApp.showSettingsDialog();
+    }
+    
+    /**
+     * Opens an about dialog.
+     */
+    @FXML
     private void handleAbout() {
         Dialogs.create()
             .title("ILIAS User Import")
             .masthead("About")
-            .message("\nMost of Code Originally from Marco Jakob\nWebsite: http://code.makery.ch\n\nAuthor: Fadi Asbih\nVersion: 2.0 beta")
+            .message("\nMost of Code Originally from Marco Jakob\nWebsite: http://code.makery.ch\n\nAuthor: Fadi Asbih\nVersion: 2.0 beta\nProject: https://github.com/iFadi/ilias-userimport")
             .showInformation();
     }
 
