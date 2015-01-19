@@ -84,7 +84,7 @@ public class User {
         this.globalRole = globalRole;
     }
     
-//    @XmlElement(name = "Role")
+    @XmlElement(name = "Role")
     public Role getLocalRole() {
         return localRole;
     }

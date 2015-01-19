@@ -23,6 +23,8 @@ public class UserOverviewController {
     private TableColumn<User, String> firstNameColumn;
     @FXML
     private TableColumn<User, String> lastNameColumn;
+    @FXML
+    private TableColumn<User, String> loginColumn;
 
     @FXML
     private Label globalRoleLabel;
@@ -110,7 +112,9 @@ public class UserOverviewController {
                 cellData -> cellData.getValue().firstNameProperty());
         lastNameColumn.setCellValueFactory(
                 cellData -> cellData.getValue().lastNameProperty());
-
+        loginColumn.setCellValueFactory(
+                cellData -> cellData.getValue().LoginProperty());
+        
         // Clear person details.
         showPersonDetails(null);
 

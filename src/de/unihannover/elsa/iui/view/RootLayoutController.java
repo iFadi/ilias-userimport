@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.stage.FileChooser;
 
 import org.apache.commons.io.FilenameUtils;
@@ -93,7 +96,27 @@ public class RootLayoutController {
             }
         }
     }
+    
+    /**
+     * 	
+     */
+    @FXML
+    private void handlePrint() {
+//    	 PrinterJob printerJob = PrinterJob.createPrinterJob();
 
+    	 System.out.println("Printing.");
+//    	   if(printerJob.showPrintDialog(mainApp.getPrimaryStage().getOwner()))
+//    	       printerJob.endJob();
+//    	 Printer printer = Printer.getDefaultPrinter();
+//
+//    	    PrinterJob job = PrinterJob.createPrinterJob();
+//    	    if (job != null) {
+//    	        boolean success = job.printPage(mainApp.getUserData());
+//    	        if (success) {
+//    	            job.endJob();
+//    	        }
+//    	    }
+    }
     /**
      * Saves the file to the person file that is currently open. If there is no
      * open file, the "save as" dialog is shown.
