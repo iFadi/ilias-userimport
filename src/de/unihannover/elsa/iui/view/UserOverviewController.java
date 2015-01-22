@@ -1,6 +1,7 @@
 package de.unihannover.elsa.iui.view;
 
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -25,6 +26,8 @@ public class UserOverviewController {
     private TableColumn<User, String> lastNameColumn;
     @FXML
     private TableColumn<User, String> loginColumn;
+    @FXML
+    private TableColumn<User, String> passwordColumn;
 
     @FXML
     private Label globalRoleLabel;
@@ -32,6 +35,8 @@ public class UserOverviewController {
     private Label localRoleLabel;
     @FXML
     private Label loginLabel;
+    @FXML
+    private Label passwordLabel;
     @FXML
     private Label firstNameLabel;
     @FXML
@@ -74,6 +79,7 @@ public class UserOverviewController {
             localRoleLabel.setText(user.getLocalRole().getValue());
             System.out.println("Local: "+user.getLocalRole().getValue());
         	loginLabel.setText(user.getLogin());
+        	passwordLabel.setText(user.getPassword().getPasswordToHash());
 //        	System.out.println(user.getLogin());
             firstNameLabel.setText(user.getFirstName());
             lastNameLabel.setText(user.getLastName());
@@ -89,6 +95,7 @@ public class UserOverviewController {
             globalRoleLabel.setText("");
             localRoleLabel.setText("");
             loginLabel.setText("");
+            passwordLabel.setText("");
             firstNameLabel.setText("");
             lastNameLabel.setText("");
             emailLabel.setText("");
@@ -114,6 +121,8 @@ public class UserOverviewController {
                 cellData -> cellData.getValue().lastNameProperty());
         loginColumn.setCellValueFactory(
                 cellData -> cellData.getValue().LoginProperty());
+        passwordColumn.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getPassword().getPasswordToHash()));
         
         // Clear person details.
         showPersonDetails(null);

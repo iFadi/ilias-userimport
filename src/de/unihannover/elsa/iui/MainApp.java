@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.prefs.Preferences;
 
 import javafx.application.Application;
@@ -31,6 +34,7 @@ import org.controlsfx.dialog.Dialogs;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
+import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
 import de.unihannover.elsa.iui.view.RootLayoutController;
@@ -305,8 +309,10 @@ public class MainApp extends Application {
      * 
      * @param file
      * @throws IOException
+     * @throws NoSuchAlgorithmException 
      */
-    public void parseCSV(File file) throws IOException {
+    public void parseCSV(File file) throws IOException, NoSuchAlgorithmException {
+    	char[] CHARSET_AZ_09 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray(); // This is used to generate a Random Password.
     	CSVReader reader = new CSVReader(new FileReader(file),';',CSVParser.DEFAULT_QUOTE_CHARACTER,1);
 	    String [] nextLine;
 	    while ((nextLine = reader.readNext()) != null) {
@@ -315,6 +321,7 @@ public class MainApp extends Application {
 	        //nextLine[1] is for firstName, nextLine[2] for secondName in Stud.IP CSV.
 	        User user = new User(nextLine[1], nextLine[2]);
 	        user.setLogin(nextLine[4]);
+	        user.setPassword(new Password(randomString(CHARSET_AZ_09, 5)));
 	        user.setEmail(nextLine[7]);
 	        user.setMatriculation(nextLine[22]);
 	        userData.add(user);
@@ -365,6 +372,24 @@ public class MainApp extends Application {
          fileStream.close();
 		
 	}
+	
+	/**
+	 * 
+	 * @param characterSet
+	 * @param length
+	 * @return
+	 */
+	public static String randomString(char[] characterSet, int length) {
+	    Random random = new SecureRandom();
+	    char[] result = new char[length];
+	    for (int i = 0; i < result.length; i++) {
+	        // picks a random index out of character set > random character
+	        int randomCharIndex = random.nextInt(characterSet.length);
+	        result[i] = characterSet[randomCharIndex];
+	    }
+	    return new String(result);
+	}
+	
     /**
      * Returns the main stage.
      * @return

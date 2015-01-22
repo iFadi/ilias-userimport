@@ -17,6 +17,7 @@
                       <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
                       <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
                         <TableColumn fx:id="loginColumn" prefWidth="73.0" text="Login" />
+                        <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -38,6 +39,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -49,25 +51,27 @@
                         <Label text="Global Role" />
                         <Label text="Local Role" GridPane.rowIndex="1" />
                         <Label text="Login" GridPane.rowIndex="2" />
-                        <Label text="First Name" GridPane.rowIndex="3" />
-                        <Label text="Last Name" GridPane.rowIndex="4" />
-                        <Label text="Email" GridPane.rowIndex="5" />
-                        <Label text="Matriculation" GridPane.rowIndex="6" />
-                        <Label text="Gender" GridPane.rowIndex="7" />
-                        <Label text="Street" GridPane.rowIndex="8" />
-                        <Label text="Postal Code" GridPane.rowIndex="9" />
-                        <Label text="City" GridPane.rowIndex="10" />
+                        <Label text="First Name" GridPane.rowIndex="4" />
+                        <Label text="Last Name" GridPane.rowIndex="5" />
+                        <Label text="Email" GridPane.rowIndex="6" />
+                        <Label text="Matriculation" GridPane.rowIndex="7" />
+                        <Label text="Gender" GridPane.rowIndex="8" />
+                        <Label text="Street" GridPane.rowIndex="9" />
+                        <Label text="Postal Code" GridPane.rowIndex="10" />
+                        <Label text="City" GridPane.rowIndex="11" />
                         <Label fx:id="globalRoleLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="localRoleLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="loginLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="matriculationLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="genderLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="matriculationLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="genderLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <Label text="Password" GridPane.rowIndex="3" />
+                        <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <HBox layoutX="192.0" layoutY="304.0">

@@ -2,6 +2,7 @@ package de.unihannover.elsa.iui.view;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javafx.fxml.FXML;
 import javafx.print.Printer;
@@ -70,9 +71,10 @@ public class RootLayoutController {
     /**
      * Opens a FileChooser to let the user select an address book to load.
      * @throws IOException 
+     * @throws NoSuchAlgorithmException 
      */
     @FXML
-    private void handleImport() throws IOException {
+    private void handleImport() throws IOException, NoSuchAlgorithmException {
         FileChooser fileChooser = new FileChooser();
 
         // Set extension filter        

@@ -3,6 +3,9 @@ package de.unihannover.elsa.iui.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
@@ -31,21 +34,17 @@ import javax.xml.bind.annotation.XmlValue;
 public class Password {
 
 	private String type;
-//	private String passwordToHash;
+	private String passwordToHash;
 	private String MD5Value;
 	
 	
 	public Password() {
-		this("ILIAS3");
-	}
-
-	public Password(String type) {
-		setType(type);
+		setType("ILIAS3");
 	}
 	
-	public Password(String type, String value) throws NoSuchAlgorithmException {
-		setType(type);
-//		setPasswordToHash(value);
+	public Password(String value) throws NoSuchAlgorithmException {
+		setType("ILIAS3");
+		setPasswordToHash(value);
 		setMD5Value(value);
 	}
 	/**
@@ -92,17 +91,20 @@ public class Password {
         this.MD5Value = sb.toString();
 	}
 
-//	/**
-//	 * @return the passwordToHash
-//	 */
-//	public String getPasswordToHash() {
-//		return passwordToHash;
-//	}
-//
-//	/**
-//	 * @param passwordToHash the passwordToHash to set
-//	 */
-//	public void setPasswordToHash(String passwordToHash) {
-//		this.passwordToHash = passwordToHash;
-//	}
+	/**
+	 * @return the passwordToHash
+	 */
+	@XmlAttribute(name="PasswordToHash")
+	public String getPasswordToHash() {
+		return passwordToHash;
+	}
+
+	/**
+	 * @param passwordToHash the passwordToHash to set
+	 */
+	public void setPasswordToHash(String passwordToHash) {
+//		StringProperty pwd = new SimpleStringProperty(passwordToHash);;
+		this.passwordToHash = passwordToHash;
+	}
+
 }
