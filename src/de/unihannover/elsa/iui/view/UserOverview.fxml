@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="350.0" prefWidth="750.0" stylesheets="@../../../../../../resources/css/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.UserOverviewController">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@../../../../../../resources/css/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.UserOverviewController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -25,7 +25,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0" styleClass="background">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="200.0" styleClass="background">
                <children>
                   <Label layoutX="29.0" layoutY="14.0" styleClass="item-title" text="User Details" underline="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="15.0" />
                   <GridPane layoutX="4.0" layoutY="50.0" prefHeight="250.0" prefWidth="478.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
@@ -74,7 +74,7 @@
                         <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <HBox layoutX="192.0" layoutY="304.0">
+                  <HBox layoutX="237.0" layoutY="354.0">
                      <children>
                         <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New">
                            <HBox.margin>

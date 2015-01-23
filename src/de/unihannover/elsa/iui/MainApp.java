@@ -312,7 +312,9 @@ public class MainApp extends Application {
      * @throws NoSuchAlgorithmException 
      */
     public void parseCSV(File file) throws IOException, NoSuchAlgorithmException {
-    	char[] CHARSET_AZ_09 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray(); // This is used to generate a Random Password.
+    	char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); // This is used to generate a Random Password.
+    	char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); // This is used to generate a Random Login.
+
     	CSVReader reader = new CSVReader(new FileReader(file),';',CSVParser.DEFAULT_QUOTE_CHARACTER,1);
 	    String [] nextLine;
 	    while ((nextLine = reader.readNext()) != null) {
@@ -320,8 +322,9 @@ public class MainApp extends Application {
 //	        System.out.println(nextLine[0] + nextLine[1] + nextLine[2] + nextLine[3] + nextLine[4] + nextLine[5] +  nextLine[6] + nextLine[7] + nextLine[8] + nextLine[9] + nextLine[10] + nextLine[11] + nextLine[12] + nextLine[13] + nextLine[14]+"etc...");
 	        //nextLine[1] is for firstName, nextLine[2] for secondName in Stud.IP CSV.
 	        User user = new User(nextLine[1], nextLine[2]);
-	        user.setLogin(nextLine[4]);
-	        user.setPassword(new Password(randomString(CHARSET_AZ_09, 5)));
+//	        user.setLogin(nextLine[4]); // Here is the Login same as Stud.IP Login
+	        user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The Login is a Combination of m-nr with a random String.
+	        user.setPassword(new Password(randomString(randomPassword, 5)));
 	        user.setEmail(nextLine[7]);
 	        user.setMatriculation(nextLine[22]);
 	        userData.add(user);

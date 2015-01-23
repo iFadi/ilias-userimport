@@ -72,7 +72,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="Generate Login" />
+            <CheckBox mnemonicParsing="false" selected="true" text="Generate Login" />
             <CheckBox mnemonicParsing="false" selected="true" text="Generate Password" GridPane.columnIndex="1" />
          </children>
       </GridPane>
