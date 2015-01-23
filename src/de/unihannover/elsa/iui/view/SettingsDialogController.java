@@ -2,8 +2,10 @@ package de.unihannover.elsa.iui.view;
 
 import de.unihannover.elsa.iui.MainApp;
 import de.unihannover.elsa.iui.model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -33,6 +35,8 @@ public class SettingsDialogController {
     private TextField globalRoleField;
     @FXML
     private TextField localRoleField;
+    @FXML
+    private ToggleButton limitedButton;
 	@FXML
     private TextField timeLimitFromField;
     @FXML
@@ -49,6 +53,12 @@ public class SettingsDialogController {
      */
     @FXML
     private void initialize() {
+    	limitedButton.setOnAction((event) -> {
+    	    boolean selected = limitedButton.isSelected();
+    	    System.out.println("CheckBox Action (selected: " + selected + ")");
+    		timeLimitFromField.setDisable(!selected);
+    		timeLimitUntilField.setDisable(!selected);
+    	});
     }
     
     /**
@@ -77,6 +87,17 @@ public class SettingsDialogController {
         return okClicked;
     }
     
+//    public void handleButtonAction(ActionEvent event) {
+//    	if(limitedButton.isPressed()) {
+//    		timeLimitFromField.setEditable(true);
+//    		timeLimitUntilField.setEditable(true);
+//    	}
+//    	else {
+//    		timeLimitFromField.setEditable(false);
+//    		timeLimitUntilField.setEditable(false);
+//    	}
+//    }
+    
     /**
      * Called when the user clicks ok.
      */
@@ -87,11 +108,19 @@ public class SettingsDialogController {
     	for(User user : mainApp.getUserData()) {
     		user.getGlobalRole().setId(globalRoleField.getText());
     		user.getLocalRole().setId(localRoleField.getText());
-    		if (timeLimitFromField.getText() != null || timeLimitFromField.getText().length() != 0 &&
-        			timeLimitUntilField.getText() != null || timeLimitUntilField.getText().length() != 0) {
+//    		if (timeLimitFromField.getText() != null || timeLimitFromField.getText().length() != 0 &&
+//        			timeLimitUntilField.getText() != null || timeLimitUntilField.getText().length() != 0) {
+//    			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
+//    			user.setTimeLimitFrom(timeLimitFromField.getText());
+//    			user.setTimeLimitUntil(timeLimitUntilField.getText());
+//    		}
+    		if(limitedButton.isSelected()) {
     			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
     			user.setTimeLimitFrom(timeLimitFromField.getText());
     			user.setTimeLimitUntil(timeLimitUntilField.getText());
+    		}
+    		else {
+    			user.setTimeLimitUnlimited("1"); // Time Limit is deactivated.
     		}
     	}
     	

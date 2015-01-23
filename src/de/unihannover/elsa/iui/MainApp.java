@@ -374,6 +374,7 @@ public class MainApp extends Application {
 	}
 	
 	/**
+	 * Generate a Random String.
 	 * 
 	 * @param characterSet
 	 * @param length

@@ -103,7 +103,6 @@ public class Password {
 	 * @param passwordToHash the passwordToHash to set
 	 */
 	public void setPasswordToHash(String passwordToHash) {
-//		StringProperty pwd = new SimpleStringProperty(passwordToHash);;
 		this.passwordToHash = passwordToHash;
 	}
 

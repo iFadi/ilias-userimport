@@ -104,10 +104,10 @@ public class RootLayoutController {
      */
     @FXML
     private void handlePrint() {
-//    	 PrinterJob printerJob = PrinterJob.createPrinterJob();
+    	 PrinterJob printerJob = PrinterJob.createPrinterJob();
 
     	 System.out.println("Printing.");
-//    	   if(printerJob.showPrintDialog(mainApp.getPrimaryStage().getOwner()))
+//    	   if(printerJob.showPrintDialog(mainApp.getPrimaryStage().getOwner()) && printerJob.printPage(mainApp.getUserData()))
 //    	       printerJob.endJob();
 //    	 Printer printer = Printer.getDefaultPrinter();
 //
