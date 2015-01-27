@@ -7,6 +7,9 @@ The XML file can then be imported into [ILIAS e-Learning System](http://www.ilia
 ## Latest Release
   * [2.0.0] beta
 
+## Screenshots
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta.png)
+
 ## Donation
 Need Coffee ...... :)
 
