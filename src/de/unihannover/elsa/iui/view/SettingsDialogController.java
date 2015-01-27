@@ -1,6 +1,9 @@
 package de.unihannover.elsa.iui.view;
 
+import java.security.NoSuchAlgorithmException;
+
 import de.unihannover.elsa.iui.MainApp;
+import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,6 +44,8 @@ public class SettingsDialogController {
     private TextField timeLimitFromField;
     @FXML
     private TextField timeLimitUntilField;
+    @FXML
+    private TextField passwordField;
     
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -100,20 +105,17 @@ public class SettingsDialogController {
     
     /**
      * Called when the user clicks ok.
+     * @throws NoSuchAlgorithmException 
      */
     @FXML
-    private void handleOk() {
+    private void handleOk() throws NoSuchAlgorithmException {
 
 //    	System.out.println(mainApp.getUserData());
     	for(User user : mainApp.getUserData()) {
     		user.getGlobalRole().setId(globalRoleField.getText());
     		user.getLocalRole().setId(localRoleField.getText());
-//    		if (timeLimitFromField.getText() != null || timeLimitFromField.getText().length() != 0 &&
-//        			timeLimitUntilField.getText() != null || timeLimitUntilField.getText().length() != 0) {
-//    			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
-//    			user.setTimeLimitFrom(timeLimitFromField.getText());
-//    			user.setTimeLimitUntil(timeLimitUntilField.getText());
-//    		}
+    		user.setPassword(new Password(passwordField.getText()));
+    		
     		if(limitedButton.isSelected()) {
     			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
     			user.setTimeLimitFrom(timeLimitFromField.getText());

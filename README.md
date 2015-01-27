@@ -2,6 +2,8 @@
 This App generates a XML file from a [Stud.IP System](http://www.studip.de/) CSV file as input. The CSV file can be exported from a Stud.IP Course.
 The XML file can then be imported into [ILIAS e-Learning System](http://www.ilias.de/).
 
+**THIS IS A BETA VERSION, which means it might not work as expected**
+
 ## Latest Release
   * [2.0.0] beta
 

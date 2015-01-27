@@ -8,12 +8,16 @@ import javafx.fxml.FXML;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
+import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import org.apache.commons.io.FilenameUtils;
 import org.controlsfx.dialog.Dialogs;
 
 import de.unihannover.elsa.iui.MainApp;
+import de.unihannover.elsa.iui.model.User;
 
 
 /**
@@ -78,12 +82,12 @@ public class RootLayoutController {
         FileChooser fileChooser = new FileChooser();
 
         // Set extension filter        
-        FileChooser.ExtensionFilter filter1 = new FileChooser.ExtensionFilter(
+        FileChooser.ExtensionFilter filterCSV = new FileChooser.ExtensionFilter(
                 "Stud.IP CSV file (*.csv)", "*.csv");
-//        FileChooser.ExtensionFilter filter2 = new FileChooser.ExtensionFilter(
-//        		"Excel 97-2004 (*.xls)", "*.xls");
-        fileChooser.getExtensionFilters().add(filter1);
-//        fileChooser.getExtensionFilters().add(filter2);
+        FileChooser.ExtensionFilter filterXLSX = new FileChooser.ExtensionFilter(
+        		"Excel file (*.xlsx)", "*.xlsx");
+        fileChooser.getExtensionFilters().add(filterCSV);
+        fileChooser.getExtensionFilters().add(filterXLSX);
 		
         // Show save file dialog
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
@@ -93,7 +97,7 @@ public class RootLayoutController {
             if (fileExtension.equals("csv")) {
                 mainApp.parseCSV(file);
             }
-            if (fileExtension.equals("xls")) {
+            if (fileExtension.equals("xlsx")) {
                 mainApp.parseExcel(file);
             }
         }
@@ -104,21 +108,39 @@ public class RootLayoutController {
      */
     @FXML
     private void handlePrint() {
-    	 PrinterJob printerJob = PrinterJob.createPrinterJob();
+         TableView<User> userTable = new TableView<>();
+         userTable.setItems(mainApp.getUserData());
 
-    	 System.out.println("Printing.");
-//    	   if(printerJob.showPrintDialog(mainApp.getPrimaryStage().getOwner()) && printerJob.printPage(mainApp.getUserData()))
+         
+//    	 PrinterJob printerJob = PrinterJob.createPrinterJob();
+//    	 System.out.println("Trying to print.");
+//    	 
+//    	   if(printerJob.showPrintDialog(mainApp.getPrimaryStage()) && printerJob.printPage(userTable)) {
 //    	       printerJob.endJob();
-//    	 Printer printer = Printer.getDefaultPrinter();
-//
-//    	    PrinterJob job = PrinterJob.createPrinterJob();
-//    	    if (job != null) {
-//    	        boolean success = job.printPage(mainApp.getUserData());
-//    	        if (success) {
-//    	            job.endJob();
-//    	        }
-//    	    }
+//               System.out.println("printed");
+//    	   }
+//         Printer printer = Printer.getDefaultPrinter();
+//         Stage dialogStage = new Stage(StageStyle.DECORATED);            
+//         PrinterJob job = PrinterJob.createPrinterJob(printer);
+//             if (job != null) {                    
+//                 boolean showDialog = job.showPageSetupDialog(dialogStage);
+//                 if (showDialog) {                        
+//                	 userTable.setScaleX(0.60);
+//                	 userTable.setScaleY(0.60);
+//                	 userTable.setTranslateX(-220);
+//                	 userTable.setTranslateY(-70);
+//                 boolean success = job.printPage(userTable);
+//                     if (success) {
+//                          job.endJob(); 
+//                     } 
+//                     userTable.setTranslateX(0);
+//                     userTable.setTranslateY(0);               
+//                     userTable.setScaleX(1.0);
+//                     userTable.setScaleY(1.0);                                              
+//                                 }    
+//                             }
     }
+    
     /**
      * Saves the file to the person file that is currently open. If there is no
      * open file, the "save as" dialog is shown.
@@ -173,7 +195,7 @@ public class RootLayoutController {
         Dialogs.create()
             .title("ILIAS User Import")
             .masthead("About")
-            .message("\nMost of Code Originally from Marco Jakob\nWebsite: http://code.makery.ch\n\nAuthor: Fadi Asbih\nVersion: 2.0 beta\nProject: https://github.com/iFadi/ilias-userimport")
+            .message("Fadi Asbih\nVersion: 2.0 beta\nProject: https://github.com/iFadi/ilias-userimport")
             .showInformation();
     }
 

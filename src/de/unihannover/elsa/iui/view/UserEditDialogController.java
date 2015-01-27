@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import org.controlsfx.dialog.Dialogs;
 
+import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 
 /**
@@ -79,6 +80,7 @@ public class UserEditDialogController {
         globalRoleField.setText(user.getGlobalRole().getValue());
         localRoleField.setText(user.getLocalRole().getValue());
         loginField.setText(user.getLogin());
+        passwordField.setText(user.getPassword().getPasswordToHash());
         firstNameField.setText(user.getFirstName());
         lastNameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
@@ -108,7 +110,7 @@ public class UserEditDialogController {
         	user.getGlobalRole().setId(globalRoleField.getText());
         	user.getLocalRole().setId(localRoleField.getText());
         	user.setLogin(loginField.getText());
-        	user.getPassword().setMD5Value(" ");
+        	user.setPassword(new Password(passwordField.getText()));
             user.setFirstName(firstNameField.getText());
             user.setLastName(lastNameField.getText());
             user.setEmail(emailField.getText());
