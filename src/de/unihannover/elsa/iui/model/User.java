@@ -75,7 +75,7 @@ public class User {
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 1, 1));
     }
     
-    @XmlElement(name = "Role")
+//    @XmlElement(name = "Role")
     public Role getGlobalRole() {
         return globalRole;
     }
