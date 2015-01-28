@@ -45,6 +45,7 @@ import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
 import de.unihannover.elsa.iui.view.UserEditDialogController;
 import de.unihannover.elsa.iui.view.UserOverviewController;
+import de.unihannover.elsa.iui.view.XLSXSheetDialogController;
 
 /**
  *
@@ -55,6 +56,8 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private int numberOfSheets;
+	private int selectedSheet;
 	
 	private char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); 
 	private char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
@@ -71,6 +74,10 @@ public class MainApp extends Application {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean showSettingsDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -88,6 +95,41 @@ public class MainApp extends Application {
 
 			// Give the controller access to the main app.
 			SettingsDialogController controller = loader.getController();
+			controller.setMainApp(this);
+
+			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean showXLSXSheetDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/XLSXSheetDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Choose sheet");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			XLSXSheetDialogController controller = loader.getController();
 			controller.setMainApp(this);
 
 			controller.setDialogStage(dialogStage);
@@ -357,11 +399,17 @@ public class MainApp extends Application {
 
 		// Finds the workbook instance for XLSX file
 		XSSFWorkbook myWorkBook = new XSSFWorkbook(fileStream);
-
-		// Return first sheet from the XLSX workbook
-		XSSFSheet mySheet = myWorkBook.getSheetAt(2);
 		
-		System.out.println(myWorkBook.getNumberOfSheets());
+		setNumberOfSheets(myWorkBook.getNumberOfSheets());
+		
+//		System.out.println("num: " + this.getNumberOfSheets());
+
+		if(myWorkBook.getNumberOfSheets() > 1) {
+			this.showXLSXSheetDialog();
+		}
+		
+		// Return first sheet from the XLSX workbook
+		XSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
 
 		DataFormatter df = new DataFormatter();
 
@@ -421,6 +469,34 @@ public class MainApp extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	/**
+	 * @return the numberOfSheets
+	 */
+	public int getNumberOfSheets() {
+		return numberOfSheets;
+	}
+
+	/**
+	 * @param numberOfSheets the numberOfSheets to set
+	 */
+	public void setNumberOfSheets(int numberOfSheets) {
+		this.numberOfSheets = numberOfSheets;
+	}
+
+	/**
+	 * @return the selectedSheet
+	 */
+	public int getSelectedSheet() {
+		return selectedSheet;
+	}
+
+	/**
+	 * @param selectedSheet the selectedSheet to set
+	 */
+	public void setSelectedSheet(int selectedSheet) {
+		this.selectedSheet = selectedSheet;
 	}
 
 }
