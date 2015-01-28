@@ -11,6 +11,9 @@ import javafx.beans.property.StringProperty;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.unihannover.elsa.iui.util.LocalDateAdapter;
@@ -26,20 +29,20 @@ public class User {
 
     private Role globalRole;
     private Role localRole;
-	private final StringProperty login;
+	private StringProperty login;
 	private Password password;
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty email;
-    private final StringProperty matriculation;
+    private StringProperty firstName;
+    private StringProperty lastName;
+    private StringProperty email;
+    private StringProperty matriculation;
     private String timeLimitUnlimited;
-    private final StringProperty timeLimitFrom;
-    private final StringProperty timeLimitUntil;
-    private final StringProperty gender;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final ObjectProperty<LocalDate> birthday;
+    private StringProperty timeLimitFrom;
+    private StringProperty timeLimitUntil;
+    private StringProperty gender;
+    private StringProperty street;
+    private IntegerProperty postalCode;
+    private StringProperty city;
+    private ObjectProperty<LocalDate> birthday;
 
     /**
      * Default constructor.
@@ -60,7 +63,7 @@ public class User {
 
         // Some initial dummy data, just for convenient testing.
         this.globalRole = new Role("User", "Global");
-        this.localRole = new Role("Local");
+        this.localRole = new Role("some local role","Local");
         this.gender = new SimpleStringProperty("f");
         this.login = new SimpleStringProperty("");
         this.password = new Password();
@@ -75,7 +78,7 @@ public class User {
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 1, 1));
     }
     
-//    @XmlElement(name = "Role")
+    @XmlElement(name = "Role ")
     public Role getGlobalRole() {
         return globalRole;
     }
@@ -270,7 +273,7 @@ public class User {
     }
     
     @XmlAttribute(name="Id")
-    public String getGlobal() {
+    public String getId() {
     	return getFirstName()+"."+getLastName();
     }
     

@@ -267,6 +267,10 @@ public class MainApp extends Application {
 
 			// Reading XML from the file and unmarshalling.
 			UserListWrapper wrapper = (UserListWrapper) um.unmarshal(file);
+			
+//			for(User u : wrapper.getUsers()) {
+//				System.out.println(u.getGlobalRole().getType());
+//			}
 
 			userData.clear();
 			userData.addAll(wrapper.getUsers());
@@ -355,7 +359,9 @@ public class MainApp extends Application {
 		XSSFWorkbook myWorkBook = new XSSFWorkbook(fileStream);
 
 		// Return first sheet from the XLSX workbook
-		XSSFSheet mySheet = myWorkBook.getSheetAt(0);
+		XSSFSheet mySheet = myWorkBook.getSheetAt(2);
+		
+		System.out.println(myWorkBook.getNumberOfSheets());
 
 		DataFormatter df = new DataFormatter();
 

@@ -97,7 +97,7 @@ public class RootLayoutController {
             if (fileExtension.equals("csv")) {
                 mainApp.parseCSV(file);
             }
-            if (fileExtension.equals("xlsx")) {
+            else if (fileExtension.equals("xlsx")) {
                 mainApp.parseExcel(file);
             }
         }
