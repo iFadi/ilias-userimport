@@ -40,8 +40,8 @@ import de.unihannover.elsa.iui.model.User;
 public class XLSXSheetDialogController {
 
     @FXML
-    private ComboBox<Integer> comboBox;
-    private ObservableList<Integer> myComboBoxData = FXCollections.observableArrayList();
+    private ComboBox<String> comboBox;
+    private ObservableList<String> comboBoxData = FXCollections.observableArrayList();
     
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -53,7 +53,7 @@ public class XLSXSheetDialogController {
 	 * 
 	 */
 	public XLSXSheetDialogController() {
-    	comboBox = new ComboBox<Integer>();
+    	comboBox = new ComboBox<String>();
 	}
 	
     /**
@@ -62,52 +62,19 @@ public class XLSXSheetDialogController {
      */
     @FXML
     private void initialize() {
-
-    	
-    	comboBox.setItems(myComboBoxData);
-    	
-//    	comboBox.setCellFactory((comboBox) -> {
-//    		return new ListCell<Integer>() {
-//    			@Override
-//    	        protected void updateItem(Integer item, boolean empty) {
-//    	            super.updateItem(item, empty);
-//
-//    	            if (item == null || empty) {
-//    	                setText(null);
-//    	            } else {
-//    	                setText(item.intValue() + "");
-//    	            }
-//    	        }
-//    		};
-//    	});
-//    	
-//    	// Define rendering of selected value shown in ComboBox.
-//    	comboBox.setConverter(new StringConverter<Integer>() {
-//    	    @Override
-//    	    public String toString(Integer person) {
-//    	        if (person == null) {
-//    	            return null;
-//    	        } else {
-//    	            return person.intValue()+ " " ;
-//    	        }
-//    	    }
-//
-//    	    @Override
-//    	    public Integer fromString(String personString) {
-//    	        return null; // No conversion fromString needed.
-//    	    }
-//    	});
+    	comboBox.setItems(comboBoxData);
     	
     	comboBox.setOnAction((event) -> {
-    	    Integer selectedSheet = comboBox.getSelectionModel().getSelectedItem();
+    	    Integer selectedSheet = comboBox.getSelectionModel().getSelectedIndex();
     	    System.out.println("ComboBox Action (selected: " + selectedSheet.toString() + ")");
     	    mainApp.setSelectedSheet(selectedSheet);
     	});
-
+    	
     	comboBox.setOnShown((event) -> {
         	for(int i=0; i<mainApp.getNumberOfSheets(); i++) {
-        		myComboBoxData.add(new Integer(i));
+        		comboBoxData.add(mainApp.getSheetNames()[i]);
         	}
+        	mainApp.setNumberOfSheets(0);
     	});
     }
     
@@ -145,12 +112,7 @@ public class XLSXSheetDialogController {
      */
     @FXML
     private void handleOk() throws NoSuchAlgorithmException {
-
-//    	System.out.println(mainApp.getUserData());
-
-    	
     	okClicked = true;
-        dialogStage.close();
-        
+        dialogStage.close();   
     }
 }

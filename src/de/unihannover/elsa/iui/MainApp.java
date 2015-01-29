@@ -58,6 +58,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private int numberOfSheets;
 	private int selectedSheet;
+	private String[] sheetNames;
 	
 	private char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); 
 	private char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
@@ -402,14 +403,19 @@ public class MainApp extends Application {
 		
 		setNumberOfSheets(myWorkBook.getNumberOfSheets());
 		
-//		System.out.println("num: " + this.getNumberOfSheets());
-
+		// Pop up a Dialog to choose which sheet to import.
 		if(myWorkBook.getNumberOfSheets() > 1) {
+			String[] sheets = new String[getNumberOfSheets()];
+        	for(int i=0; i<sheets.length; i++) {
+        		sheets[i] = myWorkBook.getSheetName(i);
+        	}
+			setSheetNames(sheets);
 			this.showXLSXSheetDialog();
 		}
 		
 		// Return first sheet from the XLSX workbook
 		XSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+//		System.out.println(myWorkBook.getSheetName(getSelectedSheet()));
 
 		DataFormatter df = new DataFormatter();
 
@@ -428,7 +434,7 @@ public class MainApp extends Application {
 
 				User user = new User(firstName, lastName);
 				user.setLogin(mnr); // The Login is same as the M-nr.
-//				user.setPassword(new Password(randomString(randomPassword, 5)));
+				user.setPassword(new Password(randomString(randomPassword, 5)));
 				user.setEmail(mail);
 				user.setMatriculation(mnr);
 				userData.add(user);
@@ -497,6 +503,20 @@ public class MainApp extends Application {
 	 */
 	public void setSelectedSheet(int selectedSheet) {
 		this.selectedSheet = selectedSheet;
+	}
+
+	/**
+	 * @return the sheetNames
+	 */
+	public String[] getSheetNames() {
+		return sheetNames;
+	}
+
+	/**
+	 * @param sheetNames the sheetNames to set
+	 */
+	public void setSheetNames(String[] sheetNames) {
+		this.sheetNames = sheetNames;
 	}
 
 }
