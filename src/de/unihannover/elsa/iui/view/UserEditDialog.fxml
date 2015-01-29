@@ -29,6 +29,7 @@
             <Label text="Global Role" />
             <Label text="Local Role" GridPane.rowIndex="1" />
             <Label text="Login" GridPane.rowIndex="2" />
+            <Label text="Password" GridPane.rowIndex="3" />
             <Label text="First Name" GridPane.rowIndex="4" />
             <Label text="Last Name" GridPane.rowIndex="5" />
             <Label text="Email" GridPane.rowIndex="6" />
@@ -40,6 +41,7 @@
             <TextField fx:id="globalRoleField" GridPane.columnIndex="1" />
             <TextField fx:id="localRoleField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="loginField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
@@ -48,8 +50,6 @@
             <TextField fx:id="streetField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <Label text="Password" GridPane.rowIndex="3" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
 </GridPane>
 <HBox layoutX="197.1875" layoutY="241.0" prefHeight="31.0" prefWidth="222.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
