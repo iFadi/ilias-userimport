@@ -5,7 +5,7 @@ The XML file can then be imported into [ILIAS e-Learning System](http://www.ilia
 **THIS IS A BETA VERSION, which means it might not work as expected**
 
 ## Latest Release
-  * [2.0.0] beta
+  * [2.0 beta 1](https://github.com/iFadi/ilias-userimport/releases/download/2.0.beta1/IUI_2_Beta1.jar)
 
 ## Screenshots
 ![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta.png)
