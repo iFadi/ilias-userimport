@@ -37,7 +37,22 @@
 		</copy>
 		<copy todir="externalLibs">
 			<fileset dir="/Users/fadi/git/ilias-userimport/lib">
-				<filename name="poi-3.10-FINAL-20140208.jar"/>	
+				<filename name="poi-ooxml-schemas-3.11-20141221.jar"/>	
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/Users/fadi/git/ilias-userimport/lib">
+				<filename name="poi-ooxml-3.11-20141221.jar"/>	
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/Users/fadi/git/ilias-userimport/lib">
+				<filename name="xmlbeans-2.6.0.jar"/>	
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/Users/fadi/git/ilias-userimport/lib">
+				<filename name="poi-3.11-20141221.jar"/>	
 			</fileset>
 		</copy>
 		
@@ -59,8 +74,11 @@
 		<!-- Copy project-libs references -->
 		<copy todir="build/libs">
 			<fileset dir="externalLibs">
-				<include name="poi-3.10-FINAL-20140208.jar"/>
+				<include name="poi-ooxml-schemas-3.11-20141221.jar"/>
+				<include name="poi-ooxml-3.11-20141221.jar"/>
+				<include name="xmlbeans-2.6.0.jar"/>
 				<include name="controlsfx-8.0.6.jar"/>
+				<include name="poi-3.11-20141221.jar"/>
 				<include name="commons-io-2.4.jar"/>
 				<include name="opencsv-2.3.jar"/>
 			</fileset>
@@ -109,12 +127,13 @@
 		<fx:resources id="appRes">
 			<fx:fileset dir="dist" includes="ilias-userimport.jar"/>
 			<fx:fileset dir="dist" includes="libs/*"/>
-			    <fx:fileset dir="dist" includes="resources/**"/>
+		    <fx:fileset dir="dist" includes="resources/**"/>
 		</fx:resources> 
 		
 		<fx:application id="fxApplication"
 			name="ILIASUserImport"
 			mainClass="de.unihannover.elsa.iui.MainApp"
+		    version="2.0-beta1"
 		/>
 	
 		<mkdir dir="build/classes/META-INF" />
@@ -130,7 +149,7 @@
 			<manifest>
 				<attribute name="Implementation-Vendor" value="Fadi Asbih"/>
 				<attribute name="Implementation-Title" value="ILIASUserImport"/>
-				<attribute name="Implementation-Version" value="2.0"/>
+				<attribute name="Implementation-Version" value="2.0-beta1"/>
 				<attribute name="JavaFX-Feature-Proxy" value="None"/>
 			</manifest>
 		</fx:jar>

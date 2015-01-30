@@ -62,10 +62,8 @@
          </children>
       </GridPane>
       <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="Limited Access" />
-      <GridPane layoutX="12.0" layoutY="255.0" prefHeight="81.0" prefWidth="479.0">
+      <GridPane layoutX="12.0" layoutY="255.0" prefHeight="81.0" prefWidth="496.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="102.0" />
         </columnConstraints>
@@ -74,12 +72,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="Generate Login" />
-            <CheckBox mnemonicParsing="false" text="Generate Password" GridPane.columnIndex="2" />
-            <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" selected="true" text="Generate Password" />
+            <Label text="Password" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <Separator layoutY="127.0" prefHeight="5.0" prefWidth="517.0" />
+      <Separator layoutY="250.0" prefHeight="5.0" prefWidth="517.0" />
    </children>
    <stylesheets>
       <URL value="@JMetroLightTheme.css" />

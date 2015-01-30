@@ -11,6 +11,9 @@ import javafx.beans.property.StringProperty;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.unihannover.elsa.iui.util.LocalDateAdapter;
@@ -21,28 +24,32 @@ import de.unihannover.elsa.iui.util.LocalDateAdapter;
  * @author Marco Jakob
  * @author Fadi Asbih
  */
+
 public class User {
 
-    private final Role globalRole;
-    private final Role localRole;
-	private final StringProperty login;
-//	private final StringProperty password;
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-//    private final StringProperty email;
-    private final StringProperty matriculation;
-    private final StringProperty gender;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final ObjectProperty<LocalDate> birthday;
+    private Role globalRole;
+    private Role localRole;
+	private StringProperty login;
+	private Password password;
+    private StringProperty firstName;
+    private StringProperty lastName;
+    private StringProperty email;
+    private StringProperty matriculation;
+    private String timeLimitUnlimited;
+    private StringProperty timeLimitFrom;
+    private StringProperty timeLimitUntil;
+    private StringProperty gender;
+    private StringProperty street;
+    private IntegerProperty postalCode;
+    private StringProperty city;
+    private ObjectProperty<LocalDate> birthday;
 
     /**
      * Default constructor.
      */
     public User() {
         this(null, null);
-    }
+    }		
 
     /**
      * Constructor with some initial data.
@@ -56,40 +63,37 @@ public class User {
 
         // Some initial dummy data, just for convenient testing.
         this.globalRole = new Role("User", "Global");
-        this.localRole = new Role("Belastungstest_teilnehmern_28.06.2011", "Local");
+        this.localRole = new Role("some local role","Local");
         this.gender = new SimpleStringProperty("f");
         this.login = new SimpleStringProperty("");
+        this.password = new Password();
+        this.email = new SimpleStringProperty("");
         this.matriculation = new SimpleStringProperty("");
-        this.street = new SimpleStringProperty("");
-        this.postalCode = new SimpleIntegerProperty();
-        this.city = new SimpleStringProperty("");
+        this.timeLimitUnlimited = "1";
+        this.timeLimitFrom = new SimpleStringProperty("01-01-2015");
+        this.timeLimitUntil = new SimpleStringProperty("01-02-2016");
+        this.street = new SimpleStringProperty("Some Street");
+        this.postalCode = new SimpleIntegerProperty(12345);
+        this.city = new SimpleStringProperty("Some City");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 1, 1));
     }
     
-	@XmlElement(name = "Login")
-    public String getLogin() {
-        return login.get();
+    @XmlElement(name = "Role ")
+    public Role getGlobalRole() {
+        return globalRole;
     }
 
-    public void setLogin(String login) {
-        this.login.set(login);
-    }
-
-    public StringProperty LoginProperty() {
-        return login;
+    public void setGlobalRole(Role globalRole) {
+        this.globalRole = globalRole;
     }
     
-	@XmlElement(name = "Matriculation")
-    public String getMatriculation() {
-        return 	matriculation.get();
+    @XmlElement(name = "Role")
+    public Role getLocalRole() {
+        return localRole;
     }
 
-    public void setMatriculation(String matriculation) {
-        this.matriculation.set(matriculation);
-    }
-
-    public StringProperty MatriculationProperty() {
-        return matriculation;
+    public void setLocalRole(Role localRole) {
+        this.localRole = localRole;
     }
     
     @XmlElement(name = "Firstname")
@@ -116,6 +120,90 @@ public class User {
 
     public StringProperty lastNameProperty() {
         return lastName;
+    }
+    
+	@XmlElement(name = "Login")
+    public String getLogin() {
+        return login.get();
+    }
+
+    public void setLogin(String login) {
+        this.login.set(login);
+    }
+
+    public StringProperty LoginProperty() {
+        return login;
+    }
+    
+    @XmlElement(name = "Password")
+    public Password getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
+    }
+
+    
+	@XmlElement(name = "Email")
+    public String getEmail() {
+        return email.get();
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    public StringProperty EmailProperty() {
+        return email;
+    }
+    
+	@XmlElement(name = "Matriculation")
+    public String getMatriculation() {
+        return 	matriculation.get();
+    }
+
+    public void setMatriculation(String matriculation) {
+        this.matriculation.set(matriculation);
+    }
+
+    public StringProperty MatriculationProperty() {
+        return matriculation;
+    }
+    
+	@XmlElement(name = "TimeLimitUnlimited")
+    public String getTimeLimitUnlimited() {
+        return 	timeLimitUnlimited;
+    }
+
+    public void setTimeLimitUnlimited(String timeLimitUnlimited) {
+        this.timeLimitUnlimited = timeLimitUnlimited;
+    }
+    
+    @XmlElement(name = "TimeLimitFrom")
+    public String getTimeLimitFrom() {
+        return 	timeLimitFrom.get();
+    }
+
+    public void setTimeLimitFrom(String timeLimitFrom) {
+        this.timeLimitFrom.set(timeLimitFrom);
+    }
+
+    public StringProperty timeLimitFromProperty() {
+        return timeLimitFrom;
+    }
+    
+	@XmlElement(name = "TimeLimitUntil")
+    public String getTimeLimitUntil() {
+        return 	timeLimitUntil.get();
+    }
+
+    public void setTimeLimitUntil(String timeLimitUntil) {
+        this.timeLimitUntil.set(timeLimitUntil);
+    }
+
+    public StringProperty timeLimitUntilProperty() {
+        return timeLimitUntil;
     }
     
     @XmlElement(name = "Street")
@@ -184,26 +272,8 @@ public class User {
         return gender;
     }
     
-    @XmlElement(name = "Role")
-    public Role getGlobalRole() {
-        return globalRole;
-    }
-
-    public void setGlobalRole(String globalRole) {
-        this.globalRole.setId(globalRole);
-    }
-    
-    @XmlElement(name = "Role")
-    public Role getLocalRole() {
-        return localRole;
-    }
-
-    public void setLocalRole(String localRole) {
-        this.localRole.setId(localRole);
-    }
-    
     @XmlAttribute(name="Id")
-    public String getGlobal() {
+    public String getId() {
     	return getFirstName()+"."+getLastName();
     }
     

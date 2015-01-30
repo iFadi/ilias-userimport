@@ -188,6 +188,14 @@ public class RootLayoutController {
     }
     
     /**
+     * Opens the dialog to generate dummy accounts.
+     */
+    @FXML
+    private void handleDummyAccounts() {
+    	mainApp.showDummyAccountsDialog();
+    }
+    
+    /**
      * Opens an about dialog.
      */
     @FXML

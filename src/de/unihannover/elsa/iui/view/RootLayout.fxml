@@ -40,6 +40,7 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleSettings" text="Settings" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDummyAccounts" text="Generate dummy accounts" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

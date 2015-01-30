@@ -41,6 +41,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
+import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
 import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
 import de.unihannover.elsa.iui.view.UserEditDialogController;
@@ -96,6 +97,41 @@ public class MainApp extends Application {
 
 			// Give the controller access to the main app.
 			SettingsDialogController controller = loader.getController();
+			controller.setMainApp(this);
+
+			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean showDummyAccountsDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/DummyAccountsDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Generate Dummy Accounts");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			DummyAccountsDialogController controller = loader.getController();
 			controller.setMainApp(this);
 
 			controller.setDialogStage(dialogStage);

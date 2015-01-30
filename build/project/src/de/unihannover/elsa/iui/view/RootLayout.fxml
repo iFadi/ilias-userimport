@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.input.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="800.0" styleClass="background" stylesheets="@JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.RootLayoutController">
+<BorderPane prefHeight="500.0" prefWidth="1000.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -23,6 +24,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleImport" text="Import">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handlePrint" text="Print">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save">
                      <accelerator>
@@ -45,4 +50,8 @@
         </menus>
       </MenuBar>
    </top>
+   <stylesheets>
+      <URL value="@JMetroLightTheme.css" />
+      <URL value="@../../../../../../resources/css/JMetroLightTheme.css" />
+   </stylesheets>
 </BorderPane>

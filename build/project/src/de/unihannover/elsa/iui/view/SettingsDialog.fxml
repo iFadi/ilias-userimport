@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" stylesheets="@JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.SettingsDialogController">
+<AnchorPane prefHeight="391.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.SettingsDialogController">
    <children>
-      <GridPane layoutX="12.0" layoutY="40.0" prefHeight="75.0" prefWidth="376.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="40.0">
+      <GridPane layoutX="14.0" layoutY="40.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.bottomAnchor="281.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -20,14 +23,17 @@
          <children>
             <Label text="Local Role" GridPane.rowIndex="1" />
             <Label text="Global Role" />
-            <TextField fx:id="globalRoleField" GridPane.columnIndex="1" />
-            <TextField fx:id="localRoleField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="globalRoleField" promptText="User" text="User" GridPane.columnIndex="1" />
+            <TextField fx:id="localRoleField" promptText="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="210.0" text="These Settings apply to all Users." AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-      <HBox layoutX="186.0" layoutY="159.0">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" text="These settings will be applied to all users." AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <HBox layoutX="287.0" layoutY="350.0">
          <children>
-            <Button defaultButton="true" layoutX="266.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleOk" prefWidth="100.0" text="Ok">
+            <Button defaultButton="true" layoutX="266.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleOk" prefWidth="100.0" text="Apply">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -39,5 +45,44 @@
             </Button>
          </children>
       </HBox>
+      <GridPane layoutX="14.0" layoutY="167.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="From" />
+            <Label text="Until" GridPane.rowIndex="1" />
+            <TextField fx:id="timeLimitFromField" disable="true" promptText="04-02-2015" GridPane.columnIndex="1" />
+            <TextField fx:id="timeLimitUntilField" disable="true" promptText="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="Limited Access" />
+      <GridPane layoutX="12.0" layoutY="255.0" prefHeight="81.0" prefWidth="479.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="102.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <CheckBox mnemonicParsing="false" text="Generate Login" />
+            <CheckBox mnemonicParsing="false" text="Generate Password" GridPane.columnIndex="2" />
+            <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
    </children>
+   <stylesheets>
+      <URL value="@JMetroLightTheme.css" />
+      <URL value="@../../../../../../resources/css/JMetroLightTheme.css" />
+   </stylesheets>
 </AnchorPane>

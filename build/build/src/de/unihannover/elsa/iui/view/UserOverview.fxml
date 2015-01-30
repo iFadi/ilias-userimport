@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="350.0" prefWidth="750.0" stylesheets="@JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.UserOverviewController">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@../../../../../../resources/css/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.UserOverviewController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -16,6 +16,8 @@
                     <columns>
                       <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
                       <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="loginColumn" prefWidth="73.0" text="Login" />
+                        <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -23,7 +25,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="100.0" styleClass="background">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="200.0" styleClass="background">
                <children>
                   <Label layoutX="29.0" layoutY="14.0" styleClass="item-title" text="User Details" underline="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="15.0" />
                   <GridPane layoutX="4.0" layoutY="50.0" prefHeight="250.0" prefWidth="478.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
@@ -37,7 +39,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,39 +51,43 @@
                         <Label text="Global Role" />
                         <Label text="Local Role" GridPane.rowIndex="1" />
                         <Label text="Login" GridPane.rowIndex="2" />
-                        <Label text="First Name" GridPane.rowIndex="3" />
-                        <Label text="Last Name" GridPane.rowIndex="4" />
-                        <Label text="Matriculation" GridPane.rowIndex="5" />
-                        <Label text="Gender" GridPane.rowIndex="6" />
-                        <Label text="Street" GridPane.rowIndex="7" />
-                        <Label text="Postal Code" GridPane.rowIndex="8" />
-                        <Label text="City" GridPane.rowIndex="9" />
+                        <Label text="First Name" GridPane.rowIndex="4" />
+                        <Label text="Last Name" GridPane.rowIndex="5" />
+                        <Label text="Email" GridPane.rowIndex="6" />
+                        <Label text="Matriculation" GridPane.rowIndex="7" />
+                        <Label text="Gender" GridPane.rowIndex="8" />
+                        <Label text="Street" GridPane.rowIndex="9" />
+                        <Label text="Postal Code" GridPane.rowIndex="10" />
+                        <Label text="City" GridPane.rowIndex="11" />
                         <Label fx:id="globalRoleLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="localRoleLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="loginLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="matriculationLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="genderLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="matriculationLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="genderLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <Label text="Password" GridPane.rowIndex="3" />
+                        <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <HBox layoutX="245.0" layoutY="304.0">
+                  <HBox layoutX="237.0" layoutY="354.0">
                      <children>
-                        <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" text="New">
+                        <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></Button>
-                        <Button layoutX="265.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Edit">
+                        <Button layoutX="265.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="30.0" prefWidth="100.0" text="Edit">
                            <padding>
                               <Insets right="5.0" />
                            </padding>
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin></Button>
-                        <Button layoutX="342.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete">
+                        <Button layoutX="342.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" prefWidth="100.0" text="Delete">
                            <padding>
                               <Insets right="5.0" />
                            </padding>
@@ -88,6 +96,7 @@
                            </HBox.margin></Button>
                      </children>
                   </HBox>
+                  <Button layoutX="74.0" layoutY="354.0" mnemonicParsing="false" onAction="#handlePrint" text="print" />
                </children>
             </AnchorPane>
         </items>

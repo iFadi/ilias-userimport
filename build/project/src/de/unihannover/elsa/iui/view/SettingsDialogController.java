@@ -1,9 +1,14 @@
 package de.unihannover.elsa.iui.view;
 
+import java.security.NoSuchAlgorithmException;
+
 import de.unihannover.elsa.iui.MainApp;
+import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -33,6 +38,14 @@ public class SettingsDialogController {
     private TextField globalRoleField;
     @FXML
     private TextField localRoleField;
+    @FXML
+    private ToggleButton limitedButton;
+	@FXML
+    private TextField timeLimitFromField;
+    @FXML
+    private TextField timeLimitUntilField;
+    @FXML
+    private TextField passwordField;
     
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -45,6 +58,12 @@ public class SettingsDialogController {
      */
     @FXML
     private void initialize() {
+    	limitedButton.setOnAction((event) -> {
+    	    boolean selected = limitedButton.isSelected();
+    	    System.out.println("CheckBox Action (selected: " + selected + ")");
+    		timeLimitFromField.setDisable(!selected);
+    		timeLimitUntilField.setDisable(!selected);
+    	});
     }
     
     /**
@@ -73,16 +92,38 @@ public class SettingsDialogController {
         return okClicked;
     }
     
+//    public void handleButtonAction(ActionEvent event) {
+//    	if(limitedButton.isPressed()) {
+//    		timeLimitFromField.setEditable(true);
+//    		timeLimitUntilField.setEditable(true);
+//    	}
+//    	else {
+//    		timeLimitFromField.setEditable(false);
+//    		timeLimitUntilField.setEditable(false);
+//    	}
+//    }
+    
     /**
      * Called when the user clicks ok.
+     * @throws NoSuchAlgorithmException 
      */
     @FXML
-    private void handleOk() {
+    private void handleOk() throws NoSuchAlgorithmException {
 
 //    	System.out.println(mainApp.getUserData());
     	for(User user : mainApp.getUserData()) {
-    		user.setGlobalRole(globalRoleField.getText());
-    		user.setLocalRole(localRoleField.getText());
+    		user.getGlobalRole().setId(globalRoleField.getText());
+    		user.getLocalRole().setId(localRoleField.getText());
+    		user.setPassword(new Password(passwordField.getText()));
+    		
+    		if(limitedButton.isSelected()) {
+    			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
+    			user.setTimeLimitFrom(timeLimitFromField.getText());
+    			user.setTimeLimitUntil(timeLimitUntilField.getText());
+    		}
+    		else {
+    			user.setTimeLimitUnlimited("1"); // Time Limit is deactivated.
+    		}
     	}
     	
     	okClicked = true;

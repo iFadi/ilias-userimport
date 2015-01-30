@@ -1,5 +1,7 @@
 package de.unihannover.elsa.iui.view;
 
+import java.security.NoSuchAlgorithmException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -7,6 +9,7 @@ import javafx.stage.Stage;
 
 import org.controlsfx.dialog.Dialogs;
 
+import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 
 /**
@@ -25,9 +28,13 @@ public class UserEditDialogController {
     @FXML
     private TextField loginField;
     @FXML
+    private TextField passwordField;
+    @FXML
     private TextField firstNameField;
     @FXML
     private TextField lastNameField;
+    @FXML
+    private TextField emailField;
     @FXML
     private TextField matriculationField;
     @FXML
@@ -70,11 +77,13 @@ public class UserEditDialogController {
     public void setUser(User user) {
         this.user = user;
 
-        globalRoleField.setText(user.getGlobalRole().getId());
-        localRoleField.setText(user.getLocalRole().getId());
+        globalRoleField.setText(user.getGlobalRole().getValue());
+        localRoleField.setText(user.getLocalRole().getValue());
         loginField.setText(user.getLogin());
+        passwordField.setText(user.getPassword().getPasswordToHash());
         firstNameField.setText(user.getFirstName());
         lastNameField.setText(user.getLastName());
+        emailField.setText(user.getEmail());
         matriculationField.setText(user.getMatriculation());
         genderField.setText(user.getGender());
         streetField.setText(user.getStreet());
@@ -93,15 +102,18 @@ public class UserEditDialogController {
 
     /**
      * Called when the user clicks ok.
+     * @throws NoSuchAlgorithmException 
      */
     @FXML
-    private void handleOk() {
+    private void handleOk() throws NoSuchAlgorithmException {
         if (isInputValid()) {
-        	user.setGlobalRole(globalRoleField.getText());
-        	user.setLocalRole(localRoleField.getText());
+        	user.getGlobalRole().setId(globalRoleField.getText());
+        	user.getLocalRole().setId(localRoleField.getText());
         	user.setLogin(loginField.getText());
+        	user.setPassword(new Password(passwordField.getText()));
             user.setFirstName(firstNameField.getText());
             user.setLastName(lastNameField.getText());
+            user.setEmail(emailField.getText());
             user.setMatriculation(matriculationField.getText());
             user.setGender(genderField.getText());
             user.setStreet(streetField.getText());
