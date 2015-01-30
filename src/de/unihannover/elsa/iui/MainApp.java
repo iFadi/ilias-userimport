@@ -62,7 +62,7 @@ public class MainApp extends Application {
 	private String[] sheetNames;
 	
 	private char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); 
-	private char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
+//	private char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
 
 	/**
 	 * The data as an observable list of Persons.
@@ -147,8 +147,10 @@ public class MainApp extends Application {
 	}
 	
 	/**
+	 * Opens a dialog to choose which sheet from the Excel file should
+	 * be imported.
 	 * 
-	 * @return
+	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showXLSXSheetDialog() {
 		try {
@@ -186,8 +188,7 @@ public class MainApp extends Application {
 	 * clicks OK, the changes are saved into the provided person object and true
 	 * is returned.
 	 * 
-	 * @param user
-	 *            the person object to be edited
+	 * @param user the person object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showUserEditDialog(User user) {
