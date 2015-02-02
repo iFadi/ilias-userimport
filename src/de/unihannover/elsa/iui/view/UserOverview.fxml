@@ -96,7 +96,6 @@
                            </HBox.margin></Button>
                      </children>
                   </HBox>
-                  <Button layoutX="74.0" layoutY="354.0" mnemonicParsing="false" onAction="#handlePrint" text="print" />
                </children>
             </AnchorPane>
         </items>

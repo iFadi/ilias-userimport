@@ -77,8 +77,10 @@ public class MainApp extends Application {
 	}
 
 	/**
+	 * Opens a Dialog, which gives the user the possibility to add a global/local role,
+	 * set the user to be limited or add a password to the imported users.
 	 * 
-	 * @return
+	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showSettingsDialog() {
 		try {
@@ -112,8 +114,10 @@ public class MainApp extends Application {
 	}
 	
 	/**
+	 * Opens a Dialog, which gives the user the possibility to generate a
+	 * specific number of ILIAS dummy accounts.
 	 * 
-	 * @return
+	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showDummyAccountsDialog() {
 		try {
@@ -348,10 +352,6 @@ public class MainApp extends Application {
 			// Reading XML from the file and unmarshalling.
 			UserListWrapper wrapper = (UserListWrapper) um.unmarshal(file);
 			
-//			for(User u : wrapper.getUsers()) {
-//				System.out.println(u.getGlobalRole().getType());
-//			}
-
 			userData.clear();
 			userData.addAll(wrapper.getUsers());
 
@@ -426,7 +426,8 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Parses an Excel XLSX File, sill experimental.
+	 * Parses an Excel XLSX File, in the order
+	 * firstname, lastname, M-Nr, email
 	 * 
 	 * @param file
 	 * @throws IOException

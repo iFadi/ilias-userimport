@@ -72,9 +72,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" selected="true" text="Generate Password" />
+            <CheckBox fx:id="generatePassword" mnemonicParsing="false" selected="true" text="Generate Password" />
             <Label text="Password" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordField" disable="true" text="testing" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Separator layoutY="127.0" prefHeight="5.0" prefWidth="517.0" />

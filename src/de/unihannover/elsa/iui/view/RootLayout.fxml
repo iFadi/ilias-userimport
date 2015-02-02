@@ -25,10 +25,6 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#handlePrint" text="Print">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />

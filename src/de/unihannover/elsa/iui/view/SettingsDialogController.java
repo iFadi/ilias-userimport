@@ -7,6 +7,7 @@ import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -38,14 +39,16 @@ public class SettingsDialogController {
     private TextField globalRoleField;
     @FXML
     private TextField localRoleField;
-    @FXML
-    private ToggleButton limitedButton;
 	@FXML
     private TextField timeLimitFromField;
     @FXML
     private TextField timeLimitUntilField;
     @FXML
     private TextField passwordField;
+    @FXML
+    private ToggleButton limitedButton;
+    @FXML
+    private CheckBox generatePassword;
     
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -60,9 +63,15 @@ public class SettingsDialogController {
     private void initialize() {
     	limitedButton.setOnAction((event) -> {
     	    boolean selected = limitedButton.isSelected();
-    	    System.out.println("CheckBox Action (selected: " + selected + ")");
+    	    System.out.println("Toggle Button Action (selected: " + selected + ")");
     		timeLimitFromField.setDisable(!selected);
     		timeLimitUntilField.setDisable(!selected);
+    	});
+    	
+    	generatePassword.setOnAction((event) -> {
+    	    boolean selected = generatePassword.isSelected();
+    	    System.out.println("CheckBox Action (selected: " + selected + ")");
+    	    passwordField.setDisable(selected);
     	});
     }
     
@@ -91,18 +100,7 @@ public class SettingsDialogController {
     public boolean isOkClicked() {
         return okClicked;
     }
-    
-//    public void handleButtonAction(ActionEvent event) {
-//    	if(limitedButton.isPressed()) {
-//    		timeLimitFromField.setEditable(true);
-//    		timeLimitUntilField.setEditable(true);
-//    	}
-//    	else {
-//    		timeLimitFromField.setEditable(false);
-//    		timeLimitUntilField.setEditable(false);
-//    	}
-//    }
-    
+        
     /**
      * Called when the user clicks ok.
      * @throws NoSuchAlgorithmException 
@@ -114,7 +112,13 @@ public class SettingsDialogController {
     	for(User user : mainApp.getUserData()) {
     		user.getGlobalRole().setId(globalRoleField.getText());
     		user.getLocalRole().setId(localRoleField.getText());
-    		user.setPassword(new Password(passwordField.getText()));
+
+    		if(generatePassword.isSelected()) {
+    			System.out.println("Password is auto generated. Check the method parseExcel.");
+    		}
+    		else {
+        		user.setPassword(new Password(passwordField.getText()));
+    		}
     		
     		if(limitedButton.isSelected()) {
     			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
