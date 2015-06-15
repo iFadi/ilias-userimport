@@ -24,7 +24,7 @@
             <Label text="Local Role" GridPane.rowIndex="1" />
             <Label text="Global Role" />
             <TextField fx:id="globalRoleField" promptText="User" text="User" GridPane.columnIndex="1" />
-            <TextField fx:id="localRoleField" promptText="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="localRoleField" promptText="klausur_am_04.02.2015" text="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" text="These settings will be applied to all users." AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
@@ -57,8 +57,8 @@
          <children>
             <Label text="From" />
             <Label text="Until" GridPane.rowIndex="1" />
-            <TextField fx:id="timeLimitFromField" disable="true" promptText="04-02-2015" GridPane.columnIndex="1" />
-            <TextField fx:id="timeLimitUntilField" disable="true" promptText="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="timeLimitFromField" disable="true" promptText="04-02-2015" text="04-02-2015" GridPane.columnIndex="1" />
+            <TextField fx:id="timeLimitUntilField" disable="true" promptText="05-02-2015" text="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="Limited Access" />
