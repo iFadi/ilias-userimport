@@ -73,7 +73,7 @@ public class RootLayoutController {
     }
     
     /**
-     * Opens a FileChooser to let the user select an address book to load.
+     * Opens a FileChooser to let the user select a file to load.
      * @throws IOException 
      * @throws NoSuchAlgorithmException 
      */
@@ -85,7 +85,7 @@ public class RootLayoutController {
         FileChooser.ExtensionFilter filterCSV = new FileChooser.ExtensionFilter(
                 "Stud.IP CSV file (*.csv)", "*.csv");
         FileChooser.ExtensionFilter filterXLSX = new FileChooser.ExtensionFilter(
-        		"Excel file (*.xlsx)", "*.xlsx");
+        		"Excel file", "*.xlsx, *.xls");
         fileChooser.getExtensionFilters().add(filterCSV);
         fileChooser.getExtensionFilters().add(filterXLSX);
 		
@@ -99,6 +99,9 @@ public class RootLayoutController {
             }
             else if (fileExtension.equals("xlsx")) {
                 mainApp.parseExcel(file);
+            }
+            else if (fileExtension.equals("xls")) {
+                mainApp.parseExcel97(file);
             }
         }
     }

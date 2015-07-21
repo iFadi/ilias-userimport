@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Vector;
 import java.util.prefs.Preferences;
 
 import javafx.application.Application;
@@ -25,7 +26,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -404,27 +408,81 @@ public class MainApp extends Application {
 		String[] nextLine;
 		while ((nextLine = reader.readNext()) != null) {
 			// nextLine[] is an array of values from the line
-			// System.out.println(nextLine[0] + nextLine[1] + nextLine[2] +
-			// nextLine[3] + nextLine[4] + nextLine[5] + nextLine[6] +
-			// nextLine[7] + nextLine[8] + nextLine[9] + nextLine[10] +
-			// nextLine[11] + nextLine[12] + nextLine[13] +
-			// nextLine[14]+"etc...");
-			// nextLine[1] is for firstName, nextLine[2] for secondName in
-			// Stud.IP CSV.
-			User user = new User(nextLine[1], nextLine[2]);
-			// user.setLogin(nextLine[4]); // Here is the Login same as Stud.IP
-			// Login
-			// user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The
-			// Login is a Combination of m-nr with a random String.
-			user.setLogin(nextLine[22]); // The Login is same as the M-nr.
+//			 System.out.println(nextLine[0] + nextLine[1] + nextLine[2] +
+//			 nextLine[3] + nextLine[4] + nextLine[5] + nextLine[6] +
+//			 nextLine[7] + nextLine[8] + nextLine[9] + nextLine[10] +
+//			 nextLine[11] + nextLine[12] + nextLine[13] +
+//			 nextLine[14]+"etc...");
+			// nextLine[1] is for firstName, nextLine[2] for secondName in Stud.IP CSV.
+			
+//			User user = new User(nextLine[1], nextLine[2]);
+			User user = new User(nextLine[1], nextLine[0]);
+			// user.setLogin(nextLine[4]); // Here is the Login same as Stud.IP Login
+			// user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The Login is a Combination of m-nr with a random String.
+			// user.setLogin(nextLine[22]); // The Login is same as the M-nr.
+			user.setLogin(nextLine[2]);
 			user.setPassword(new Password(randomString(randomPassword, 5)));
-			user.setEmail(nextLine[7]);
-			user.setMatriculation(nextLine[22]);
+//			user.setEmail(nextLine[7]);
+//			user.setMatriculation(nextLine[22]);
+			user.setMatriculation(nextLine[2]);
 			userData.add(user);
+			
 		}
 		reader.close();
 	}
 
+	/**
+	 * Parses an Excel97 XLS File
+	 * 
+	 * @param file
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public void parseExcel97(File file) throws IOException, NoSuchAlgorithmException {
+	
+		/**
+		 * --Define a Vector --Holds Vectors Of Cells
+		 */
+		Vector cellVectorHolder = new Vector();
+
+		/** Creating Input Stream **/
+		FileInputStream myInput = new FileInputStream(file);
+
+		/** Create a POIFSFileSystem object **/
+		POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+		/** Create a workbook using the File System **/
+		HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+		/** Get the the selected sheet from workbook **/
+		HSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+
+		/** We now need something to iterate through the cells. **/
+		Iterator rowIter = mySheet.rowIterator();
+
+		DataFormatter df = new DataFormatter();
+
+		while (rowIter.hasNext()) {
+			HSSFRow row = (HSSFRow) rowIter.next();
+
+			if (row.getRowNum() != 0) { // Skip first Row, Headers.
+				String firstName = df.formatCellValue(row.getCell(1));
+				String lastName = df.formatCellValue(row.getCell(0));
+				String mnr = df.formatCellValue(row.getCell(3));
+				String mail = df.formatCellValue(row.getCell(2));
+
+				User user = new User(firstName, lastName);
+				user.setLogin(mnr); // The Login is same as the M-nr.
+				user.setPassword(new Password(randomString(randomPassword, 5)));
+				user.setEmail(mail);
+				user.setMatriculation(mnr);
+				userData.add(user);
+
+				System.out.println(firstName + " " + lastName + " " + mnr + " " + mail + "\t ");
+			}
+		}
+	}
+	
 	/**
 	 * Parses an Excel XLSX File, in the order
 	 * firstname, lastname, M-Nr, email
@@ -451,7 +509,7 @@ public class MainApp extends Application {
 			this.showXLSXSheetDialog();
 		}
 		
-		// Return first sheet from the XLSX workbook
+		// Return the selected sheet from the XLSX workbook
 		XSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
 //		System.out.println(myWorkBook.getSheetName(getSelectedSheet()));
 
