@@ -83,7 +83,7 @@ public class RootLayoutController {
 
         // Set extension filter        
         FileChooser.ExtensionFilter filterCSV = new FileChooser.ExtensionFilter(
-                "Stud.IP CSV file (*.csv)", "*.csv");
+                "CSV file (*.csv)", "*.csv");
         FileChooser.ExtensionFilter filterXLSX = new FileChooser.ExtensionFilter(
         		"Excel file", "*.xlsx, *.xls");
         fileChooser.getExtensionFilters().add(filterCSV);
@@ -95,13 +95,16 @@ public class RootLayoutController {
         if(file != null) {
             String fileExtension = FilenameUtils.getExtension(file.getPath());
             if (fileExtension.equals("csv")) {
-                mainApp.parseCSV(file);
+//                mainApp.parseCSV(file);
+            	mainApp.showChooseCSVHeaderDialog(file);
+            	
             }
             else if (fileExtension.equals("xlsx")) {
                 mainApp.parseExcel(file);
             }
             else if (fileExtension.equals("xls")) {
-                mainApp.parseExcel97(file);
+//                mainApp.parseExcel97(file);
+            	mainApp.showChooseExcel97HeaderDialog(file);
             }
         }
     }
