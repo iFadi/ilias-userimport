@@ -7,7 +7,10 @@ This App generates a XML file from a CSV or Excel file as input. The XML file ca
   * [2.0 beta 4](https://github.com/iFadi/ilias-userimport/releases/download/2.0.beta4/IUI_2_beta4.jar)
 
 ## Screenshots
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta.png)
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta1.png)
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta2.png)
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta3.png)
+
 
 ## Donation
 Need Coffee ...... :)
