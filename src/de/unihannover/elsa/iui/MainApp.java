@@ -49,6 +49,7 @@ import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
 import de.unihannover.elsa.iui.view.ChooseCSVHeaderDialog;
 import de.unihannover.elsa.iui.view.ChooseExcel97HeaderDialog;
+import de.unihannover.elsa.iui.view.ChooseExcelHeaderDialog;
 import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
 import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
@@ -171,7 +172,7 @@ public class MainApp extends Application {
 	 */
 	public boolean showChooseCSVHeaderDialog(File file) {
 		try {
-			// get the CSVHeaders;
+			// get the 0Headers;
 			this.getCSVHeaders(file);
 			
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -189,6 +190,48 @@ public class MainApp extends Application {
 
 			// Give the controller access to the main app.
 			ChooseCSVHeaderDialog controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setFile(file);
+
+			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Opens a Dialog, which gives the user the possibility
+	 * to choose which headers to use in ILIAS.
+	 * 
+	 * @return true if the user clicked OK, false otherwise.
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public boolean showChooseExcelHeaderDialog(File file) throws NoSuchAlgorithmException {
+		try {
+			// get the Headers;
+			this.getExcelHeaders(file);
+			
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ChooseExcelHeaderDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Choose Headers");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			ChooseExcelHeaderDialog controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setFile(file);
 
@@ -494,6 +537,42 @@ public class MainApp extends Application {
 	 * @throws IOException
 	 * @throws NoSuchAlgorithmException 
 	 */
+	public void getExcelHeaders(File file) throws IOException, NoSuchAlgorithmException {
+		FileInputStream fileStream = new FileInputStream(file);
+
+		// Finds the workbook instance for XLSX file
+		XSSFWorkbook myWorkBook = new XSSFWorkbook(fileStream);
+		
+		// Return the selected sheet from the XLSX workbook
+		XSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+//		System.out.println(myWorkBook.getSheetName(getSelectedSheet()));
+
+		DataFormatter df = new DataFormatter();
+
+		// Get iterator to all the rows in current sheet
+		Iterator<Row> rowIterator = mySheet.iterator();
+		Row row = rowIterator.next();
+		String[] headers = new String[row.getPhysicalNumberOfCells()];
+		
+		int i=0;
+		for(Cell h : row) {	
+//			System.out.println(h.getRichStringCellValue().getString());
+			headers[i] = h.getRichStringCellValue().getString();
+			i++;
+		}
+		setHeaders(headers);
+		
+		myWorkBook.close();
+		fileStream.close();
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param file
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
+	 */
 	public void getExcel97Headers(File file) throws IOException, NoSuchAlgorithmException {
 	
 		/**
@@ -614,6 +693,18 @@ public class MainApp extends Application {
 
 		/** Get the the selected sheet from workbook **/
 		HSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+		
+		setNumberOfSheets(myWorkBook.getNumberOfSheets());
+		
+		// Pop up a Dialog to choose which sheet to import.
+		if(myWorkBook.getNumberOfSheets() > 1) {
+			String[] sheets = new String[getNumberOfSheets()];
+        	for(int i=0; i<sheets.length; i++) {
+        		sheets[i] = myWorkBook.getSheetName(i);
+        	}
+			setSheetNames(sheets);
+			this.showXLSXSheetDialog();
+		}
 
 		/** We now need something to iterate through the cells. **/
 		Iterator rowIter = mySheet.rowIterator();

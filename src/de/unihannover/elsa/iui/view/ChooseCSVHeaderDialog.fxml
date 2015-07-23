@@ -44,6 +44,11 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="14.0" layoutY="203.0" prefHeight="34.0" prefWidth="354.0" text="If there is no proper match, just leave it empty.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
    <stylesheets>
       <URL value="@JMetroLightTheme.css" />

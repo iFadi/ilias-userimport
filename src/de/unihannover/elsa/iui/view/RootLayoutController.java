@@ -5,13 +5,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 import javafx.fxml.FXML;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import org.apache.commons.io.FilenameUtils;
 import org.controlsfx.dialog.Dialogs;
@@ -84,9 +79,12 @@ public class RootLayoutController {
         // Set extension filter        
         FileChooser.ExtensionFilter filterCSV = new FileChooser.ExtensionFilter(
                 "CSV file (*.csv)", "*.csv");
+        FileChooser.ExtensionFilter filterXLS = new FileChooser.ExtensionFilter(
+        		"Excel file (*.xls)", "*.xls");
         FileChooser.ExtensionFilter filterXLSX = new FileChooser.ExtensionFilter(
-        		"Excel file", "*.xlsx, *.xls");
+        		"Excel file (*.xlsx)", "*.xlsx");
         fileChooser.getExtensionFilters().add(filterCSV);
+        fileChooser.getExtensionFilters().add(filterXLS);
         fileChooser.getExtensionFilters().add(filterXLSX);
 		
         // Show save file dialog
@@ -100,7 +98,8 @@ public class RootLayoutController {
             	
             }
             else if (fileExtension.equals("xlsx")) {
-                mainApp.parseExcel(file);
+//                mainApp.parseExcel(file);
+            	mainApp.showChooseExcelHeaderDialog(file);
             }
             else if (fileExtension.equals("xls")) {
 //                mainApp.parseExcel97(file);
@@ -209,7 +208,7 @@ public class RootLayoutController {
         Dialogs.create()
             .title("ILIAS User Import")
             .masthead("About")
-            .message("Version: 2.0 beta\n\nProject: https://github.com/iFadi/ilias-userimport")
+            .message("Version: 2.0 beta4\n\nProject: https://github.com/iFadi/ilias-userimport")
             .showInformation();
     }
 

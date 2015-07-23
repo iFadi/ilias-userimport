@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="295.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.ChooseExcel97HeaderDialog">
+<AnchorPane prefHeight="295.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.ChooseExcelHeaderDialog">
    <children>
       <HBox layoutX="238.0" layoutY="101.0" />
       <Button defaultButton="true" layoutX="257.0" layoutY="246.0" mnemonicParsing="false" onAction="#handleImport" prefHeight="27.0" prefWidth="91.0" text="Import" />
