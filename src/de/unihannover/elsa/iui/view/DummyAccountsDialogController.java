@@ -1,6 +1,9 @@
 package de.unihannover.elsa.iui.view;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -63,6 +66,9 @@ public class DummyAccountsDialogController {
      */
     @FXML
     private void initialize() {
+    	timeLimitFromField.setText(getTodaysDate());
+    	timeLimitUntilField.setText(getDateLater(10));
+    	
     	limitedButton.setOnAction((event) -> {
     	    boolean selected = limitedButton.isSelected();
     	    System.out.println("CheckBox Action (selected: " + selected + ")");
@@ -106,39 +112,74 @@ public class DummyAccountsDialogController {
     @FXML
     private void handleGenerate() throws NoSuchAlgorithmException {
 
-		User tempPerson;
-		int count = 1;		
+		User dummyAccount;
+//		int count = 1;		
 		// Generate a specific number of dummy accounts
 		for(int i=1; i<=Integer.parseInt(numberOfAccountsField.getText()); i++) {
-			tempPerson = new User();
-			mainApp.getUserData().add(tempPerson);
+			dummyAccount = new User();
+			
+			dummyAccount.getGlobalRole().setId(globalRoleField.getText());
+			dummyAccount.getLocalRole().setId(localRoleField.getText());
+			dummyAccount.setFirstName("Ersatz Account");
+			dummyAccount.setLastName(i+"");
+			dummyAccount.setEmail("ersatz@account.de");
+			dummyAccount.setMatriculation("123456");
+			dummyAccount.setLogin(loginPrefixField.getText()+"_"+i);
+			dummyAccount.setPassword(new Password(passwordField.getText()));
+    		
+    		if(limitedButton.isSelected()) {
+    			dummyAccount.setTimeLimitUnlimited("0"); // Time Limit is activated.
+    			dummyAccount.setTimeLimitFrom(timeLimitFromField.getText());
+    			dummyAccount.setTimeLimitUntil(timeLimitUntilField.getText());
+    		}
+    		else {
+    			dummyAccount.setTimeLimitUnlimited("1"); // Time Limit is deactivated.
+    		}
+			
+			mainApp.getUserData().add(dummyAccount);
 		}
 				
 //    	System.out.println(mainApp.getUserData());
-    	for(User user : mainApp.getUserData()) {
-    		user.getGlobalRole().setId(globalRoleField.getText());
-    		user.getLocalRole().setId(localRoleField.getText());
-    		user.setFirstName("Ersatz Account");
-    		user.setLastName(count+"");
-    		user.setEmail("ersatz@account.de");
-    		user.setMatriculation("123456");
-    		user.setLogin(loginPrefixField.getText()+"_"+count);
-    		user.setPassword(new Password(passwordField.getText()));
-    		
-    		if(limitedButton.isSelected()) {
-    			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
-    			user.setTimeLimitFrom(timeLimitFromField.getText());
-    			user.setTimeLimitUntil(timeLimitUntilField.getText());
-    		}
-    		else {
-    			user.setTimeLimitUnlimited("1"); // Time Limit is deactivated.
-    		}
-    		count++;
-    	}
+//    	for(User user : mainApp.getUserData()) {
+//    		user.getGlobalRole().setId(globalRoleField.getText());
+//    		user.getLocalRole().setId(localRoleField.getText());
+//    		user.setFirstName("Ersatz Account");
+//    		user.setLastName(count+"");
+//    		user.setEmail("ersatz@account.de");
+//    		user.setMatriculation("123456");
+//    		user.setLogin(loginPrefixField.getText()+"_"+count);
+//    		user.setPassword(new Password(passwordField.getText()));
+//    		
+//    		if(limitedButton.isSelected()) {
+//    			user.setTimeLimitUnlimited("0"); // Time Limit is activated.
+//    			user.setTimeLimitFrom(timeLimitFromField.getText());
+//    			user.setTimeLimitUntil(timeLimitUntilField.getText());
+//    		}
+//    		else {
+//    			user.setTimeLimitUnlimited("1"); // Time Limit is deactivated.
+//    		}
+//    		count++;
+//    	}
     	
     	okClicked = true;
         dialogStage.close();
         
+    }
+    
+    private String getDateLater(int n) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +n);
+        Date date = cal.getTime();    
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    	System.out.println(sdf.format(date));
+    	return sdf.format(date);
+    }
+    
+    private String getTodaysDate() {
+    	Date date = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    	System.out.println(sdf.format(date));
+    	return sdf.format(date);
     }
     
     /**

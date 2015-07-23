@@ -93,18 +93,14 @@ public class RootLayoutController {
         if(file != null) {
             String fileExtension = FilenameUtils.getExtension(file.getPath());
             if (fileExtension.equals("csv")) {
-//                mainApp.parseCSV(file);
             	mainApp.getCSVHeaders(file);
             	mainApp.showChooseHeaderDialog(file, "csv");
-            	
             }
             else if (fileExtension.equals("xlsx")) {
-//                mainApp.parseExcel(file);
             	mainApp.getExcelHeaders(file);
             	mainApp.showChooseHeaderDialog(file, "xlsx");
             }
             else if (fileExtension.equals("xls")) {
-//                mainApp.parseExcel97(file);
             	mainApp.getExcel97Headers(file);
             	mainApp.showChooseHeaderDialog(file, "xls");
             }
@@ -211,7 +207,7 @@ public class RootLayoutController {
         Dialogs.create()
             .title("ILIAS User Import")
             .masthead("About")
-            .message("Version: 2.0 beta4\n\nProject: https://github.com/iFadi/ilias-userimport")
+            .message("Version: 2.0 beta 4\n\nProject: https://github.com/iFadi/ilias-userimport")
             .showInformation();
     }
 

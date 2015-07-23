@@ -1,7 +1,7 @@
 # ILIAS User Import - IUI
 This App generates a XML file from a CSV or Excel file as input. The XML file can then be imported into the [ILIAS e-Learning System](http://www.ilias.de/).
 
-**THIS IS A BETA VERSION, which means it might not work as expected**
+**THIS IS A BETA VERSION, which means it might not work as expected.**
 
 ## Latest Release
   * [2.0 beta 4](https://github.com/iFadi/ilias-userimport/releases/download/2.0.beta4/IUI_2_beta4.jar)

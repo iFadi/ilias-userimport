@@ -1,6 +1,10 @@
 package de.unihannover.elsa.iui.view;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import de.unihannover.elsa.iui.MainApp;
 import de.unihannover.elsa.iui.model.Password;
@@ -61,6 +65,9 @@ public class SettingsDialogController {
      */
     @FXML
     private void initialize() {
+    	timeLimitFromField.setText(getTodaysDate());
+    	timeLimitUntilField.setText(getDateLater(10));
+    	
     	limitedButton.setOnAction((event) -> {
     	    boolean selected = limitedButton.isSelected();
     	    System.out.println("Toggle Button Action (selected: " + selected + ")");
@@ -133,6 +140,22 @@ public class SettingsDialogController {
     	okClicked = true;
         dialogStage.close();
         
+    }
+    
+    private String getDateLater(int n) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +n);
+        Date date = cal.getTime();    
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    	System.out.println(sdf.format(date));
+    	return sdf.format(date);
+    }
+    
+    private String getTodaysDate() {
+    	Date date = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    	System.out.println(sdf.format(date));
+    	return sdf.format(date);
     }
     
     /**
