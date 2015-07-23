@@ -47,9 +47,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
-import de.unihannover.elsa.iui.view.ChooseCSVHeaderDialog;
-import de.unihannover.elsa.iui.view.ChooseExcel97HeaderDialog;
-import de.unihannover.elsa.iui.view.ChooseExcelHeaderDialog;
+import de.unihannover.elsa.iui.view.ChooseHeaderDialog;
 import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
 import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
@@ -170,14 +168,11 @@ public class MainApp extends Application {
 	 * 
 	 * @return true if the user clicked OK, false otherwise.
 	 */
-	public boolean showChooseCSVHeaderDialog(File file) {
-		try {
-			// get the 0Headers;
-			this.getCSVHeaders(file);
-			
+	public boolean showChooseHeaderDialog(File file, String type) {
+		try {			
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ChooseCSVHeaderDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/ChooseHeaderDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -189,94 +184,10 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Give the controller access to the main app.
-			ChooseCSVHeaderDialog controller = loader.getController();
+			ChooseHeaderDialog controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setFile(file);
-
-			controller.setDialogStage(dialogStage);
-
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	/**
-	 * Opens a Dialog, which gives the user the possibility
-	 * to choose which headers to use in ILIAS.
-	 * 
-	 * @return true if the user clicked OK, false otherwise.
-	 * @throws NoSuchAlgorithmException 
-	 */
-	public boolean showChooseExcelHeaderDialog(File file) throws NoSuchAlgorithmException {
-		try {
-			// get the Headers;
-			this.getExcelHeaders(file);
-			
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ChooseExcelHeaderDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Choose Headers");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Give the controller access to the main app.
-			ChooseExcelHeaderDialog controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setFile(file);
-
-			controller.setDialogStage(dialogStage);
-
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	/**
-	 * Opens a Dialog, which gives the user the possibility
-	 * to choose which headers to use in ILIAS.
-	 * 
-	 * @return true if the user clicked OK, false otherwise.
-	 * @throws NoSuchAlgorithmException 
-	 */
-	public boolean showChooseExcel97HeaderDialog(File file) throws NoSuchAlgorithmException {
-		try {
-			// get the Headers;
-			this.getExcel97Headers(file);
-			
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/ChooseExcel97HeaderDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Choose Headers");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Give the controller access to the main app.
-			ChooseExcel97HeaderDialog controller = loader.getController();
-//			ChooseExcel97HeaderDialog controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setFile(file);
+			controller.setType(type);
 
 			controller.setDialogStage(dialogStage);
 
@@ -775,19 +686,24 @@ public class MainApp extends Application {
 			Row row = rowIterator.next();
 
 			if (row.getRowNum() != 0) { // Skip first Row, Headers.
-				String firstName = df.formatCellValue(row.getCell(0));
-				String lastName = df.formatCellValue(row.getCell(1));
-				String mnr = df.formatCellValue(row.getCell(2));
-				String mail = df.formatCellValue(row.getCell(3));
+				String firstName = df.formatCellValue(row.getCell(getFirstNameIndex()));
+				String lastName = df.formatCellValue(row.getCell(getLastNameIndex()));
+				String mnr = df.formatCellValue(row.getCell(getMatriculationIndex()));
 
 				User user = new User(firstName, lastName);
+				
+				if(getEmailIndex() > 0) {
+					String mail = df.formatCellValue(row.getCell(getEmailIndex()));
+					user.setEmail(mail);
+					user.setEmail(mail);
+				}
+				
 				user.setLogin(mnr); // The Login is same as the M-nr.
 				user.setPassword(new Password(randomString(randomPassword, 5)));
-				user.setEmail(mail);
 				user.setMatriculation(mnr);
 				userData.add(user);
 
-				System.out.println(firstName + " " + lastName + " " + mnr + " " + mail + "\t ");
+				System.out.println(firstName + " " + lastName + " " + mnr + "\t ");
 			}
 		}
 		myWorkBook.close();

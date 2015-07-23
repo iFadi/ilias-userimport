@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import de.unihannover.elsa.iui.MainApp;
 
-public class ChooseExcel97HeaderDialog {
+public class ChooseHeaderDialog {
 
 		@FXML
 	    private ComboBox<String> firstNameBox;
@@ -32,14 +32,14 @@ public class ChooseExcel97HeaderDialog {
 	 // Reference to the main application.
 	    private MainApp mainApp;
 	    private File file;
+	    private String type;
 	    
 	    
-	    public ChooseExcel97HeaderDialog() {
+	    public ChooseHeaderDialog() {
 	    	firstNameBox = new ComboBox<String>();
 	    	lastNameBox = new ComboBox<String>();
 	    	matriculationBox = new ComboBox<String>();
 	    	emailBox = new ComboBox<String>();
-
 		}
 	    
 	    /**
@@ -96,10 +96,13 @@ public class ChooseExcel97HeaderDialog {
 	    	
 	    }
 	    
+	    /**
+	     * 
+	     */
 	    public void loadHeaders() {
         	for(int i=0; i<mainApp.getHeaders().length; i++) {
         		comboBoxData.add(mainApp.getHeaders()[i]);
-//        		System.out.println(mainApp.getHeaders()[i]);
+        		System.out.println(mainApp.getHeaders()[i]);
         	}
 	    }
 	    
@@ -137,13 +140,23 @@ public class ChooseExcel97HeaderDialog {
 	    }
 	    
 	    /**
-	     * Called when the user clicks cancel.
+	     * 
 	     * @throws IOException 
 	     * @throws NoSuchAlgorithmException 
 	     */
 	    @FXML
 	    private void handleImport() throws NoSuchAlgorithmException, IOException {
-	    	mainApp.parseExcel97(file);
+	    	switch (type) {
+	    		case "csv": mainApp.parseCSV(file);
+	    			break;
+	    		case "xls": mainApp.parseExcel97(file);
+	    			break;
+	    		case "xlsx": mainApp.parseExcel(file);
+	    			break;
+	    		default: System.out.println("No parsing method is choosen."); 
+	    			break;
+	    	}
+	    		
 	    	dialogStage.close();
 	    }
 	    
@@ -154,4 +167,13 @@ public class ChooseExcel97HeaderDialog {
 	    private void handleCancel() {
 	        dialogStage.close();
 	    }
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
 }

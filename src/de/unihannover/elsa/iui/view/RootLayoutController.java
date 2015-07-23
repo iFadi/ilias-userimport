@@ -94,16 +94,19 @@ public class RootLayoutController {
             String fileExtension = FilenameUtils.getExtension(file.getPath());
             if (fileExtension.equals("csv")) {
 //                mainApp.parseCSV(file);
-            	mainApp.showChooseCSVHeaderDialog(file);
+            	mainApp.getCSVHeaders(file);
+            	mainApp.showChooseHeaderDialog(file, "csv");
             	
             }
             else if (fileExtension.equals("xlsx")) {
 //                mainApp.parseExcel(file);
-            	mainApp.showChooseExcelHeaderDialog(file);
+            	mainApp.getExcelHeaders(file);
+            	mainApp.showChooseHeaderDialog(file, "xlsx");
             }
             else if (fileExtension.equals("xls")) {
 //                mainApp.parseExcel97(file);
-            	mainApp.showChooseExcel97HeaderDialog(file);
+            	mainApp.getExcel97Headers(file);
+            	mainApp.showChooseHeaderDialog(file, "xls");
             }
         }
     }
