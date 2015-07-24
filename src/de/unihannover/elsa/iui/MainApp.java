@@ -53,7 +53,7 @@ import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
 import de.unihannover.elsa.iui.view.UserEditDialogController;
 import de.unihannover.elsa.iui.view.UserOverviewController;
-import de.unihannover.elsa.iui.view.XLSXSheetDialogController;
+import de.unihannover.elsa.iui.view.ExcelSheetDialogController;
 
 /**
  *
@@ -71,6 +71,8 @@ public class MainApp extends Application {
 	private int lastNameIndex;
 	private int matriculationIndex;
 	private int emailIndex;
+	private int loginIndex;
+	private int numberOfUsers;
 
 	
 	private char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); 
@@ -207,7 +209,7 @@ public class MainApp extends Application {
 	 * 
 	 * @return true if the user clicked OK, false otherwise.
 	 */
-	public boolean showXLSXSheetDialog() {
+	public boolean showExcelSheetDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -223,7 +225,7 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Give the controller access to the main app.
-			XLSXSheetDialogController controller = loader.getController();
+			ExcelSheetDialogController controller = loader.getController();
 			controller.setMainApp(this);
 
 			controller.setDialogStage(dialogStage);
@@ -294,7 +296,7 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		showPersonOverview();
+		showUserOverview();
 	}
 
 	/**
@@ -331,7 +333,7 @@ public class MainApp extends Application {
 	/**
 	 * Shows the person overview inside the root layout.
 	 */
-	public void showPersonOverview() {
+	public void showUserOverview() {
 		try {
 			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
@@ -553,24 +555,26 @@ public class MainApp extends Application {
 		
 		String[] nextLine;
 		while ((nextLine = reader.readNext()) != null) {
-			// nextLine[] is an array of values from the line
-//			 System.out.println(nextLine[0] + nextLine[1] + nextLine[2]);
-//			 nextLine[3] + nextLine[4] + nextLine[5] + nextLine[6] +
-//			 nextLine[7] + nextLine[8] + nextLine[9] + nextLine[10] +
-//			 nextLine[11] + nextLine[12] + nextLine[13] +
-//			 nextLine[14]+"etc...");
-			// nextLine[1] is for firstName, nextLine[2] for secondName in Stud.IP CSV.
 			
 //			User user = new User(nextLine[1], nextLine[2]);
 			User user = new User(nextLine[getFirstNameIndex()], nextLine[getLastNameIndex()]);
 			// user.setLogin(nextLine[4]); // Here is the Login same as Stud.IP Login
 			// user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The Login is a Combination of m-nr with a random String.
 			// user.setLogin(nextLine[22]); // The Login is same as the M-nr.
-			user.setLogin(nextLine[getMatriculationIndex()]);
+			
 			user.setPassword(new Password(randomString(randomPassword, 5)));
+			
 			if(getEmailIndex() > 0) {
 				user.setEmail(nextLine[getEmailIndex()]);
 			}
+			
+			if(getLoginIndex() > 0) {
+				user.setLogin(nextLine[getLoginIndex()]);
+			}
+			else {
+				user.setLogin(nextLine[getMatriculationIndex()]);
+			}
+			
 //			user.setMatriculation(nextLine[22]);
 			user.setMatriculation(nextLine[getMatriculationIndex()]);
 			userData.add(user);
@@ -614,7 +618,7 @@ public class MainApp extends Application {
         		sheets[i] = myWorkBook.getSheetName(i);
         	}
 			setSheetNames(sheets);
-			this.showXLSXSheetDialog();
+			this.showExcelSheetDialog();
 		}
 
 		/** We now need something to iterate through the cells. **/
@@ -635,7 +639,15 @@ public class MainApp extends Application {
 					String mail = df.formatCellValue(row.getCell(getEmailIndex()));
 					user.setEmail(mail);
 				}
-				user.setLogin(mnr); // The Login is same as the M-nr.
+				
+				if(getLoginIndex() > 0) {
+					String login = df.formatCellValue(row.getCell(getLoginIndex()));
+					user.setLogin(login);
+				}
+				else {
+					user.setLogin(mnr); // The Login is same as the M-nr.
+				}
+				
 				user.setPassword(new Password(randomString(randomPassword, 5)));
 
 				user.setMatriculation(mnr);
@@ -669,7 +681,7 @@ public class MainApp extends Application {
         		sheets[i] = myWorkBook.getSheetName(i);
         	}
 			setSheetNames(sheets);
-			this.showXLSXSheetDialog();
+			this.showExcelSheetDialog();
 		}
 		
 		// Return the selected sheet from the XLSX workbook
@@ -697,8 +709,14 @@ public class MainApp extends Application {
 					user.setEmail(mail);
 					user.setEmail(mail);
 				}
-				
-				user.setLogin(mnr); // The Login is same as the M-nr.
+				if(getLoginIndex() > 0) {
+					String login = df.formatCellValue(row.getCell(getLoginIndex()));
+					user.setLogin(login);
+				}
+				else {
+					user.setLogin(mnr); // The Login is same as the M-nr.
+				}
+
 				user.setPassword(new Password(randomString(randomPassword, 5)));
 				user.setMatriculation(mnr);
 				userData.add(user);
@@ -821,6 +839,22 @@ public class MainApp extends Application {
 
 	public void setEmailIndex(int emailIndex) {
 		this.emailIndex = emailIndex;
+	}
+
+	public int getLoginIndex() {
+		return loginIndex;
+	}
+
+	public void setLoginIndex(int loginIndex) {
+		this.loginIndex = loginIndex;
+	}
+
+	public int getNumberOfUsers() {
+		return userData.size();
+	}
+
+	public void setNumberOfUsers(int numberOfUsers) {
+		this.numberOfUsers = numberOfUsers;
 	}
 
 }

@@ -24,6 +24,8 @@ public class ChooseHeaderDialog {
 	    private ComboBox<String> matriculationBox;
 	    @FXML
 	    private ComboBox<String> emailBox;
+	    @FXML
+	    private ComboBox<String> loginBox;
 	    
 	    private ObservableList<String> comboBoxData = FXCollections.observableArrayList();
 	    private Stage dialogStage;
@@ -40,6 +42,8 @@ public class ChooseHeaderDialog {
 	    	lastNameBox = new ComboBox<String>();
 	    	matriculationBox = new ComboBox<String>();
 	    	emailBox = new ComboBox<String>();
+	    	loginBox = new ComboBox<String>();
+
 		}
 	    
 	    /**
@@ -52,6 +56,8 @@ public class ChooseHeaderDialog {
 	    	lastNameBox.setItems(comboBoxData);
 	    	matriculationBox.setItems(comboBoxData);
 	    	emailBox.setItems(comboBoxData);
+	    	loginBox.setItems(comboBoxData);
+
 	    	
 
 	    	firstNameBox.setOnAction((event) -> {
@@ -94,6 +100,16 @@ public class ChooseHeaderDialog {
 	        	mainApp.setEmailIndex(-1);
 	    	});
 	    	
+	    	loginBox.setOnAction((event) -> {
+	    	    Integer selectedIndex = loginBox.getSelectionModel().getSelectedIndex();
+	    	    System.out.println("loginBox ComboBox Action (selected: " + selectedIndex.toString() + ")");
+	    	    mainApp.setLoginIndex(selectedIndex);
+	    	});
+	    	
+	    	loginBox.setOnShown((event) -> {
+	        	mainApp.setLoginIndex(-1);
+	    	});
+	    	
 	    }
 	    
 	    /**
@@ -124,6 +140,9 @@ public class ChooseHeaderDialog {
 	    public void setMainApp(MainApp mainApp) {
 	        this.mainApp = mainApp;
 	    	loadHeaders();
+	    	mainApp.setEmailIndex(-1);
+	    	mainApp.setLoginIndex(-1);
+	    	mainApp.setSelectedSheet(0);
 	    }
 	    
 	    public void setFile(File file) {

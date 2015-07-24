@@ -29,7 +29,7 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Export" />
+                  <MenuItem mnemonicParsing="false" onAction="#export" text="Export" />
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>

@@ -54,7 +54,8 @@ public class UserOverviewController {
 	private Label postalCodeLabel;
 	@FXML
 	private Label cityLabel;
-
+	@FXML
+	private Label numberOfUsersLabel;
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -128,6 +129,13 @@ public class UserOverviewController {
 		// changed.
 		userTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+		
+//		numberOfUsersLabel.seton
+		numberOfUsersLabel.setOnMouseMoved((event) -> {
+    	    System.out.println("Mouse is moving "+getNumberOfUsers());
+    	    numberOfUsersLabel.setText(getNumberOfUsers()+"");
+
+    	});
 	}
 
 	/**
@@ -140,6 +148,7 @@ public class UserOverviewController {
 
 		// Add observable list data to the table
 		userTable.setItems(mainApp.getUserData());
+		getNumberOfUsers();
 	}
 
 	/**
@@ -202,5 +211,9 @@ public class UserOverviewController {
 			printerJob.endJob();
 			System.out.println("printed");
 		}
+	}
+	
+	public int getNumberOfUsers(){
+		return mainApp.getNumberOfUsers();
 	}
 }

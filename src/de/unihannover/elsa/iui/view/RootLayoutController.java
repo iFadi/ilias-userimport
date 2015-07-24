@@ -155,7 +155,7 @@ public class RootLayoutController {
         if (personFile != null) {
             mainApp.saveUserDataToFile(personFile);
         } else {
-            handleSaveAs();
+            export();
         }
     }
 
@@ -163,7 +163,7 @@ public class RootLayoutController {
      * Opens a FileChooser to let the user select a file to save to.
      */
     @FXML
-    private void handleSaveAs() {
+    private void export() {
         FileChooser fileChooser = new FileChooser();
 
         // Set extension filter

@@ -37,7 +37,7 @@ import de.unihannover.elsa.iui.model.User;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-public class XLSXSheetDialogController {
+public class ExcelSheetDialogController {
 
     @FXML
     private ComboBox<String> comboBox;
@@ -52,7 +52,7 @@ public class XLSXSheetDialogController {
     /**
 	 * 
 	 */
-	public XLSXSheetDialogController() {
+	public ExcelSheetDialogController() {
     	comboBox = new ComboBox<String>();
 	}
 	
