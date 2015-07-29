@@ -97,10 +97,12 @@ public class RootLayoutController {
             	mainApp.showChooseHeaderDialog(file, "csv");
             }
             else if (fileExtension.equals("xlsx")) {
+    	    	mainApp.setSelectedSheet(0); // if before another sheet imported.
             	mainApp.getExcelHeaders(file);
             	mainApp.showChooseHeaderDialog(file, "xlsx");
             }
             else if (fileExtension.equals("xls")) {
+    	    	mainApp.setSelectedSheet(0);
             	mainApp.getExcel97Headers(file);
             	mainApp.showChooseHeaderDialog(file, "xls");
             }

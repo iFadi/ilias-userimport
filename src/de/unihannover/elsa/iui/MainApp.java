@@ -47,6 +47,7 @@ import au.com.bytecode.opencsv.CSVReader;
 import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
+import de.unihannover.elsa.iui.util.PasswordUtility;
 import de.unihannover.elsa.iui.view.ChooseHeaderDialog;
 import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
 import de.unihannover.elsa.iui.view.RootLayoutController;
@@ -73,10 +74,6 @@ public class MainApp extends Application {
 	private int emailIndex;
 	private int loginIndex;
 	private int numberOfUsers;
-
-	
-	private char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); 
-//	private char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
 
 	/**
 	 * The data as an observable list of Persons.
@@ -213,7 +210,7 @@ public class MainApp extends Application {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/XLSXSheetDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/ExcelSheetDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -242,10 +239,10 @@ public class MainApp extends Application {
 
 	/**
 	 * Opens a dialog to edit details for the specified person. If the user
-	 * clicks OK, the changes are saved into the provided person object and true
+	 * clicks OK, the changes are saved into the provided user object and true
 	 * is returned.
 	 * 
-	 * @param user the person object to be edited
+	 * @param user object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showUserEditDialog(User user) {
@@ -418,7 +415,7 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Saves the current person data to the specified file.
+	 * Saves the current user data to the specified file.
 	 * 
 	 * @param file
 	 */
@@ -444,7 +441,7 @@ public class MainApp extends Application {
 	}
 	
 	/**
-	 * 
+	 * sort out the header of an Excel file and save them to an array String.
 	 * 
 	 * @param file
 	 * @throws IOException
@@ -480,7 +477,7 @@ public class MainApp extends Application {
 	}
 	
 	/**
-	 * 
+	 * sort out the header of an Excel 97 file and save them to an array String.
 	 * 
 	 * @param file
 	 * @throws IOException
@@ -525,7 +522,7 @@ public class MainApp extends Application {
 
 	/**
 	 * Get the Headers of a CSV File and save them
-	 * in an array.
+	 * in an array String.
 	 * 
 	 * @param file
 	 * @throws IOException
@@ -562,7 +559,7 @@ public class MainApp extends Application {
 			// user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The Login is a Combination of m-nr with a random String.
 			// user.setLogin(nextLine[22]); // The Login is same as the M-nr.
 			
-			user.setPassword(new Password(randomString(randomPassword, 5)));
+			user.setPassword(new Password(PasswordUtility.randomString(5)));
 			
 			if(getEmailIndex() > 0) {
 				user.setEmail(nextLine[getEmailIndex()]);
@@ -648,7 +645,7 @@ public class MainApp extends Application {
 					user.setLogin(mnr); // The Login is same as the M-nr.
 				}
 				
-				user.setPassword(new Password(randomString(randomPassword, 5)));
+				user.setPassword(new Password(PasswordUtility.randomString(5)));
 
 				user.setMatriculation(mnr);
 				userData.add(user);
@@ -659,8 +656,7 @@ public class MainApp extends Application {
 	}
 	
 	/**
-	 * Parses an Excel XLSX File, in the order
-	 * firstname, lastname, M-Nr, email
+	 * Parses an Excel XLSX File
 	 * 
 	 * @param file
 	 * @throws IOException
@@ -717,7 +713,7 @@ public class MainApp extends Application {
 					user.setLogin(mnr); // The Login is same as the M-nr.
 				}
 
-				user.setPassword(new Password(randomString(randomPassword, 5)));
+				user.setPassword(new Password(PasswordUtility.randomString(5)));
 				user.setMatriculation(mnr);
 				userData.add(user);
 
@@ -726,24 +722,6 @@ public class MainApp extends Application {
 		}
 		myWorkBook.close();
 		fileStream.close();
-	}
-
-	/**
-	 * Generate a Random String.
-	 * 
-	 * @param characterSet
-	 * @param length
-	 * @return
-	 */
-	public static String randomString(char[] characterSet, int length) {
-		Random random = new SecureRandom();
-		char[] result = new char[length];
-		for (int i = 0; i < result.length; i++) {
-			// picks a random index out of character set > random character
-			int randomCharIndex = random.nextInt(characterSet.length);
-			result[i] = characterSet[randomCharIndex];
-		}
-		return new String(result);
 	}
 
 	/**

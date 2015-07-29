@@ -76,28 +76,22 @@
                         <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <HBox layoutX="237.0" layoutY="354.0">
-                     <children>
-                        <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></Button>
-                        <Button layoutX="265.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="30.0" prefWidth="100.0" text="Edit">
-                           <padding>
-                              <Insets right="5.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></Button>
-                        <Button layoutX="342.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" prefWidth="100.0" text="Delete">
-                           <padding>
-                              <Insets right="5.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></Button>
-                     </children>
-                  </HBox>
+                  <HBox layoutX="237.0" layoutY="354.0" />
+                  <Button layoutX="5.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New" AnchorPane.leftAnchor="5.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Button>
+                  <Button layoutX="110.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="30.0" prefWidth="100.0" text="Edit">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Button>
+                  <Button layoutX="215.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" prefWidth="100.0" text="Delete">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Button>
                </children>
             </AnchorPane>
         </items>

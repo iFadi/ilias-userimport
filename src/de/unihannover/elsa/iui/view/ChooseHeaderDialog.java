@@ -142,7 +142,7 @@ public class ChooseHeaderDialog {
 	    	loadHeaders();
 	    	mainApp.setEmailIndex(-1);
 	    	mainApp.setLoginIndex(-1);
-	    	mainApp.setSelectedSheet(0);
+//	    	mainApp.setSelectedSheet(0);
 	    }
 	    
 	    public void setFile(File file) {

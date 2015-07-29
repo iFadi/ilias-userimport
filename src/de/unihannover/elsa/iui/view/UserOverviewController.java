@@ -130,8 +130,7 @@ public class UserOverviewController {
 		userTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 		
-//		numberOfUsersLabel.seton
-		numberOfUsersLabel.setOnMouseMoved((event) -> {
+		userTable.setOnMouseClicked((event) -> {
     	    System.out.println("Mouse is moving "+getNumberOfUsers());
     	    numberOfUsersLabel.setText(getNumberOfUsers()+"");
 
