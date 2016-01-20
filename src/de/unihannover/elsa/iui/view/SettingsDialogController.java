@@ -65,8 +65,7 @@ public class SettingsDialogController {
      */
     @FXML
     private void initialize() {
-    	timeLimitFromField.setText(DateUtil.getTodaysDate());
-    	timeLimitUntilField.setText(DateUtil.getDateLater(10));
+ 
     	
     	limitedButton.setOnAction((event) -> {
     	    boolean selected = limitedButton.isSelected();

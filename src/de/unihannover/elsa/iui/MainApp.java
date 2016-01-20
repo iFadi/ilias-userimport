@@ -2,27 +2,12 @@ package de.unihannover.elsa.iui;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Vector;
 import java.util.prefs.Preferences;
-
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -35,13 +20,10 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.controlsfx.dialog.Dialogs;
 
-import sun.print.resources.serviceui;
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
 import de.unihannover.elsa.iui.model.Password;
@@ -50,11 +32,21 @@ import de.unihannover.elsa.iui.model.UserListWrapper;
 import de.unihannover.elsa.iui.util.PasswordUtility;
 import de.unihannover.elsa.iui.view.ChooseHeaderDialog;
 import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
+import de.unihannover.elsa.iui.view.ExcelSheetDialogController;
 import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
 import de.unihannover.elsa.iui.view.UserEditDialogController;
 import de.unihannover.elsa.iui.view.UserOverviewController;
-import de.unihannover.elsa.iui.view.ExcelSheetDialogController;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
@@ -84,7 +76,7 @@ public class MainApp extends Application {
 	 * Constructor
 	 */
 	public MainApp() {
-
+//		java.net.URL url = ClassLoader.getSystemResource("resources/images/iui.png");
 	}
 
 	/**
@@ -289,7 +281,7 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("ILIAS User Import");
 
-		this.primaryStage.getIcons().add(new Image("file:resources/images/iui.png"));
+		this.primaryStage.getIcons().add(new Image("/images/iui.png"));
 
 		initRootLayout();
 

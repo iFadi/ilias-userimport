@@ -63,9 +63,11 @@ public class Password {
 	}
 	/**
 	 * @return the value
+	 * @throws NoSuchAlgorithmException 
 	 */
 	@XmlValue
-	public String getValue() {
+	public String getValue() throws NoSuchAlgorithmException {
+		setMD5Value(this.getPasswordToHash()); // needed when reloading a xml file.
 		return this.MD5Value;
 	}
 	

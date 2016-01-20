@@ -48,7 +48,6 @@
       </MenuBar>
    </top>
    <stylesheets>
-      <URL value="@JMetroLightTheme.css" />
-      <URL value="@../../../../../../resources/css/JMetroLightTheme.css" />
+      <URL value="@/css/JMetroLightTheme.css" />
    </stylesheets>
 </BorderPane>

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import de.unihannover.elsa.iui.MainApp;
 import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
+import de.unihannover.elsa.iui.util.DateUtil;
 
 /**
  * @author Fadi Asbih
@@ -66,8 +67,8 @@ public class DummyAccountsDialogController {
      */
     @FXML
     private void initialize() {
-    	timeLimitFromField.setText(getTodaysDate());
-    	timeLimitUntilField.setText(getDateLater(10));
+    	timeLimitFromField.setText(DateUtil.getTodaysDate());
+    	timeLimitUntilField.setText(DateUtil.getDateLater(10));
     	
     	limitedButton.setOnAction((event) -> {
     	    boolean selected = limitedButton.isSelected();
@@ -94,6 +95,25 @@ public class DummyAccountsDialogController {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+        getSavedSettings();
+    }
+    
+    /**
+     * This methods loads the settings from the first user.
+     * 
+     */
+    public void getSavedSettings() {
+    	if(!mainApp.getUserData().isEmpty()) {
+    		System.out.println(mainApp.getUserData().get(0).getLocalRole().getValue());
+        	localRoleField.setText(mainApp.getUserData().get(0).getLocalRole().getValue());
+        	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPasswordToHash());
+        	timeLimitFromField.setText(mainApp.getUserData().get(0).getTimeLimitFrom());
+        	timeLimitUntilField.setText(mainApp.getUserData().get(0).getTimeLimitUntil());
+//        	limitedButton.setSelected(!Boolean.parseBoolean(mainApp.getUserData().get(0).getTimeLimitUnlimited()));
+    	}
+    	else {
+    		System.out.println("empty... Load default values.");
+    	}
     }
     
     /**
@@ -164,22 +184,6 @@ public class DummyAccountsDialogController {
     	okClicked = true;
         dialogStage.close();
         
-    }
-    
-    private String getDateLater(int n) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, +n);
-        Date date = cal.getTime();    
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    	System.out.println(sdf.format(date));
-    	return sdf.format(date);
-    }
-    
-    private String getTodaysDate() {
-    	Date date = new Date();
-    	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    	System.out.println(sdf.format(date));
-    	return sdf.format(date);
     }
     
     /**

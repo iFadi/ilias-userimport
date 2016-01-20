@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://org.eclipse.fx.ide.jdt/1.0" buildDirectory="${project}/build">
-  <deploy packagingFormat="dmg">
-    <application name="AddressApp" mainclass="de.unihannover.elsa.iui.MainApp" version="2.0-beta1"/>
+  <deploy packagingFormat="all">
+    <application name="AddressApp" mainclass="de.unihannover.elsa.iui.MainApp" version="2.0-beta"/>
     <info title="ILIASUserImport" vendor="Fadi Asbih"/>
   </deploy>
   <signjar/>

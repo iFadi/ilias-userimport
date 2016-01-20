@@ -5,13 +5,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 import javafx.fxml.FXML;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import org.apache.commons.io.FilenameUtils;
 import org.controlsfx.dialog.Dialogs;
@@ -73,7 +68,7 @@ public class RootLayoutController {
     }
     
     /**
-     * Opens a FileChooser to let the user select an address book to load.
+     * Opens a FileChooser to let the user select a file to load.
      * @throws IOException 
      * @throws NoSuchAlgorithmException 
      */
@@ -83,10 +78,13 @@ public class RootLayoutController {
 
         // Set extension filter        
         FileChooser.ExtensionFilter filterCSV = new FileChooser.ExtensionFilter(
-                "Stud.IP CSV file (*.csv)", "*.csv");
+                "CSV file (*.csv)", "*.csv");
+        FileChooser.ExtensionFilter filterXLS = new FileChooser.ExtensionFilter(
+        		"Excel file (*.xls)", "*.xls");
         FileChooser.ExtensionFilter filterXLSX = new FileChooser.ExtensionFilter(
         		"Excel file (*.xlsx)", "*.xlsx");
         fileChooser.getExtensionFilters().add(filterCSV);
+        fileChooser.getExtensionFilters().add(filterXLS);
         fileChooser.getExtensionFilters().add(filterXLSX);
 		
         // Show save file dialog
@@ -95,10 +93,18 @@ public class RootLayoutController {
         if(file != null) {
             String fileExtension = FilenameUtils.getExtension(file.getPath());
             if (fileExtension.equals("csv")) {
-                mainApp.parseCSV(file);
+            	mainApp.getCSVHeaders(file);
+            	mainApp.showChooseHeaderDialog(file, "csv");
             }
             else if (fileExtension.equals("xlsx")) {
-                mainApp.parseExcel(file);
+    	    	mainApp.setSelectedSheet(0); // if before another sheet imported.
+            	mainApp.getExcelHeaders(file);
+            	mainApp.showChooseHeaderDialog(file, "xlsx");
+            }
+            else if (fileExtension.equals("xls")) {
+    	    	mainApp.setSelectedSheet(0);
+            	mainApp.getExcel97Headers(file);
+            	mainApp.showChooseHeaderDialog(file, "xls");
             }
         }
     }
@@ -151,7 +157,7 @@ public class RootLayoutController {
         if (personFile != null) {
             mainApp.saveUserDataToFile(personFile);
         } else {
-            handleSaveAs();
+            export();
         }
     }
 
@@ -159,7 +165,7 @@ public class RootLayoutController {
      * Opens a FileChooser to let the user select a file to save to.
      */
     @FXML
-    private void handleSaveAs() {
+    private void export() {
         FileChooser fileChooser = new FileChooser();
 
         // Set extension filter
@@ -188,6 +194,14 @@ public class RootLayoutController {
     }
     
     /**
+     * Opens the dialog to generate dummy accounts.
+     */
+    @FXML
+    private void handleDummyAccounts() {
+    	mainApp.showDummyAccountsDialog();
+    }
+    
+    /**
      * Opens an about dialog.
      */
     @FXML
@@ -195,7 +209,7 @@ public class RootLayoutController {
         Dialogs.create()
             .title("ILIAS User Import")
             .masthead("About")
-            .message("Version: 2.0 beta\n\nProject: https://github.com/iFadi/ilias-userimport")
+            .message("Version: 2.0 beta 5\n\nProject: https://github.com/iFadi/ilias-userimport")
             .showInformation();
     }
 

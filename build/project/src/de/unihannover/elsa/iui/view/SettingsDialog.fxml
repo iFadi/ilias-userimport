@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="391.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.SettingsDialogController">
    <children>
-      <GridPane layoutX="14.0" layoutY="40.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.bottomAnchor="281.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
+      <GridPane layoutX="14.0" layoutY="51.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,10 +24,10 @@
             <Label text="Local Role" GridPane.rowIndex="1" />
             <Label text="Global Role" />
             <TextField fx:id="globalRoleField" promptText="User" text="User" GridPane.columnIndex="1" />
-            <TextField fx:id="localRoleField" promptText="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="localRoleField" promptText="klausur_am_04.02.2015" text="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" text="These settings will be applied to all users." AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <Label layoutX="14.0" layoutY="4.0" prefHeight="34.0" prefWidth="463.0" text="These settings will be applied to all currently imported users." AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="4.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
@@ -57,15 +57,13 @@
          <children>
             <Label text="From" />
             <Label text="Until" GridPane.rowIndex="1" />
-            <TextField fx:id="timeLimitFromField" disable="true" promptText="04-02-2015" GridPane.columnIndex="1" />
-            <TextField fx:id="timeLimitUntilField" disable="true" promptText="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="timeLimitFromField" disable="true" promptText="04-02-2015" text="04-02-2015" GridPane.columnIndex="1" />
+            <TextField fx:id="timeLimitUntilField" disable="true" promptText="05-02-2015" text="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="Limited Access" />
-      <GridPane layoutX="12.0" layoutY="255.0" prefHeight="81.0" prefWidth="479.0">
+      <GridPane layoutX="12.0" layoutY="255.0" prefHeight="81.0" prefWidth="496.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="102.0" />
         </columnConstraints>
@@ -74,12 +72,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="Generate Login" />
-            <CheckBox mnemonicParsing="false" text="Generate Password" GridPane.columnIndex="2" />
-            <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <CheckBox fx:id="generatePassword" mnemonicParsing="false" selected="true" text="Generate Password" />
+            <Label text="Password" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordField" disable="true" text="testing" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <Separator layoutY="127.0" prefHeight="5.0" prefWidth="517.0" />
+      <Separator layoutY="250.0" prefHeight="5.0" prefWidth="517.0" />
+      <Separator layoutY="38.0" prefHeight="5.0" prefWidth="517.0" />
    </children>
    <stylesheets>
       <URL value="@JMetroLightTheme.css" />

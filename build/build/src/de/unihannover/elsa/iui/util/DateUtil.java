@@ -1,8 +1,11 @@
 package de.unihannover.elsa.iui.util;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Helper functions for handling dates.
@@ -58,5 +61,21 @@ public class DateUtil {
     public static boolean validDate(String dateString) {
         // Try to parse the String.
         return DateUtil.parse(dateString) != null;
+    }
+    
+    public static String getDateLater(int n) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +n);
+        Date date = cal.getTime();    
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//    	System.out.println(sdf.format(date));
+    	return sdf.format(date);
+    }
+    
+    public static String getTodaysDate() {
+    	Date date = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//    	System.out.println(sdf.format(date));
+    	return sdf.format(date);
     }
 }

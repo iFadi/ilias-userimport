@@ -16,12 +16,12 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.unihannover.elsa.iui.util.DateUtil;
 import de.unihannover.elsa.iui.util.LocalDateAdapter;
 
 /**
  * Model class for a ILIAS User.
  *
- * @author Marco Jakob
  * @author Fadi Asbih
  */
 
@@ -67,11 +67,11 @@ public class User {
         this.gender = new SimpleStringProperty("f");
         this.login = new SimpleStringProperty("");
         this.password = new Password();
-        this.email = new SimpleStringProperty("");
+        this.email = new SimpleStringProperty("student@eklausur.elsa");
         this.matriculation = new SimpleStringProperty("");
         this.timeLimitUnlimited = "1";
-        this.timeLimitFrom = new SimpleStringProperty("01-01-2015");
-        this.timeLimitUntil = new SimpleStringProperty("01-02-2016");
+        this.timeLimitFrom = new SimpleStringProperty(DateUtil.getTodaysDate());
+        this.timeLimitUntil = new SimpleStringProperty(DateUtil.getDateLater(10));
         this.street = new SimpleStringProperty("Some Street");
         this.postalCode = new SimpleIntegerProperty(12345);
         this.city = new SimpleStringProperty("Some City");

@@ -19,7 +19,6 @@
       <ComboBox fx:id="comboBox" layoutX="14.0" layoutY="55.0" prefHeight="32.0" prefWidth="212.0" />
    </children>
    <stylesheets>
-      <URL value="@JMetroLightTheme.css" />
-      <URL value="@../../../../../../resources/css/JMetroLightTheme.css" />
+      <URL value="@/css/JMetroLightTheme.css" />
    </stylesheets>
 </AnchorPane>

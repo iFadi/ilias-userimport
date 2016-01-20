@@ -209,7 +209,7 @@ public class RootLayoutController {
         Dialogs.create()
             .title("ILIAS User Import")
             .masthead("About")
-            .message("Version: 2.0 beta 4\n\nProject: https://github.com/iFadi/ilias-userimport")
+            .message("Version: 2.0 beta 5\n\nProject: https://github.com/iFadi/ilias-userimport")
             .showInformation();
     }
 

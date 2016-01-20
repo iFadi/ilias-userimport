@@ -82,7 +82,6 @@
       <Separator layoutY="38.0" prefHeight="5.0" prefWidth="517.0" />
    </children>
    <stylesheets>
-      <URL value="@JMetroLightTheme.css" />
-      <URL value="@../../../../../../resources/css/JMetroLightTheme.css" />
+      <URL value="@/css/JMetroLightTheme.css" />
    </stylesheets>
 </AnchorPane>

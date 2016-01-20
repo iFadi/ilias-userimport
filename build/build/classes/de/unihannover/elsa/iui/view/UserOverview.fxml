@@ -12,7 +12,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="userTable" layoutX="-13.0" layoutY="42.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="userTable" layoutX="-13.0" layoutY="18.0" prefHeight="380.0" prefWidth="234.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
                     <columns>
                       <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
                       <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
@@ -23,6 +23,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Label layoutX="4.0" layoutY="-1.0" prefHeight="17.0" prefWidth="167.0" text="number of users:" />
+                  <Label fx:id="numberOfUsersLabel" layoutX="110.0" layoutY="-1.0" prefHeight="17.0" prefWidth="44.0" text="0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="200.0" styleClass="background">
@@ -74,29 +76,22 @@
                         <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <HBox layoutX="237.0" layoutY="354.0">
-                     <children>
-                        <Button layoutX="188.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></Button>
-                        <Button layoutX="265.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="30.0" prefWidth="100.0" text="Edit">
-                           <padding>
-                              <Insets right="5.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></Button>
-                        <Button layoutX="342.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" prefWidth="100.0" text="Delete">
-                           <padding>
-                              <Insets right="5.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin></Button>
-                     </children>
-                  </HBox>
-                  <Button layoutX="74.0" layoutY="354.0" mnemonicParsing="false" onAction="#handlePrint" text="print" />
+                  <HBox layoutX="237.0" layoutY="354.0" />
+                  <Button layoutX="5.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="30.0" prefWidth="100.0" text="New" AnchorPane.leftAnchor="5.0">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Button>
+                  <Button layoutX="110.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="30.0" prefWidth="100.0" text="Edit">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Button>
+                  <Button layoutX="215.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" prefWidth="100.0" text="Delete">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Button>
                </children>
             </AnchorPane>
         </items>

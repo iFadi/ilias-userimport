@@ -57,7 +57,6 @@
       <ComboBox fx:id="loginBox" layoutX="191.0" layoutY="198.0" prefWidth="150.0" />
    </children>
    <stylesheets>
-      <URL value="@JMetroLightTheme.css" />
-      <URL value="@../../../../../../resources/css/JMetroLightTheme.css" />
+      <URL value="@/css/JMetroLightTheme.css" />
    </stylesheets>
 </AnchorPane>

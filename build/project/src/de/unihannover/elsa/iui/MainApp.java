@@ -5,11 +5,38 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Iterator;
-import java.util.Random;
+import java.util.Vector;
 import java.util.prefs.Preferences;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.controlsfx.dialog.Dialogs;
+
+import au.com.bytecode.opencsv.CSVParser;
+import au.com.bytecode.opencsv.CSVReader;
+import de.unihannover.elsa.iui.model.Password;
+import de.unihannover.elsa.iui.model.User;
+import de.unihannover.elsa.iui.model.UserListWrapper;
+import de.unihannover.elsa.iui.util.PasswordUtility;
+import de.unihannover.elsa.iui.view.ChooseHeaderDialog;
+import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
+import de.unihannover.elsa.iui.view.ExcelSheetDialogController;
+import de.unihannover.elsa.iui.view.RootLayoutController;
+import de.unihannover.elsa.iui.view.SettingsDialogController;
+import de.unihannover.elsa.iui.view.UserEditDialogController;
+import de.unihannover.elsa.iui.view.UserOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,35 +48,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.controlsfx.dialog.Dialogs;
-
-import sun.print.resources.serviceui;
-import au.com.bytecode.opencsv.CSVParser;
-import au.com.bytecode.opencsv.CSVReader;
-import de.unihannover.elsa.iui.model.Password;
-import de.unihannover.elsa.iui.model.User;
-import de.unihannover.elsa.iui.model.UserListWrapper;
-import de.unihannover.elsa.iui.view.RootLayoutController;
-import de.unihannover.elsa.iui.view.SettingsDialogController;
-import de.unihannover.elsa.iui.view.UserEditDialogController;
-import de.unihannover.elsa.iui.view.UserOverviewController;
-import de.unihannover.elsa.iui.view.XLSXSheetDialogController;
-
 /**
  *
- * @author Marco Jakob
  * @author Fadi Asbih
  */
 public class MainApp extends Application {
@@ -59,9 +59,13 @@ public class MainApp extends Application {
 	private int numberOfSheets;
 	private int selectedSheet;
 	private String[] sheetNames;
-	
-	private char[] randomPassword = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray(); 
-	private char[] randomLogin = "abcdefghijklmnopqrstuvwxyz".toCharArray(); 
+	private String[] headers;
+	private int firstNameIndex;
+	private int lastNameIndex;
+	private int matriculationIndex;
+	private int emailIndex;
+	private int loginIndex;
+	private int numberOfUsers;
 
 	/**
 	 * The data as an observable list of Persons.
@@ -72,12 +76,14 @@ public class MainApp extends Application {
 	 * Constructor
 	 */
 	public MainApp() {
-
+//		java.net.URL url = ClassLoader.getSystemResource("resources/images/iui.png");
 	}
 
 	/**
+	 * Opens a Dialog, which gives the user the possibility to add a global/local role,
+	 * set the user to be limited or add a password to the imported users.
 	 * 
-	 * @return
+	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showSettingsDialog() {
 		try {
@@ -111,14 +117,92 @@ public class MainApp extends Application {
 	}
 	
 	/**
+	 * Opens a Dialog, which gives the user the possibility to generate a
+	 * specific number of ILIAS dummy accounts.
 	 * 
-	 * @return
+	 * @return true if the user clicked OK, false otherwise.
 	 */
-	public boolean showXLSXSheetDialog() {
+	public boolean showDummyAccountsDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/XLSXSheetDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/DummyAccountsDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Generate Dummy Accounts");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			DummyAccountsDialogController controller = loader.getController();
+			controller.setMainApp(this);
+
+			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Opens a Dialog, which gives the user the possibility
+	 * to choose which headers to use in ILIAS.
+	 * 
+	 * @return true if the user clicked OK, false otherwise.
+	 */
+	public boolean showChooseHeaderDialog(File file, String type) {
+		try {			
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ChooseHeaderDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Choose Headers");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Give the controller access to the main app.
+			ChooseHeaderDialog controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setFile(file);
+			controller.setType(type);
+
+			controller.setDialogStage(dialogStage);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Opens a dialog to choose which sheet from the Excel file should
+	 * be imported.
+	 * 
+	 * @return true if the user clicked OK, false otherwise.
+	 */
+	public boolean showExcelSheetDialog() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/ExcelSheetDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -130,7 +214,7 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Give the controller access to the main app.
-			XLSXSheetDialogController controller = loader.getController();
+			ExcelSheetDialogController controller = loader.getController();
 			controller.setMainApp(this);
 
 			controller.setDialogStage(dialogStage);
@@ -147,11 +231,10 @@ public class MainApp extends Application {
 
 	/**
 	 * Opens a dialog to edit details for the specified person. If the user
-	 * clicks OK, the changes are saved into the provided person object and true
+	 * clicks OK, the changes are saved into the provided user object and true
 	 * is returned.
 	 * 
-	 * @param user
-	 *            the person object to be edited
+	 * @param user object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
 	public boolean showUserEditDialog(User user) {
@@ -202,7 +285,7 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		showPersonOverview();
+		showUserOverview();
 	}
 
 	/**
@@ -239,7 +322,7 @@ public class MainApp extends Application {
 	/**
 	 * Shows the person overview inside the root layout.
 	 */
-	public void showPersonOverview() {
+	public void showUserOverview() {
 		try {
 			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
@@ -311,10 +394,6 @@ public class MainApp extends Application {
 			// Reading XML from the file and unmarshalling.
 			UserListWrapper wrapper = (UserListWrapper) um.unmarshal(file);
 			
-//			for(User u : wrapper.getUsers()) {
-//				System.out.println(u.getGlobalRole().getType());
-//			}
-
 			userData.clear();
 			userData.addAll(wrapper.getUsers());
 
@@ -328,7 +407,7 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Saves the current person data to the specified file.
+	 * Saves the current user data to the specified file.
 	 * 
 	 * @param file
 	 */
@@ -352,9 +431,107 @@ public class MainApp extends Application {
 					.showException(e);
 		}
 	}
+	
+	/**
+	 * sort out the header of an Excel file and save them to an array String.
+	 * 
+	 * @param file
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public void getExcelHeaders(File file) throws IOException, NoSuchAlgorithmException {
+		FileInputStream fileStream = new FileInputStream(file);
+
+		// Finds the workbook instance for XLSX file
+		XSSFWorkbook myWorkBook = new XSSFWorkbook(fileStream);
+		
+		// Return the selected sheet from the XLSX workbook
+		XSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+//		System.out.println(myWorkBook.getSheetName(getSelectedSheet()));
+
+		DataFormatter df = new DataFormatter();
+
+		// Get iterator to all the rows in current sheet
+		Iterator<Row> rowIterator = mySheet.iterator();
+		Row row = rowIterator.next();
+		String[] headers = new String[row.getPhysicalNumberOfCells()];
+		
+		int i=0;
+		for(Cell h : row) {	
+//			System.out.println(h.getRichStringCellValue().getString());
+			headers[i] = h.getRichStringCellValue().getString();
+			i++;
+		}
+		setHeaders(headers);
+		
+		myWorkBook.close();
+		fileStream.close();
+	}
+	
+	/**
+	 * sort out the header of an Excel 97 file and save them to an array String.
+	 * 
+	 * @param file
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public void getExcel97Headers(File file) throws IOException, NoSuchAlgorithmException {
+	
+		/**
+		 * --Define a Vector --Holds Vectors Of Cells
+		 */
+		Vector cellVectorHolder = new Vector();
+
+		/** Creating Input Stream **/
+		FileInputStream myInput = new FileInputStream(file);
+
+		/** Create a POIFSFileSystem object **/
+		POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+		/** Create a workbook using the File System **/
+		HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+		/** Get the the selected sheet from workbook **/
+		HSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+
+		/** We now need something to iterate through the cells. **/
+		Iterator rowIter = mySheet.rowIterator();
+
+		DataFormatter df = new DataFormatter();
+
+		HSSFRow row = (HSSFRow) rowIter.next();
+//		System.out.println(row.getPhysicalNumberOfCells());
+		String[] headers = new String[row.getPhysicalNumberOfCells()];
+		
+		int i=0;
+		for(Cell h : row) {	
+//			System.out.println(h.getRichStringCellValue().getString());
+			headers[i] = h.getRichStringCellValue().getString();
+			i++;
+		}
+		setHeaders(headers);
+	}
 
 	/**
-	 * Parses a Stud.IP CSV File in German Language and passes the Parameters to
+	 * Get the Headers of a CSV File and save them
+	 * in an array String.
+	 * 
+	 * @param file
+	 * @throws IOException
+	 */
+	public void getCSVHeaders(File file) throws IOException {
+		CSVReader headers = new CSVReader(new FileReader(file), ';', CSVParser.DEFAULT_QUOTE_CHARACTER, 0);
+
+		setHeaders(headers.readNext());
+//		for(String h : header) {
+//			System.out.println(h);
+//		}
+		
+		headers.close();
+	}
+	
+	/**
+	 * Parses a CSV File and passes the Parameters to
 	 * the User Object.
 	 * 
 	 * @param file
@@ -364,32 +541,114 @@ public class MainApp extends Application {
 	public void parseCSV(File file) throws IOException, NoSuchAlgorithmException {
 
 		CSVReader reader = new CSVReader(new FileReader(file), ';', CSVParser.DEFAULT_QUOTE_CHARACTER, 1);
+		
 		String[] nextLine;
 		while ((nextLine = reader.readNext()) != null) {
-			// nextLine[] is an array of values from the line
-			// System.out.println(nextLine[0] + nextLine[1] + nextLine[2] +
-			// nextLine[3] + nextLine[4] + nextLine[5] + nextLine[6] +
-			// nextLine[7] + nextLine[8] + nextLine[9] + nextLine[10] +
-			// nextLine[11] + nextLine[12] + nextLine[13] +
-			// nextLine[14]+"etc...");
-			// nextLine[1] is for firstName, nextLine[2] for secondName in
-			// Stud.IP CSV.
-			User user = new User(nextLine[1], nextLine[2]);
-			// user.setLogin(nextLine[4]); // Here is the Login same as Stud.IP
-			// Login
-			// user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The
-			// Login is a Combination of m-nr with a random String.
-			user.setLogin(nextLine[22]); // The Login is same as the M-nr.
-			user.setPassword(new Password(randomString(randomPassword, 5)));
-			user.setEmail(nextLine[7]);
-			user.setMatriculation(nextLine[22]);
+			
+//			User user = new User(nextLine[1], nextLine[2]);
+			User user = new User(nextLine[getFirstNameIndex()], nextLine[getLastNameIndex()]);
+			// user.setLogin(nextLine[4]); // Here is the Login same as Stud.IP Login
+			// user.setLogin(nextLine[22]+randomString(randomLogin, 2)); // The Login is a Combination of m-nr with a random String.
+			// user.setLogin(nextLine[22]); // The Login is same as the M-nr.
+			
+			user.setPassword(new Password(PasswordUtility.randomString(5)));
+			
+			if(getEmailIndex() > 0) {
+				user.setEmail(nextLine[getEmailIndex()]);
+			}
+			
+			if(getLoginIndex() > 0) {
+				user.setLogin(nextLine[getLoginIndex()]);
+			}
+			else {
+				user.setLogin(nextLine[getMatriculationIndex()]);
+			}
+			
+//			user.setMatriculation(nextLine[22]);
+			user.setMatriculation(nextLine[getMatriculationIndex()]);
 			userData.add(user);
+			
 		}
 		reader.close();
 	}
 
 	/**
-	 * Parses an Excel XLSX File, sill experimental.
+	 * Parses an Excel 97 - 2004 XLS File
+	 * 
+	 * @param file
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public void parseExcel97(File file) throws IOException, NoSuchAlgorithmException {
+	
+		/**
+		 * --Define a Vector --Holds Vectors Of Cells
+		 */
+		Vector cellVectorHolder = new Vector();
+
+		/** Creating Input Stream **/
+		FileInputStream myInput = new FileInputStream(file);
+
+		/** Create a POIFSFileSystem object **/
+		POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+		/** Create a workbook using the File System **/
+		HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+		/** Get the the selected sheet from workbook **/
+		HSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
+		
+		setNumberOfSheets(myWorkBook.getNumberOfSheets());
+		
+		// Pop up a Dialog to choose which sheet to import.
+		if(myWorkBook.getNumberOfSheets() > 1) {
+			String[] sheets = new String[getNumberOfSheets()];
+        	for(int i=0; i<sheets.length; i++) {
+        		sheets[i] = myWorkBook.getSheetName(i);
+        	}
+			setSheetNames(sheets);
+			this.showExcelSheetDialog();
+		}
+
+		/** We now need something to iterate through the cells. **/
+		Iterator rowIter = mySheet.rowIterator();
+
+		DataFormatter df = new DataFormatter();
+
+		while (rowIter.hasNext()) {
+			HSSFRow row = (HSSFRow) rowIter.next();
+
+			if (row.getRowNum() != 0) { // Skip first Row, Headers.
+				String firstName = df.formatCellValue(row.getCell(getFirstNameIndex()));
+				String lastName = df.formatCellValue(row.getCell(getLastNameIndex()));
+				String mnr = df.formatCellValue(row.getCell(getMatriculationIndex()));
+
+				User user = new User(firstName, lastName);
+				if(getEmailIndex() > 0) {
+					String mail = df.formatCellValue(row.getCell(getEmailIndex()));
+					user.setEmail(mail);
+				}
+				
+				if(getLoginIndex() > 0) {
+					String login = df.formatCellValue(row.getCell(getLoginIndex()));
+					user.setLogin(login);
+				}
+				else {
+					user.setLogin(mnr); // The Login is same as the M-nr.
+				}
+				
+				user.setPassword(new Password(PasswordUtility.randomString(5)));
+
+				user.setMatriculation(mnr);
+				userData.add(user);
+
+//				System.out.println(firstName + " " + lastName + " " + mnr + " " + mail + "\t ");
+			}
+		}
+	}
+	
+	/**
+	 * Parses an Excel XLSX File
 	 * 
 	 * @param file
 	 * @throws IOException
@@ -410,10 +669,10 @@ public class MainApp extends Application {
         		sheets[i] = myWorkBook.getSheetName(i);
         	}
 			setSheetNames(sheets);
-			this.showXLSXSheetDialog();
+			this.showExcelSheetDialog();
 		}
 		
-		// Return first sheet from the XLSX workbook
+		// Return the selected sheet from the XLSX workbook
 		XSSFSheet mySheet = myWorkBook.getSheetAt(getSelectedSheet());
 //		System.out.println(myWorkBook.getSheetName(getSelectedSheet()));
 
@@ -427,41 +686,34 @@ public class MainApp extends Application {
 			Row row = rowIterator.next();
 
 			if (row.getRowNum() != 0) { // Skip first Row, Headers.
-				String firstName = df.formatCellValue(row.getCell(0));
-				String lastName = df.formatCellValue(row.getCell(1));
-				String mnr = df.formatCellValue(row.getCell(2));
-				String mail = df.formatCellValue(row.getCell(3));
+				String firstName = df.formatCellValue(row.getCell(getFirstNameIndex()));
+				String lastName = df.formatCellValue(row.getCell(getLastNameIndex()));
+				String mnr = df.formatCellValue(row.getCell(getMatriculationIndex()));
 
 				User user = new User(firstName, lastName);
-				user.setLogin(mnr); // The Login is same as the M-nr.
-				user.setPassword(new Password(randomString(randomPassword, 5)));
-				user.setEmail(mail);
+				
+				if(getEmailIndex() > 0) {
+					String mail = df.formatCellValue(row.getCell(getEmailIndex()));
+					user.setEmail(mail);
+					user.setEmail(mail);
+				}
+				if(getLoginIndex() > 0) {
+					String login = df.formatCellValue(row.getCell(getLoginIndex()));
+					user.setLogin(login);
+				}
+				else {
+					user.setLogin(mnr); // The Login is same as the M-nr.
+				}
+
+				user.setPassword(new Password(PasswordUtility.randomString(5)));
 				user.setMatriculation(mnr);
 				userData.add(user);
 
-				System.out.println(firstName + " " + lastName + " " + mnr + " " + mail + "\t ");
+				System.out.println(firstName + " " + lastName + " " + mnr + "\t ");
 			}
 		}
 		myWorkBook.close();
 		fileStream.close();
-	}
-
-	/**
-	 * Generate a Random String.
-	 * 
-	 * @param characterSet
-	 * @param length
-	 * @return
-	 */
-	public static String randomString(char[] characterSet, int length) {
-		Random random = new SecureRandom();
-		char[] result = new char[length];
-		for (int i = 0; i < result.length; i++) {
-			// picks a random index out of character set > random character
-			int randomCharIndex = random.nextInt(characterSet.length);
-			result[i] = characterSet[randomCharIndex];
-		}
-		return new String(result);
 	}
 
 	/**
@@ -517,6 +769,62 @@ public class MainApp extends Application {
 	 */
 	public void setSheetNames(String[] sheetNames) {
 		this.sheetNames = sheetNames;
+	}
+
+	public String[] getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(String[] headers) {
+		this.headers = headers;
+	}
+
+	public int getFirstNameIndex() {
+		return firstNameIndex;
+	}
+
+	public void setFirstNameIndex(int firstNameIndex) {
+		this.firstNameIndex = firstNameIndex;
+	}
+
+	public int getLastNameIndex() {
+		return lastNameIndex;
+	}
+
+	public void setLastNameIndex(int lastNameIndex) {
+		this.lastNameIndex = lastNameIndex;
+	}
+
+	public int getMatriculationIndex() {
+		return matriculationIndex;
+	}
+
+	public void setMatriculationIndex(int matriculationIndex) {
+		this.matriculationIndex = matriculationIndex;
+	}
+
+	public int getEmailIndex() {
+		return emailIndex;
+	}
+
+	public void setEmailIndex(int emailIndex) {
+		this.emailIndex = emailIndex;
+	}
+
+	public int getLoginIndex() {
+		return loginIndex;
+	}
+
+	public void setLoginIndex(int loginIndex) {
+		this.loginIndex = loginIndex;
+	}
+
+	public int getNumberOfUsers() {
+		return userData.size();
+	}
+
+	public void setNumberOfUsers(int numberOfUsers) {
+		this.numberOfUsers = numberOfUsers;
 	}
 
 }
