@@ -85,7 +85,7 @@ public class ExcelSheetDialogController {
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-        this.dialogStage.getIcons().add(new Image("file:resources/images/iui.png"));
+        this.dialogStage.getIcons().add(new Image("/images/iui.png"));
     }
     
     /**

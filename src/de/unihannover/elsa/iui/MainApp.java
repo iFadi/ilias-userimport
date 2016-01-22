@@ -77,6 +77,8 @@ public class MainApp extends Application {
 	 */
 	public MainApp() {
 //		java.net.URL url = ClassLoader.getSystemResource("resources/images/iui.png");
+		System.out.println("Main App");
+
 	}
 
 	/**
@@ -289,8 +291,8 @@ public class MainApp extends Application {
 	}
 
 	/**
-	 * Initializes the root layout and tries to load the last opened person
-	 * file.
+	 * Initializes the root layout and tries to load the last opened file.
+	 * 
 	 */
 	public void initRootLayout() {
 		try {
@@ -820,7 +822,8 @@ public class MainApp extends Application {
 	}
 
 	public int getNumberOfUsers() {
-		return userData.size();
+		numberOfUsers = userData.size();
+		return numberOfUsers;
 	}
 
 	public void setNumberOfUsers(int numberOfUsers) {

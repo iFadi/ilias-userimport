@@ -9,10 +9,9 @@ import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 
 import org.apache.commons.io.FilenameUtils;
-import org.controlsfx.dialog.Dialogs;
-
 import de.unihannover.elsa.iui.MainApp;
 import de.unihannover.elsa.iui.model.User;
+import de.unihannover.elsa.iui.util.FxDialogs;
 
 
 /**
@@ -206,11 +205,20 @@ public class RootLayoutController {
      */
     @FXML
     private void handleAbout() {
-        Dialogs.create()
-            .title("ILIAS User Import")
-            .masthead("About")
-            .message("Version: 2.0 beta 5\n\nProject: https://github.com/iFadi/ilias-userimport")
-            .showInformation();
+    	
+//        Dialogs.create()
+//            .title("ILIAS User Import")
+//            .masthead("About")
+//            .message("Version: 2.0 beta 5\n\nProject: https://github.com/iFadi/ilias-userimport")
+//            .showInformation();
+    	
+    	FxDialogs.showInformation("About", "Version: 2.0 beta 6\n\nProject: https://github.com/iFadi/ilias-userimport");
+//    	if (FxDialogs.showConfirm("Choose one baby!", "Can i ask you a question?", FxDialogs.YES, FxDialogs.NO).equals(FxDialogs.YES)) {
+//    	    FxDialogs.showWarning(null, "Pay attention to my next question!");
+//    	    String answer = FxDialogs.showTextInput("Are you a pink elephant disguised as a flying pig?", "Tell me!", "No");
+//    	    FxDialogs.showError(null, "You should not have said " + answer + "!");
+//    	    FxDialogs.showException("Now i'm angry", "I'm going home...", new RuntimeException("Exception caused by angry dinossaurs"));
+//    	}
     }
 
     /**

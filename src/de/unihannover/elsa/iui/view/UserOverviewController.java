@@ -70,7 +70,7 @@ public class UserOverviewController {
 	 * Fills all text fields to show details about the person. If the specified
 	 * person is null, all text fields are cleared.
 	 * 
-	 * @param user the person or null
+	 * @param user or null
 	 *            
 	 */
 	private void showPersonDetails(User user) {
@@ -130,11 +130,17 @@ public class UserOverviewController {
 		userTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 		
-		userTable.setOnMouseClicked((event) -> {
-    	    System.out.println("Mouse is moving "+getNumberOfUsers());
+//		userTable.setOnMouseClicked((event) -> {
+//    	    System.out.println("Mouse is moving "+getNumberOfUsers());
+//    	    numberOfUsersLabel.setText(getNumberOfUsers()+"");
+//
+//    	});
+		
+		userTable.setOnMouseMoved((event) -> {
+//    	    System.out.println("Mouse is moving "+getNumberOfUsers());
     	    numberOfUsersLabel.setText(getNumberOfUsers()+"");
-
     	});
+				
 	}
 
 	/**
@@ -160,6 +166,7 @@ public class UserOverviewController {
 		boolean okClicked = mainApp.showUserEditDialog(tempPerson);
 		if (okClicked) {
 			mainApp.getUserData().add(tempPerson);
+			numberOfUsersLabel.setText(getNumberOfUsers()+"");
 		}
 	}
 
@@ -191,6 +198,7 @@ public class UserOverviewController {
 		int selectedIndex = userTable.getSelectionModel().getSelectedIndex();
 		if (selectedIndex >= 0) {
 			userTable.getItems().remove(selectedIndex);
+			numberOfUsersLabel.setText(getNumberOfUsers()+"");
 		} else {
 			// Nothing selected.
 			Dialogs.create().title("No Selection").masthead("No Person Selected")

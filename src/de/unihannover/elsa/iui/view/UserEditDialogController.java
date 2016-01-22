@@ -13,7 +13,7 @@ import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 
 /**
- * Dialog to edit details of a person.
+ * Dialog to edit details of a user.
  * 
  * @author Marco Jakob
  * @author Fadi Asbih
