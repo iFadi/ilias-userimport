@@ -19,6 +19,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -461,7 +462,31 @@ public class MainApp extends Application {
 		int i=0;
 		for(Cell h : row) {	
 //			System.out.println(h.getRichStringCellValue().getString());
-			headers[i] = h.getRichStringCellValue().getString();
+			switch (h.getCellType()) {
+            case Cell.CELL_TYPE_STRING:
+                System.out.println(h.getRichStringCellValue().getString());
+                headers[i] = h.getRichStringCellValue().getString();
+                break;
+            case Cell.CELL_TYPE_NUMERIC:
+                if (DateUtil.isCellDateFormatted(h)) {
+                    System.out.println(h.getDateCellValue());
+                    headers[i] = h.getDateCellValue()+"";
+                } else {
+                    System.out.println(h.getNumericCellValue());
+                    headers[i] = h.getNumericCellValue()+"";
+                }
+                break;
+            case Cell.CELL_TYPE_BOOLEAN:
+                System.out.println(h.getBooleanCellValue());
+                headers[i] = h.getBooleanCellValue()+"";
+                break;
+            case Cell.CELL_TYPE_FORMULA:
+                System.out.println(h.getCellFormula());
+                headers[i] = h.getCellFormula()+"";
+                break;
+            default:
+                System.out.println();
+			}
 			i++;
 		}
 		setHeaders(headers);

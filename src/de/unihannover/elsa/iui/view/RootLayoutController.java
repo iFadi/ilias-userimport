@@ -212,7 +212,7 @@ public class RootLayoutController {
 //            .message("Version: 2.0 beta 5\n\nProject: https://github.com/iFadi/ilias-userimport")
 //            .showInformation();
     	
-    	FxDialogs.showInformation("About", "Version: 2.0 beta 6\n\nProject: https://github.com/iFadi/ilias-userimport");
+    	FxDialogs.showInformation("About", "Version: 2.0.0\n\nProject: https://github.com/iFadi/ilias-userimport");
 //    	if (FxDialogs.showConfirm("Choose one baby!", "Can i ask you a question?", FxDialogs.YES, FxDialogs.NO).equals(FxDialogs.YES)) {
 //    	    FxDialogs.showWarning(null, "Pay attention to my next question!");
 //    	    String answer = FxDialogs.showTextInput("Are you a pink elephant disguised as a flying pig?", "Tell me!", "No");

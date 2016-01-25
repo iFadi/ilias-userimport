@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -52,7 +53,10 @@
                      <children>
                         <Label text="Global Role" />
                         <Label text="Local Role" GridPane.rowIndex="1" />
-                        <Label text="Login" GridPane.rowIndex="2" />
+                        <Label text="Login" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label text="First Name" GridPane.rowIndex="4" />
                         <Label text="Last Name" GridPane.rowIndex="5" />
                         <Label text="Email" GridPane.rowIndex="6" />
@@ -63,7 +67,10 @@
                         <Label text="City" GridPane.rowIndex="11" />
                         <Label fx:id="globalRoleLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="localRoleLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="loginLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="loginLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
@@ -72,8 +79,14 @@
                         <Label fx:id="streetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label fx:id="postalCodeLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label fx:id="cityLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <Label text="Password" GridPane.rowIndex="3" />
-                        <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Password" GridPane.rowIndex="3">
+                                                   <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
+                        <Label fx:id="passwordLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font></Label>
                      </children>
                   </GridPane>
                   <HBox layoutX="237.0" layoutY="354.0" />

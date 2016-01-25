@@ -2,7 +2,7 @@
 This App generates a XML file from a CSV or Excel file as input. The XML file can then be imported into the [ILIAS e-Learning System](http://www.ilias.de/).
 
 ## Latest Release
-  * [2.0 beta 6](https://github.com/iFadi/ilias-userimport/releases/download/2.0.beta6/IUI_2_beta6.jar)
+  * [2.0.0](https://github.com/iFadi/ilias-userimport/releases/download/2.0.0/IUI_2.0.0.jar)
 
 ## Screenshots
 ![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta1.png)
