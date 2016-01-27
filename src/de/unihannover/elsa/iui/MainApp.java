@@ -31,6 +31,7 @@ import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
 import de.unihannover.elsa.iui.util.PasswordUtility;
+import de.unihannover.elsa.iui.util.Updater;
 import de.unihannover.elsa.iui.view.ChooseHeaderDialog;
 import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
 import de.unihannover.elsa.iui.view.ExcelSheetDialogController;
@@ -79,6 +80,13 @@ public class MainApp extends Application {
 	public MainApp() {
 //		java.net.URL url = ClassLoader.getSystemResource("resources/images/iui.png");
 		System.out.println("Main App");
+		Updater update = new Updater();
+	        try {
+	            System.out.println(update.getLatestVersion());
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+
 
 	}
 
