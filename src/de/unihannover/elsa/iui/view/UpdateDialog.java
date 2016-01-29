@@ -28,8 +28,6 @@ public class UpdateDialog {
 	@FXML
     private Label labelNewVersion;
     
-	private String currentVersion;
-	private String newVersion;
     private Stage dialogStage;
     private boolean okClicked = false;
     // Reference to the main application.
@@ -103,16 +101,7 @@ public class UpdateDialog {
 		return mainApp.getNewVersion();
 	}
 	
-	public void setNewVersion(String newVersion) {
-		this.newVersion = newVersion;
-	}
-	
 	public String getCurrentVersion() throws Exception {
 		return mainApp.getCurrentVersion();
 	}
-	
-	public void setCurrentVersion(String currentVersion) {
-		this.currentVersion = currentVersion;
-	}
-    
 }

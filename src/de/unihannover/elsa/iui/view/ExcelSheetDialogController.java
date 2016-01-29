@@ -2,20 +2,13 @@ package de.unihannover.elsa.iui.view;
 
 import java.security.NoSuchAlgorithmException;
 
+import de.unihannover.elsa.iui.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import de.unihannover.elsa.iui.MainApp;
-import de.unihannover.elsa.iui.model.Password;
-import de.unihannover.elsa.iui.model.User;
 
 /**
  * @author Fadi Asbih

@@ -3,9 +3,6 @@ package de.unihannover.elsa.iui.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;

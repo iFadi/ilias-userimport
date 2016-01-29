@@ -1,19 +1,16 @@
 package de.unihannover.elsa.iui.view;
 
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
+import de.unihannover.elsa.iui.MainApp;
+import de.unihannover.elsa.iui.model.Password;
+import de.unihannover.elsa.iui.model.User;
+import de.unihannover.elsa.iui.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import de.unihannover.elsa.iui.MainApp;
-import de.unihannover.elsa.iui.model.Password;
-import de.unihannover.elsa.iui.model.User;
-import de.unihannover.elsa.iui.util.DateUtil;
 
 /**
  * @author Fadi Asbih

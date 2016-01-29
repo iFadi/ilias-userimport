@@ -23,13 +23,13 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.controlsfx.dialog.Dialogs;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
 import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
+import de.unihannover.elsa.iui.util.FxDialogs;
 import de.unihannover.elsa.iui.util.PasswordUtility;
 import de.unihannover.elsa.iui.util.Updater;
 import de.unihannover.elsa.iui.view.ChooseHeaderDialog;
@@ -69,8 +69,6 @@ public class MainApp extends Application {
 	private int emailIndex;
 	private int loginIndex;
 	private int numberOfUsers;
-	private String currentVersion;
-	private String newVersion;
 	private Updater update;
 
 	/**
@@ -436,8 +434,7 @@ public class MainApp extends Application {
 			setUserFilePath(file);
 
 		} catch (Exception e) { // catches ANY exception
-			Dialogs.create().title("Error").masthead("Could not load data from file:\n" + file.getPath())
-					.showException(e);
+			FxDialogs.showException("Error", "Could not load data from file:\n" + file.getPath(), e);
 		}
 	}
 
@@ -462,8 +459,7 @@ public class MainApp extends Application {
 			// Save the file path to the registry.
 			setUserFilePath(file);
 		} catch (Exception e) { // catches ANY exception
-			Dialogs.create().title("Error").masthead("Could not save data to file:\n" + file.getPath())
-					.showException(e);
+			FxDialogs.showException("Error", "Could not save data to file:\n" + file.getPath(), e);
 		}
 	}
 	
@@ -891,16 +887,7 @@ public class MainApp extends Application {
 		return update.getCurrentVersion();
 	}
 
-	public void setCurrentVersion(String currentVersion) {
-		this.currentVersion = currentVersion;
-	}
-
 	public String getNewVersion() throws Exception {
 		return update.getNewVersion();
 	}
-
-	public void setNewVersion(String newVersion) {
-		this.newVersion = newVersion;
-	}
-
 }

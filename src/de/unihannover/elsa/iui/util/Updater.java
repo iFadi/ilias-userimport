@@ -1,19 +1,15 @@
 package de.unihannover.elsa.iui.util;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 public class Updater {
-	private final String versionURL = "https://github.com/iFadi/ilias-userimport/blob/master/version.html";
-    private final String historyURL = "https://github.com/iFadi/ilias-userimport/blob/master/history.html";
+	private final String versionURL = "https://github.com/iFadi/ilias-userimport/blob/master/resources/version.html";
+    private final String historyURL = "https://github.com/iFadi/ilias-userimport/blob/master/resources/history.html";
     private InputStream version = getClass().getResourceAsStream("/version.html");
-    private String currentVersion;
-    private String newVersion;
     private int currentMajor,currentMinor,currenPatch;
     
     public int getMajorVersion() throws Exception {
@@ -95,15 +91,8 @@ public class Updater {
 		return currentMajor+"."+currentMinor+"."+currenPatch;
 	}
 
-	public void setCurrentVersion(String currentVersion) {
-		this.currentVersion = currentVersion;
-	}
-
 	public String getNewVersion() throws Exception {
 		return getMajorVersion()+"."+getMinorVersion()+"."+getPatchVersion();
 	}
 
-	public void setNewVersion(String newVersion) {
-		this.newVersion = newVersion;
-	}
 }

@@ -1,16 +1,14 @@
 package de.unihannover.elsa.iui.view;
 
+import de.unihannover.elsa.iui.MainApp;
+import de.unihannover.elsa.iui.model.User;
+import de.unihannover.elsa.iui.util.FxDialogs;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.print.PrinterJob;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import org.controlsfx.dialog.Dialogs;
-
-import de.unihannover.elsa.iui.MainApp;
-import de.unihannover.elsa.iui.model.User;
 
 /**
  *
@@ -185,8 +183,9 @@ public class UserOverviewController {
 
 		} else {
 			// Nothing selected.
-			Dialogs.create().title("No Selection").masthead("No Person Selected")
-					.message("Please select a person in the table.").showWarning();
+//			Dialogs.create().title("No Selection").masthead("No Person Selected")
+//					.message("Please select a person in the table.").showWarning();
+			FxDialogs.showError("No Person Selected", "Please select a person in the table.");
 		}
 	}
 
@@ -201,8 +200,9 @@ public class UserOverviewController {
 			numberOfUsersLabel.setText(getNumberOfUsers()+"");
 		} else {
 			// Nothing selected.
-			Dialogs.create().title("No Selection").masthead("No Person Selected")
-					.message("Please select a person in the table.").showWarning();
+//			Dialogs.create().title("No Selection").masthead("No Person Selected")
+//					.message("Please select a person in the table.").showWarning();
+			FxDialogs.showError("No Person Selected", "Please select a person in the table.");
 		}
 	}
 

@@ -2,15 +2,13 @@ package de.unihannover.elsa.iui.view;
 
 import java.security.NoSuchAlgorithmException;
 
+import de.unihannover.elsa.iui.model.Password;
+import de.unihannover.elsa.iui.model.User;
+import de.unihannover.elsa.iui.util.FxDialogs;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import org.controlsfx.dialog.Dialogs;
-
-import de.unihannover.elsa.iui.model.Password;
-import de.unihannover.elsa.iui.model.User;
 
 /**
  * Dialog to edit details of a user.
@@ -171,11 +169,12 @@ public class UserEditDialogController {
             return true;
         } else {
             // Show the error message.
-            Dialogs.create()
-                .title("Invalid Fields")
-                .masthead("Please correct invalid fields")
-                .message(errorMessage)
-                .showError();
+//            Dialogs.create()
+//                .title("Invalid Fields")
+//                .masthead("Please correct invalid fields")
+//                .message(errorMessage)
+//                .showError();
+            FxDialogs.showError("Please correct invalid fields", errorMessage);
             return false;
         }
     }
