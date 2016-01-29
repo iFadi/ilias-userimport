@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="176.0" prefWidth="455.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.UpdateDialog">
+<children>
+<HBox layoutX="197.1875" layoutY="241.0" prefHeight="31.0" prefWidth="103.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="129.0" />
+      <Button defaultButton="true" layoutX="338.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="31.0" prefWidth="103.0" text="Close" />
+      <TextFlow fx:id="textFlow" layoutX="14.0" layoutY="48.0" prefHeight="78.0" prefWidth="425.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="48.0" />
+      <Label layoutX="15.0" layoutY="14.0" text="Current Version:" AnchorPane.bottomAnchor="145.0" />
+      <Label fx:id="labelCurrentVersion" layoutX="116.0" layoutY="14.0" text="Label" textFill="#832929" AnchorPane.bottomAnchor="145.0">
+               <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="326.0" layoutY="14.0" text="New Version:" AnchorPane.bottomAnchor="145.0" />
+      <Label fx:id="labelNewVersion" layoutX="408.0" layoutY="14.0" text="Label" textFill="#259453" AnchorPane.bottomAnchor="145.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+</children>
+   <stylesheets>
+      <URL value="@/css/JMetroLightTheme.css" />
+   </stylesheets></AnchorPane>

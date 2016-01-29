@@ -37,6 +37,7 @@ import de.unihannover.elsa.iui.view.DummyAccountsDialogController;
 import de.unihannover.elsa.iui.view.ExcelSheetDialogController;
 import de.unihannover.elsa.iui.view.RootLayoutController;
 import de.unihannover.elsa.iui.view.SettingsDialogController;
+import de.unihannover.elsa.iui.view.UpdateDialog;
 import de.unihannover.elsa.iui.view.UserEditDialogController;
 import de.unihannover.elsa.iui.view.UserOverviewController;
 import javafx.application.Application;
@@ -68,6 +69,9 @@ public class MainApp extends Application {
 	private int emailIndex;
 	private int loginIndex;
 	private int numberOfUsers;
+	private String currentVersion;
+	private String newVersion;
+	private Updater update;
 
 	/**
 	 * The data as an observable list of Persons.
@@ -78,16 +82,36 @@ public class MainApp extends Application {
 	 * Constructor
 	 */
 	public MainApp() {
-//		java.net.URL url = ClassLoader.getSystemResource("resources/images/iui.png");
-		System.out.println("Main App");
-		Updater update = new Updater();
-	        try {
-	            System.out.println(update.getLatestVersion());
+		
+		update = new Updater(); // Check for new updates
+			try {
+				if (update.getLatestVersion()) {					
+					// Load the fxml file and create a new stage for the popup dialog.
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(MainApp.class.getResource("view/UpdateDialog.fxml"));
+					AnchorPane page = (AnchorPane) loader.load();
+
+					// Create the dialog Stage.
+					Stage dialogStage = new Stage();
+					dialogStage.setTitle("Update");
+					dialogStage.initModality(Modality.WINDOW_MODAL);
+					dialogStage.initOwner(primaryStage);
+					Scene scene = new Scene(page);
+					dialogStage.setScene(scene);
+
+					// Give the controller access to the main app.
+					UpdateDialog controller = loader.getController();
+					controller.setMainApp(this);
+
+					controller.setDialogStage(dialogStage);
+
+					// Show the dialog and wait until the user closes it
+					dialogStage.showAndWait();
+					
+				}
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
 	        }
-
-
 	}
 
 	/**
@@ -861,6 +885,22 @@ public class MainApp extends Application {
 
 	public void setNumberOfUsers(int numberOfUsers) {
 		this.numberOfUsers = numberOfUsers;
+	}
+
+	public String getCurrentVersion() throws Exception {
+		return update.getCurrentVersion();
+	}
+
+	public void setCurrentVersion(String currentVersion) {
+		this.currentVersion = currentVersion;
+	}
+
+	public String getNewVersion() throws Exception {
+		return update.getNewVersion();
+	}
+
+	public void setNewVersion(String newVersion) {
+		this.newVersion = newVersion;
 	}
 
 }
