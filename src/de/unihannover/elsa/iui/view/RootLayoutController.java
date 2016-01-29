@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.stage.FileChooser;
-
 import org.apache.commons.io.FilenameUtils;
+
 import de.unihannover.elsa.iui.MainApp;
 import de.unihannover.elsa.iui.model.User;
-import de.unihannover.elsa.iui.util.FxDialogs;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.FileChooser;
 
 
 /**
@@ -202,23 +205,35 @@ public class RootLayoutController {
     
     /**
      * Opens an about dialog.
+     * @throws Exception 
      */
     @FXML
-    private void handleAbout() {
-    	
-//        Dialogs.create()
-//            .title("ILIAS User Import")
-//            .masthead("About")
-//            .message("Version: 2.0 beta 5\n\nProject: https://github.com/iFadi/ilias-userimport")
-//            .showInformation();
-    	
-    	FxDialogs.showInformation("About", "Version: 2.0.0\n\nProject: https://github.com/iFadi/ilias-userimport");
-//    	if (FxDialogs.showConfirm("Choose one baby!", "Can i ask you a question?", FxDialogs.YES, FxDialogs.NO).equals(FxDialogs.YES)) {
-//    	    FxDialogs.showWarning(null, "Pay attention to my next question!");
-//    	    String answer = FxDialogs.showTextInput("Are you a pink elephant disguised as a flying pig?", "Tell me!", "No");
-//    	    FxDialogs.showError(null, "You should not have said " + answer + "!");
-//    	    FxDialogs.showException("Now i'm angry", "I'm going home...", new RuntimeException("Exception caused by angry dinossaurs"));
-//    	}
+    private void handleAbout() throws Exception {
+//    	FxDialogs.showInformation("About", "Version: "+mainApp.getCurrentVersion()+"\n\nProject: https://github.com/iFadi/ilias-userimport");
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//        alert.initStyle(StageStyle.UTILITY);
+//        alert.setTitle("ILIAS User Import");
+//        alert.setHeaderText(title);
+//        alert.setContentText(message);
+
+//        alert.showAndWait();
+    	Alert alert = new Alert(
+    	Alert.AlertType.INFORMATION);
+    	alert.setTitle("ILIAS User Import");
+    	alert.setHeaderText("About");
+
+    	FlowPane fp = new FlowPane();
+    	Label lbl = new Label("Version: "+mainApp.getCurrentVersion());
+    	Hyperlink link = new Hyperlink("Check the Project on Github.");
+    	fp.getChildren().addAll( lbl, link);
+
+    	link.setOnAction( (evt) -> {
+    	                alert.close();
+    	                mainApp.getHostServices().showDocument("https://github.com/iFadi/ilias-userimport");
+    	} );
+
+    	alert.getDialogPane().contentProperty().set( fp );
+    	alert.showAndWait();
     }
 
     /**
