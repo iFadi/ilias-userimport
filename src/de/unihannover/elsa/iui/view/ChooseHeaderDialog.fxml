@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="326.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.ChooseHeaderDialog">
+<AnchorPane prefHeight="326.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.ChooseHeaderDialog">
    <children>
       <HBox layoutX="238.0" layoutY="101.0" />
-      <Button defaultButton="true" layoutX="295.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleImport" prefHeight="27.0" prefWidth="91.0" text="Import" />
-      <Label layoutX="14.0" layoutY="54.0" text="Firstname">
+      <Button defaultButton="true" layoutX="327.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleImport" prefHeight="27.0" prefWidth="105.0" text="Import" />
+      <Label layoutX="14.0" layoutY="78.0" text="Firstname">
          <font>
             <Font size="18.0" />
          </font>
@@ -23,38 +23,39 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Separator layoutY="36.0" prefHeight="7.0" prefWidth="475.0" />
-      <Label layoutX="14.0" layoutY="90.0" text="Lastname">
+      <Separator layoutY="36.0" prefHeight="6.0" prefWidth="540.0" />
+      <Label layoutX="14.0" layoutY="114.0" text="Lastname">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="406.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
-      <Label layoutX="14.0" layoutY="126.0" text="Matriculation">
+      <Button layoutX="436.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+      <Label layoutX="14.0" layoutY="150.0" text="Matriculation">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="firstNameBox" layoutX="191.0" layoutY="54.0" prefWidth="150.0" />
-      <ComboBox fx:id="lastNameBox" layoutX="191.0" layoutY="90.0" prefWidth="150.0" />
-      <ComboBox fx:id="matriculationBox" layoutX="191.0" layoutY="126.0" prefWidth="150.0" />
-      <ComboBox fx:id="emailBox" layoutX="191.0" layoutY="162.0" prefWidth="150.0" />
-      <Label layoutX="14.0" layoutY="162.0" text="Email">
+      <ComboBox fx:id="firstNameBox" layoutX="191.0" layoutY="78.0" prefWidth="150.0" />
+      <ComboBox fx:id="lastNameBox" layoutX="191.0" layoutY="114.0" prefWidth="150.0" />
+      <ComboBox fx:id="matriculationBox" layoutX="191.0" layoutY="150.0" prefWidth="150.0" />
+      <ComboBox fx:id="emailBox" layoutX="191.0" layoutY="186.0" prefWidth="150.0" />
+      <Label layoutX="14.0" layoutY="186.0" text="Email">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="251.0" prefHeight="34.0" prefWidth="354.0" text="If there is no proper match, just leave it empty.">
+      <Label layoutX="14.0" layoutY="262.0" prefHeight="23.0" prefWidth="354.0" text="If there is no proper match, just leave it empty.">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="198.0" text="Login">
+      <Label layoutX="14.0" layoutY="222.0" text="Login">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="loginBox" layoutX="191.0" layoutY="198.0" prefWidth="150.0" />
+      <ComboBox fx:id="loginBox" layoutX="191.0" layoutY="222.0" prefWidth="150.0" />
+      <CheckBox fx:id="containsHeaders" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="331.0" selected="true" text="Document contain Headers" />
    </children>
    <stylesheets>
       <URL value="@/css/JMetroLightTheme.css" />

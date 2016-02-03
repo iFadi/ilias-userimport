@@ -8,12 +8,15 @@ import de.unihannover.elsa.iui.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class ChooseHeaderDialog {
 
+		@FXML
+    	private CheckBox containsHeaders;
 		@FXML
 	    private ComboBox<String> firstNameBox;
 	    @FXML
@@ -108,6 +111,10 @@ public class ChooseHeaderDialog {
 	        	mainApp.setLoginIndex(-1);
 	    	});
 	    	
+	    	containsHeaders.setOnAction((event) -> {
+	        	mainApp.setContainsHeaders(containsHeaders.isSelected());
+	        	System.out.println("Contains Headers selected/diselected");
+	    	});
 	    }
 	    
 	    /**
@@ -140,6 +147,7 @@ public class ChooseHeaderDialog {
 	    	loadHeaders();
 	    	mainApp.setEmailIndex(-1);
 	    	mainApp.setLoginIndex(-1);
+	    	mainApp.setContainsHeaders(true);
 //	    	mainApp.setSelectedSheet(0);
 	    }
 	    
@@ -173,7 +181,6 @@ public class ChooseHeaderDialog {
 	    		default: System.out.println("No parsing method is choosen."); 
 	    			break;
 	    	}
-	    		
 	    	dialogStage.close();
 	    }
 	    

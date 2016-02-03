@@ -70,6 +70,7 @@ public class MainApp extends Application {
 	private int loginIndex;
 	private int numberOfUsers;
 	private Updater update;
+	private boolean containsHeaders;
 
 	/**
 	 * The data as an observable list of Persons.
@@ -739,8 +740,12 @@ public class MainApp extends Application {
 		// Traversing over each row of XLSX file
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
-
-			if (row.getRowNum() != 0) { // Skip first Row, Headers.
+			
+			if (isContainsHeaders()) { // Skip first Row, Headers.
+				System.out.println("Skip Headers");
+				setContainsHeaders(false);
+				continue;
+			}
 				String firstName = df.formatCellValue(row.getCell(getFirstNameIndex()));
 				String lastName = df.formatCellValue(row.getCell(getLastNameIndex()));
 				String mnr = df.formatCellValue(row.getCell(getMatriculationIndex()));
@@ -766,7 +771,11 @@ public class MainApp extends Application {
 
 				System.out.println(firstName + " " + lastName + " " + mnr + "\t ");
 			}
-		}
+//			else {
+//				System.out.println("Headers Skiped!");
+//				setContainsHeaders(true); // Skip first Row, Headers.
+//			}
+//		}
 		myWorkBook.close();
 		fileStream.close();
 	}
@@ -889,5 +898,13 @@ public class MainApp extends Application {
 
 	public String getNewVersion() throws Exception {
 		return update.getNewVersion();
+	}
+
+	public boolean isContainsHeaders() {
+		return containsHeaders;
+	}
+
+	public void setContainsHeaders(boolean containsHeaders) {
+		this.containsHeaders = containsHeaders;
 	}
 }
