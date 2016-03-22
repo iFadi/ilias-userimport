@@ -608,6 +608,7 @@ public class MainApp extends Application {
 			// user.setLogin(nextLine[22]); // The Login is same as the M-nr.
 			
 			user.setPassword(new Password(PasswordUtility.randomString(5)));
+			user.setPlainPassword(new Password("PLAIN",user.getPassword().getPlainPassword()));
 			
 			if(getEmailIndex() > 0) {
 				user.setEmail(nextLine[getEmailIndex()]);
@@ -694,6 +695,8 @@ public class MainApp extends Application {
 				}
 				
 				user.setPassword(new Password(PasswordUtility.randomString(5)));
+				user.setPlainPassword(new Password("PLAIN",user.getPassword().getPlainPassword()));
+
 
 				user.setMatriculation(mnr);
 				userData.add(user);
@@ -766,6 +769,8 @@ public class MainApp extends Application {
 				}
 
 				user.setPassword(new Password(PasswordUtility.randomString(5)));
+				user.setPlainPassword(new Password("PLAIN",user.getPassword().getPlainPassword()));
+
 				user.setMatriculation(mnr);
 				userData.add(user);
 

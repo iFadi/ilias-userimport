@@ -27,6 +27,7 @@ public class User {
     private Role localRole;
 	private StringProperty login;
 	private Password password;
+	private Password plainPassword;
     private StringProperty firstName;
     private StringProperty lastName;
     private StringProperty email;
@@ -63,6 +64,8 @@ public class User {
         this.gender = new SimpleStringProperty("f");
         this.login = new SimpleStringProperty("");
         this.password = new Password();
+        this.plainPassword = new Password();
+        plainPassword.setType("PLAIN");
         this.email = new SimpleStringProperty("student@eklausur.elsa");
         this.matriculation = new SimpleStringProperty("");
         this.timeLimitUnlimited = "1";
@@ -282,5 +285,14 @@ public class User {
     public String getLanguage() {
     	return "de";
     }
+
+    @XmlElement(name = "Password")
+	public Password getPlainPassword() {
+		return plainPassword;
+	}
+
+	public void setPlainPassword(Password plainPassword) {
+		this.plainPassword = plainPassword;
+	}
 }
 

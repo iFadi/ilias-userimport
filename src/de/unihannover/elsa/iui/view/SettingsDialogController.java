@@ -112,7 +112,7 @@ public class SettingsDialogController {
     	if(!mainApp.getUserData().isEmpty()) {
     		System.out.println(mainApp.getUserData().get(0).getLocalRole().getValue());
         	localRoleField.setText(mainApp.getUserData().get(0).getLocalRole().getValue());
-        	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPasswordToHash());
+        	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPlainPassword());
         	timeLimitFromField.setText(mainApp.getUserData().get(0).getTimeLimitFrom());
         	timeLimitUntilField.setText(mainApp.getUserData().get(0).getTimeLimitUntil());
 //        	limitedButton.setSelected(!Boolean.parseBoolean(mainApp.getUserData().get(0).getTimeLimitUnlimited()));
@@ -137,9 +137,13 @@ public class SettingsDialogController {
     		if(generatePassword.isSelected()) {
     			System.out.println("Password is auto generated. Check the method parseExcel.");
     			user.setPassword(new Password(PasswordUtility.randomString(5)));
+    			user.setPlainPassword(new Password("PLAIN",user.getPassword().getPlainPassword()));
+
     		}
     		else {
         		user.setPassword(new Password(passwordField.getText()));
+    			user.setPlainPassword(new Password("PLAIN",user.getPassword().getPlainPassword()));
+
     		}
     		
     		if(limitedButton.isSelected()) {

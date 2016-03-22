@@ -103,7 +103,7 @@ public class DummyAccountsDialogController {
     	if(!mainApp.getUserData().isEmpty()) {
     		System.out.println(mainApp.getUserData().get(0).getLocalRole().getValue());
         	localRoleField.setText(mainApp.getUserData().get(0).getLocalRole().getValue());
-        	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPasswordToHash());
+        	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPlainPassword());
         	timeLimitFromField.setText(mainApp.getUserData().get(0).getTimeLimitFrom());
         	timeLimitUntilField.setText(mainApp.getUserData().get(0).getTimeLimitUntil());
 //        	limitedButton.setSelected(!Boolean.parseBoolean(mainApp.getUserData().get(0).getTimeLimitUnlimited()));
@@ -143,6 +143,7 @@ public class DummyAccountsDialogController {
 			dummyAccount.setMatriculation("123456");
 			dummyAccount.setLogin(loginPrefixField.getText()+"_"+i);
 			dummyAccount.setPassword(new Password(passwordField.getText()));
+			dummyAccount.setPlainPassword(new Password("PLAIN", passwordField.getText()));
     		
     		if(limitedButton.isSelected()) {
     			dummyAccount.setTimeLimitUnlimited("0"); // Time Limit is activated.

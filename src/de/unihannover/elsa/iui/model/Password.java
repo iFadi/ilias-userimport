@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlValue;
 public class Password {
 
 	private String type;
-	private String passwordToHash;
-	private String MD5Value;
+	private String plainPassword;
+	private String password;
 	
 	
 	public Password() {
@@ -41,8 +41,14 @@ public class Password {
 	
 	public Password(String value) throws NoSuchAlgorithmException {
 		setType("ILIAS3");
-		setPasswordToHash(value);
-		setMD5Value(value);
+		setPlainPassword(value);
+		setPassword(value);
+	}
+	
+	public Password(String type, String value) throws NoSuchAlgorithmException {
+		setType(type);
+		setPlainPassword(value);
+		setPassword(value);
 	}
 	/**
 	 * @return the type
@@ -64,19 +70,22 @@ public class Password {
 	 */
 	@XmlValue
 	public String getValue() throws NoSuchAlgorithmException {
-		setMD5Value(this.getPasswordToHash()); // needed when reloading a xml file.
-		return this.MD5Value;
+		setPassword(this.getPlainPassword()); // needed when reloading a xml file.
+		if(this.getType() == "ILIAS3")
+			return this.password;
+		else
+			return this.plainPassword;
 	}
 	
 	/**
-	 * @param passwordToHash
+	 * @param plainPassword
 	 * @throws NoSuchAlgorithmException 
 	 */
-	public void setMD5Value(String passwordToHash) throws NoSuchAlgorithmException {
+	public void setPassword(String plainPassword) throws NoSuchAlgorithmException {
         // Create MessageDigest instance for MD5
         MessageDigest md = MessageDigest.getInstance("MD5");
         //Add password bytes to digest
-        md.update(passwordToHash.getBytes());
+        md.update(plainPassword.getBytes());
         //Get the hash's bytes 
         byte[] bytes = md.digest();
         //This bytes[] has bytes in decimal format;
@@ -87,22 +96,21 @@ public class Password {
             sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
         }
         //Get complete hashed password in hex format
-        this.MD5Value = sb.toString();
+        this.password = sb.toString();
 	}
 
 	/**
-	 * @return the passwordToHash
+	 * @return the plainPassword
 	 */
-	@XmlAttribute(name="PasswordToHash")
-	public String getPasswordToHash() {
-		return passwordToHash;
+	@XmlAttribute(name="plainPassword")
+	public String getPlainPassword() {
+		return plainPassword;
 	}
 
 	/**
-	 * @param passwordToHash the passwordToHash to set
+	 * @param plainPassword the plainPassword to set
 	 */
-	public void setPasswordToHash(String passwordToHash) {
-		this.passwordToHash = passwordToHash;
+	public void setPlainPassword(String plainPassword) {
+		this.plainPassword = plainPassword;
 	}
-
 }

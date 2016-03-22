@@ -79,7 +79,7 @@ public class UserOverviewController {
 			localRoleLabel.setText(user.getLocalRole().getValue());
 			System.out.println("Local: " + user.getLocalRole().getValue());
 			loginLabel.setText(user.getLogin());
-			passwordLabel.setText(user.getPassword().getPasswordToHash());
+			passwordLabel.setText(user.getPassword().getPlainPassword());
 			// System.out.println(user.getLogin());
 			firstNameLabel.setText(user.getFirstName());
 			lastNameLabel.setText(user.getLastName());
@@ -118,7 +118,7 @@ public class UserOverviewController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		loginColumn.setCellValueFactory(cellData -> cellData.getValue().LoginProperty());
 		passwordColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()
-				.getPasswordToHash()));
+				.getPlainPassword()));
 
 		// Clear person details.
 		showPersonDetails(null);
