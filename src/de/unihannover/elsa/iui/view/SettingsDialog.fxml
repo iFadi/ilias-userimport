@@ -21,8 +21,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Local Role" GridPane.rowIndex="1" />
-            <Label text="Global Role" />
+            <Label text="Local Role" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="You can define here a Local Role, which you have already set in your ILIAS installation" />
+               </tooltip></Label>
+            <Label text="Global Role">
+               <tooltip>
+                  <Tooltip text="This the Global Role which is in your ILIAS Installion definiert" />
+               </tooltip></Label>
             <TextField fx:id="globalRoleField" promptText="User" text="User" GridPane.columnIndex="1" />
             <TextField fx:id="localRoleField" promptText="klausur_am_04.02.2015" text="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
@@ -55,13 +61,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="From" />
-            <Label text="Until" GridPane.rowIndex="1" />
+            <Label text="From">
+               <tooltip>
+                  <Tooltip text="Here you can define the first day, where the user can log in" />
+               </tooltip></Label>
+            <Label text="Until" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="Here you can define the last day where the user can log in" />
+               </tooltip></Label>
             <TextField fx:id="timeLimitFromField" disable="true" promptText="04-02-2015" text="04-02-2015" GridPane.columnIndex="1" />
             <TextField fx:id="timeLimitUntilField" disable="true" promptText="05-02-2015" text="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="Limited Access" />
+      <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="Limited Access">
+         <tooltip>
+            <Tooltip text="If you want the imported users to have a limited time to use the account, then click this button" />
+         </tooltip></ToggleButton>
       <GridPane layoutX="12.0" layoutY="255.0" prefHeight="81.0" prefWidth="496.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
@@ -72,8 +87,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox fx:id="generatePassword" mnemonicParsing="false" selected="true" text="Generate Password" />
-            <Label text="Password" GridPane.rowIndex="1" />
+            <CheckBox fx:id="generatePassword" mnemonicParsing="false" selected="true" text="Generate Password">
+               <tooltip>
+                  <Tooltip text="Activate it if you want every user to have a generated password" />
+               </tooltip></CheckBox>
+            <Label text="Password" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="The Password defined here will be applied to all imported users" />
+               </tooltip></Label>
             <TextField fx:id="passwordField" disable="true" text="testing" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
