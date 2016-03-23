@@ -31,24 +31,18 @@ import javax.xml.bind.annotation.XmlValue;
 public class Password {
 
 	private String type;
-	private String plainPassword;
-	private String password;
+	private String passwordToHash;
+	private String MD5Value;
 	
 	
 	public Password() {
-		setType("ILIAS3");
+		setType("PLAIN");
 	}
 	
 	public Password(String value) throws NoSuchAlgorithmException {
-		setType("ILIAS3");
-		setPlainPassword(value);
-		setPassword(value);
-	}
-	
-	public Password(String type, String value) throws NoSuchAlgorithmException {
-		setType(type);
-		setPlainPassword(value);
-		setPassword(value);
+		setType("PLAIN");
+		setPasswordToHash(value);
+		setMD5Value(value);
 	}
 	/**
 	 * @return the type
@@ -70,47 +64,52 @@ public class Password {
 	 */
 	@XmlValue
 	public String getValue() throws NoSuchAlgorithmException {
-		setPassword(this.getPlainPassword()); // needed when reloading a xml file.
-		if(this.getType() == "ILIAS3")
-			return this.password;
-		else
-			return this.plainPassword;
+//		setMD5Value(this.getPasswordToHash()); // needed when reloading a xml file.
+		return this.passwordToHash;
 	}
 	
 	/**
-	 * @param plainPassword
+	 * @param passwordToHash
 	 * @throws NoSuchAlgorithmException 
 	 */
-	public void setPassword(String plainPassword) throws NoSuchAlgorithmException {
+	public void setMD5Value(String passwordToHash) {
         // Create MessageDigest instance for MD5
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        //Add password bytes to digest
-        md.update(plainPassword.getBytes());
-        //Get the hash's bytes 
-        byte[] bytes = md.digest();
-        //This bytes[] has bytes in decimal format;
-        //Convert it to hexadecimal format
+        MessageDigest md;
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i< bytes.length ;i++)
-        {
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
+        
+		try {
+			md = MessageDigest.getInstance("MD5");
+	        //Add password bytes to digest
+	        md.update(passwordToHash.getBytes());
+	        //Get the hash's bytes 
+	        //This bytes[] has bytes in decimal format;
+	        //Convert it to hexadecimal format
+	        byte[] bytes = md.digest();
+	        for(int i=0; i< bytes.length ;i++)
+	        {
+	            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         //Get complete hashed password in hex format
-        this.password = sb.toString();
+        this.MD5Value = sb.toString();
 	}
 
 	/**
-	 * @return the plainPassword
+	 * @return the passwordToHash
 	 */
-	@XmlAttribute(name="plainPassword")
-	public String getPlainPassword() {
-		return plainPassword;
+	@XmlAttribute(name="PasswordToHash")
+	public String getPasswordToHash() {
+		return passwordToHash;
 	}
 
 	/**
-	 * @param plainPassword the plainPassword to set
+	 * @param passwordToHash the passwordToHash to set
 	 */
-	public void setPlainPassword(String plainPassword) {
-		this.plainPassword = plainPassword;
+	public void setPasswordToHash(String passwordToHash) {
+		this.passwordToHash = passwordToHash;
 	}
+
 }

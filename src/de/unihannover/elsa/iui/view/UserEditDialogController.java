@@ -78,7 +78,7 @@ public class UserEditDialogController {
         globalRoleField.setText(user.getGlobalRole().getValue());
         localRoleField.setText(user.getLocalRole().getValue());
         loginField.setText(user.getLogin());
-        passwordField.setText(user.getPassword().getPlainPassword());
+        passwordField.setText(user.getPassword().getPasswordToHash());
         firstNameField.setText(user.getFirstName());
         lastNameField.setText(user.getLastName());
         emailField.setText(user.getEmail());
@@ -109,7 +109,6 @@ public class UserEditDialogController {
         	user.getLocalRole().setId(localRoleField.getText());
         	user.setLogin(loginField.getText());
         	user.setPassword(new Password(passwordField.getText()));
-			user.setPlainPassword(new Password("PLAIN",user.getPassword().getPlainPassword()));
             user.setFirstName(firstNameField.getText());
             user.setLastName(lastNameField.getText());
             user.setEmail(emailField.getText());
