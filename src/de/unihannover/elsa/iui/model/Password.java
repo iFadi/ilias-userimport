@@ -36,11 +36,11 @@ public class Password {
 	
 	
 	public Password() {
-		setType("ILIAS3");
+		setType("PLAIN");
 	}
 	
 	public Password(String value) throws NoSuchAlgorithmException {
-		setType("ILIAS3");
+		setType("PLAIN");
 		setPasswordToHash(value);
 		setMD5Value(value);
 	}
@@ -64,8 +64,8 @@ public class Password {
 	 */
 	@XmlValue
 	public String getValue() throws NoSuchAlgorithmException {
-		setMD5Value(this.getPasswordToHash()); // needed when reloading a xml file.
-		return this.MD5Value;
+//		setMD5Value(this.getPasswordToHash()); // needed when reloading a xml file.
+		return this.passwordToHash;
 	}
 	
 	/**
