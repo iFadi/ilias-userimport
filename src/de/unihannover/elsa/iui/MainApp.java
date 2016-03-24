@@ -901,6 +901,10 @@ public class MainApp extends Application {
 	public String getNewVersion() throws Exception {
 		return update.getNewVersion();
 	}
+	
+	public String getWhatsNew() throws Exception {
+		return update.getWhatsNew();
+	}
 
 	public boolean isContainsHeaders() {
 		return containsHeaders;

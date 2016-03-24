@@ -43,6 +43,7 @@ public class UpdateDialog {
     	Text text1 = new Text("There is a new version available.\n");
     	Text text2 = new Text("You can download it at:");
     	Hyperlink text3 = new Hyperlink();
+    	Text text4 = new Text(mainApp.getWhatsNew());
     	text3.setText("https://github.com/iFadi/ilias-userimport");
     	text3.setOnAction(new EventHandler<ActionEvent>() {
     	    @Override
@@ -51,7 +52,7 @@ public class UpdateDialog {
 //    	        System.out.println("This link is clicked");
     	    }
     	});
-    	textFlow.getChildren().addAll(text1,text2,text3);
+    	textFlow.getChildren().addAll(text1,text2,text3,text4);
     }
     /**
      * Is called by the main application to give a reference back to itself.
