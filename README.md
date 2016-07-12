@@ -13,9 +13,9 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 
 
 ## Screenshots
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.2_1.png)
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.2_2.png)
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.2_3.png)
+![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.2_1.png)
+![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.2_2.png)
+![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.2_3.png)
 
 
 ## Donation
