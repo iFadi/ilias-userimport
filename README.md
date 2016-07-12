@@ -20,7 +20,7 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 
 ## Donation
 
-<a href='https://ko-fi.com/A53246C' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
+If you find this tool useful you can ... <a href='https://ko-fi.com/A53246C' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 
 ## Legal
 This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,6 @@ the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+but **WITHOUT ANY WARRANTY**; without even the implied warranty of
+**MERCHANTABILITY** or **FITNESS FOR A PARTICULAR PURPOSE**.  See the
 GNU General Public License for more details.
