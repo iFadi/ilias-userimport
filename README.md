@@ -2,7 +2,7 @@
 This App generates a XML file from a CSV or Excel file as input. The XML file can then be imported into the [ILIAS e-Learning System](http://www.ilias.de/).
 
 ## Download Latest Release
-  * [2.0.1](https://github.com/iFadi/ilias-userimport/releases/download/2.0.1/IUI_2.0.1.jar)
+  * [2.0.2](https://github.com/iFadi/ilias-userimport/releases/download/2.0.2/IUI_2.0.2.jar)
 
 ## What is it for?
 This tool is used to convert a massive number of users from a (CSV, Excel) file to a XML file that can be imported in the [ILIAS e-Learning System](http://www.ilias.de/), originally this tool was developed to simplify the import of users to a separate ILIAS installation which is used only for the purpose of eExams(eKlausuren) and has specific local roles, here are a list of features which this tool can apply to the imported users list:
@@ -20,7 +20,7 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 
 ## Donation
 
-If you find this tool useful you can ... <a href='https://ko-fi.com/A53246C' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
+If you find this tool useful you can  <a href='https://ko-fi.com/A53246C' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 
 ## Legal
 This program is free software: you can redistribute it and/or modify
