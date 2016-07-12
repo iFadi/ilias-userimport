@@ -4,16 +4,23 @@ This App generates a XML file from a CSV or Excel file as input. The XML file ca
 ## Download Latest Release
   * [2.0.1](https://github.com/iFadi/ilias-userimport/releases/download/2.0.1/IUI_2.0.1.jar)
 
+## What is it for?
+This tool is used to convert a massive number of users from a (CSV, Excel) file to a XML file that can be imported in the [ILIAS e-Learning System](http://www.ilias.de/), originally this tool was developed to simplify the import of users to a separate ILIAS installation which is used only for the purpose of eExams(eKlausuren) and has specific local roles, here are a list of features which this tool can apply to the imported users list:
+* Set a generated or united password to all users.
+* Set a Global/Local Role.
+* Set Limited Access. (i.e. only on the day of the exam)
+* Generate dummy accounts (i.e. for test purposes)
+
+
 ## Screenshots
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta1.png)
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta2.png)
-![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.0_beta3.png)
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.2_1.png)
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.2_2.png)
+![iui_1](https://dl.dropbox.com/u/3098106/IUI/IUI_2.0.2_3.png)
 
 
 ## Donation
-Need Coffee ...... :)
 
-[<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif">](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fadi_asbih%40yahoo%2ede&lc=US&item_name=Support%20Developing%20ILIAS%20User%20Import&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest)
+<a href='https://ko-fi.com/A53246C' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> 
 
 ## Legal
 This program is free software: you can redistribute it and/or modify

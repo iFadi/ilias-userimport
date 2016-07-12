@@ -45,8 +45,35 @@ public class Updater {
     
     public String getWhatsNew() throws Exception
     {
+    	String changes = "";
         String data = getData(historyURL);
-        return data.substring(data.indexOf("[history]")+9,data.indexOf("[/history]"));
+        String history = data.substring(data.indexOf("[history]")+9,data.indexOf("[/history]"));
+        
+        System.out.println(history);
+        for(int i=1; i<=2; i++) {
+        	String change = history.substring(history.indexOf("[new"+i+"]")+5,history.indexOf("[/new"+i+"]"));
+        	changes = changes + change + "\n";
+        }
+        
+////    	System.out.println(changes);
+////    	System.out.println(history);
+////
+////
+////        String newString = changes.replaceFirst("[new]"+changes+"[/new]", "");
+////        changes = newString.substring(newString.indexOf("[new]")+5,newString.indexOf("[/new]"));
+//        	int i = history.indexOf("[new]");
+//        	String changes = history.substring(i+5,history.indexOf("[/new]"));
+//        	while(i >= 0) {
+//        	     System.out.println(i);
+//        	     i = history.indexOf("[new]", i+1);
+//             	System.out.println(changes);
+//        	}
+//        	changes = history.substring(i+5,history.indexOf("[/new]"));
+//        	System.out.println(changes);
+////        for(String s:changes)
+////        	System.out.println(history);
+
+        return changes;
     }
     
     private String getData(InputStream file) {

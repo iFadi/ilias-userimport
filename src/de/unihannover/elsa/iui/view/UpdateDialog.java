@@ -39,20 +39,8 @@ public class UpdateDialog {
      * @throws Exception 
      */
     @FXML
-    private void initialize() throws Exception {
-    	Text text1 = new Text("There is a new version available.\n");
-    	Text text2 = new Text("You can download it at:");
-    	Hyperlink text3 = new Hyperlink();
-    	Text text4 = new Text(mainApp.getWhatsNew());
-    	text3.setText("https://github.com/iFadi/ilias-userimport");
-    	text3.setOnAction(new EventHandler<ActionEvent>() {
-    	    @Override
-    	    public void handle(ActionEvent e) {
-    	    	mainApp.getHostServices().showDocument("https://github.com/iFadi/ilias-userimport/releases");
-//    	        System.out.println("This link is clicked");
-    	    }
-    	});
-    	textFlow.getChildren().addAll(text1,text2,text3,text4);
+    private void initialize() {
+
     }
     /**
      * Is called by the main application to give a reference back to itself.
@@ -77,6 +65,23 @@ public class UpdateDialog {
         this.dialogStage.getIcons().add(new Image("file:resources/images/iui.png"));
     	labelNewVersion.setText(getNewVersion());
     	labelCurrentVersion.setText(getCurrentVersion());
+    	
+    	
+    	Text text1 = new Text("There is a new version available.\n");
+    	Text text2 = new Text("You can download it at:");
+    	Hyperlink text3 = new Hyperlink();
+    	text3.setText("https://github.com/iFadi/ilias-userimport");
+    	text3.setOnAction(new EventHandler<ActionEvent>() {
+    	    @Override
+    	    public void handle(ActionEvent e) {
+    	    	mainApp.getHostServices().showDocument("https://github.com/iFadi/ilias-userimport/releases");
+//    	        System.out.println("This link is clicked");
+    	    }
+    	});
+//    	Text text4 = new Text("\nChanges: \n" + getWhatsNew());
+    	textFlow.getChildren().addAll(text1,text2,text3);
+
+
     }
 
     /**
@@ -104,5 +109,9 @@ public class UpdateDialog {
 	
 	public String getCurrentVersion() throws Exception {
 		return mainApp.getCurrentVersion();
+	}
+	
+	public String getWhatsNew() throws Exception {
+		 return mainApp.getWhatsNew();
 	}
 }
