@@ -595,8 +595,16 @@ public class MainApp extends Application {
 	 * @throws NoSuchAlgorithmException
 	 */
 	public void parseCSV(File file) throws IOException, NoSuchAlgorithmException {
-
-		CSVReader reader = new CSVReader(new FileReader(file), ';', CSVParser.DEFAULT_QUOTE_CHARACTER, 1);
+		CSVReader reader;
+		
+		if (isContainsHeaders()) { // Skip first Row, Headers.
+			System.out.println("Skiping the Headers");
+			reader = new CSVReader(new FileReader(file), ';', CSVParser.DEFAULT_QUOTE_CHARACTER, 1);
+			setContainsHeaders(false);
+		}
+		else { 
+			reader = new CSVReader(new FileReader(file), ';', CSVParser.DEFAULT_QUOTE_CHARACTER, 0);
+		}
 		
 		String[] nextLine;
 		while ((nextLine = reader.readNext()) != null) {

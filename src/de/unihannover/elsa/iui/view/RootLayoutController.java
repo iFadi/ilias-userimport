@@ -223,7 +223,7 @@ public class RootLayoutController {
 
     	FlowPane fp = new FlowPane();
     	Label lbl = new Label("Version: "+mainApp.getCurrentVersion());
-    	Hyperlink link = new Hyperlink("Check the Project on Github.");
+    	Hyperlink link = new Hyperlink("Check the project on Github.");
     	fp.getChildren().addAll( lbl, link);
 
     	link.setOnAction( (evt) -> {
