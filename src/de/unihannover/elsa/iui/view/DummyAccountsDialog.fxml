@@ -76,7 +76,10 @@
         </rowConstraints>
          <children>
             <Label text="Number of accounts" />
-            <Label text="Login prefix" GridPane.rowIndex="1" />
+            <Label text="Login prefix" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="i.e. &quot;test&quot; will generate test_1, test_2,... " />
+               </tooltip></Label>
             <Label text="Password" GridPane.rowIndex="2" />
             <TextField fx:id="numberOfAccountsField" text="10" GridPane.columnIndex="1" />
             <TextField fx:id="loginPrefixField" text="ersatz" GridPane.columnIndex="1" GridPane.rowIndex="1" />
