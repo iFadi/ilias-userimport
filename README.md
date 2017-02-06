@@ -5,7 +5,7 @@ This App generates a XML file from a CSV or Excel file as input. The XML file ca
   * [2.0.2](https://github.com/iFadi/ilias-userimport/releases/download/2.0.2/IUI_2.0.2.jar)
 
 ## What is it for?
-This tool is used to convert a massive number of users from a (CSV, Excel) file to a XML file that can be imported in the [ILIAS e-Learning System](http://www.ilias.de/), originally this tool was developed to simplify the import of users to a separate ILIAS installation which is used only for the purpose of eExams(eKlausuren) and has specific local roles, here are a list of features which this tool can apply to the imported users list:
+This tool is used to convert a massive number of users from a (CSV, Excel) file to a XML file that can be imported in the [ILIAS e-Learning System](http://www.ilias.de/), originally this tool was developed to simplify the import of users to a separate ILIAS installation which is used only for the purpose of eExams(eKlausuren) and has specific local roles, here is a list of features which this tool can apply to the imported users list:
 * Set a generated or united password to all users.
 * Set a Global/Local Role.
 * Set Limited Access. (i.e. only on the day of the exam)
