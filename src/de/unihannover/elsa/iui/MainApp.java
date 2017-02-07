@@ -26,6 +26,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
+import de.unihannover.elsa.iui.model.ManipulateWSDL;
 import de.unihannover.elsa.iui.model.Password;
 import de.unihannover.elsa.iui.model.User;
 import de.unihannover.elsa.iui.model.UserListWrapper;
@@ -81,6 +82,8 @@ public class MainApp extends Application {
 	 * Constructor
 	 */
 	public MainApp() {
+		System.out.println("Test WSDL: ");
+		ManipulateWSDL wsdl = new ManipulateWSDL();
 		
 		update = new Updater(); // Check for new updates
 			try {
