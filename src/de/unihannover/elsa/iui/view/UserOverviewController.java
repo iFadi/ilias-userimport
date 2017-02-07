@@ -137,6 +137,7 @@ public class UserOverviewController {
 		userTable.setOnMouseMoved((event) -> {
 //    	    System.out.println("Mouse is moving "+getNumberOfUsers());
     	    numberOfUsersLabel.setText(getNumberOfUsers()+"");
+    	    userTable.refresh();
     	});
 				
 	}
