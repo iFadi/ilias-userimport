@@ -115,6 +115,13 @@ public class SettingsDialogController {
         	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPasswordToHash());
         	timeLimitFromField.setText(mainApp.getUserData().get(0).getTimeLimitFrom());
         	timeLimitUntilField.setText(mainApp.getUserData().get(0).getTimeLimitUntil());
+        	
+        	// workaround, testing
+        	generatePassword.setSelected(false);
+        	passwordField.setDisable(false);
+//        	limitedButton.setDisable(false);
+//    		timeLimitFromField.setDisable(false);
+//    		timeLimitUntilField.setDisable(false);
 //        	limitedButton.setSelected(!Boolean.parseBoolean(mainApp.getUserData().get(0).getTimeLimitUnlimited()));
     	}
     	else {
