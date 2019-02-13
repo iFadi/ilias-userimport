@@ -40,6 +40,8 @@ public class DummyAccountsDialogController {
     private TextField loginPrefixField;
     @FXML
     private TextField passwordField;
+    @FXML
+    private TextField emailField;
 	@FXML
     private TextField globalRoleField;
     @FXML
@@ -139,7 +141,7 @@ public class DummyAccountsDialogController {
 			dummyAccount.getLocalRole().setId(localRoleField.getText());
 			dummyAccount.setFirstName("Ersatz Account");
 			dummyAccount.setLastName(i+"");
-			dummyAccount.setEmail("ersatz@account.de");
+			dummyAccount.setEmail(emailField.getText());
 			dummyAccount.setMatriculation("123456");
 			dummyAccount.setLogin(loginPrefixField.getText()+"_"+i);
 			dummyAccount.setPassword(new Password(passwordField.getText()));

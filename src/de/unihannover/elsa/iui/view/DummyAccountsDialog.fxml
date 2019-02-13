@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="391.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.DummyAccountsDialogController">
+<AnchorPane prefHeight="414.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.unihannover.elsa.iui.view.DummyAccountsDialogController">
    <children>
       <GridPane layoutX="14.0" layoutY="141.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
         <columnConstraints>
@@ -27,11 +27,11 @@
             <TextField fx:id="localRoleField" text="klausur_am_04.02.2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="374.0" text="You can here generate dummy accounts" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+      <Label layoutX="14.0" layoutY="7.0" prefHeight="26.0" prefWidth="374.0" text="You can here generate dummy accounts" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <HBox layoutX="287.0" layoutY="350.0">
+      <HBox layoutX="270.0" layoutY="370.0" prefHeight="27.0" prefWidth="232.0">
          <children>
             <Button defaultButton="true" layoutX="266.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleGenerate" prefHeight="27.0" prefWidth="120.0" text="Generate">
                <HBox.margin>
@@ -45,7 +45,7 @@
             </Button>
          </children>
       </HBox>
-      <GridPane layoutX="14.0" layoutY="261.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
+      <GridPane layoutX="14.0" layoutY="280.0" prefHeight="70.0" prefWidth="345.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -61,10 +61,10 @@
             <TextField fx:id="timeLimitUntilField" disable="true" text="05-02-2015" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="234.0" mnemonicParsing="false" text="Limited Access" />
-      <Separator layoutY="127.0" prefHeight="5.0" prefWidth="517.0" />
-      <Separator layoutY="223.0" prefHeight="5.0" prefWidth="517.0" />
-      <GridPane layoutX="14.0" layoutY="40.0" prefHeight="81.0" prefWidth="480.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
+      <ToggleButton fx:id="limitedButton" layoutX="14.0" layoutY="250.0" mnemonicParsing="false" text="Limited Access" />
+      <Separator layoutY="162.0" prefHeight="5.0" prefWidth="517.0" />
+      <Separator layoutY="232.0" prefHeight="5.0" prefWidth="517.0" />
+      <GridPane layoutX="14.0" layoutY="40.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="40.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,6 +73,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Number of accounts" />
@@ -81,9 +82,11 @@
                   <Tooltip text="i.e. &quot;test&quot; will generate test_1, test_2,... " />
                </tooltip></Label>
             <Label text="Password" GridPane.rowIndex="2" />
+            <Label text="Email" GridPane.rowIndex="3" />
             <TextField fx:id="numberOfAccountsField" text="10" GridPane.columnIndex="1" />
-            <TextField fx:id="loginPrefixField" text="ersatz" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordField" text="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="loginPrefixField" text="test" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="passwordField" text="testing" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="emailField" text="email@domain.de" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
