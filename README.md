@@ -20,9 +20,21 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 
 ## System Requirements
 * Windows, Mac, or Linux OS
-* Java SE 11.0.2
+* [Java SE 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [JavaFX 11](https://openjfx.io/openjfx-docs/#install-javafx)
 
-Note: The Release was tested with Java SE 11.0.2, it might or might not work with other Java Versions.
+## Run the Jar file (App)
+
+1. Download and Install [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html) and [JavaFX 11](https://gluonhq.com/products/javafx/) on your OS
+2. Based on your OS, set the [PATH_TO_FX](https://openjfx.io/openjfx-docs/#install-javafx)
+3. Run the Jar File: `java --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml -jar IUI_2.0.4.jar`
+
+
+## Supported ILIAS Versions
+* v5.0.x
+* v5.1.x
+* v5.2.x
+* v5.3.x 
 
 ## Donation
 

@@ -108,6 +108,7 @@ public class DummyAccountsDialogController {
         	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPasswordToHash());
         	timeLimitFromField.setText(mainApp.getUserData().get(0).getTimeLimitFrom());
         	timeLimitUntilField.setText(mainApp.getUserData().get(0).getTimeLimitUntil());
+        	emailField.setText(mainApp.getUserData().get(0).getEmail());
 //        	limitedButton.setSelected(!Boolean.parseBoolean(mainApp.getUserData().get(0).getTimeLimitUnlimited()));
     	}
     	else {
