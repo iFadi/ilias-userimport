@@ -2,13 +2,15 @@
 This App generates a XML file from a CSV or Excel file as input. The XML file can then be imported into the [ILIAS e-Learning System](http://www.ilias.de/).
 
 ## Download Latest Release
-  * [2.0.4](https://github.com/iFadi/ilias-userimport/releases/download/2.0.4/IUI_2.0.4.jar)
+  * [2.0.5](https://github.com/iFadi/ilias-userimport/releases/download/2.0.4/IUI_2.0.5.jar)
 
 ## What is it for?
 This tool is used to convert a massive number of users from a (CSV, Excel) file to a XML file that can be imported in the [ILIAS e-Learning System](http://www.ilias.de/), it is also able to generate massive test accounts. Originally this tool was developed to simplify the import of users to a separate ILIAS installation which is used only for the purpose of eExams(eKlausuren) and has specific local roles, here is a list of features which this tool can apply to the imported users list:
-* Import Stud.IP 
-* Set a generated or united password to all users.
-* Set a Global/Local Role.
+
+* Parse Stud.IP Course members CSV/Excel File
+* Parse common  CSV/Excel File
+* Set a generated or united password to all users
+* Set a Global/Local Role
 * Set Limited Access. (i.e. only on the day of the exam)
 * Generate dummy accounts (i.e. for test purposes)
 
@@ -28,10 +30,8 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 
 1. Download and Install [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html) and [JavaFX 11](https://gluonhq.com/products/javafx/) on your OS
 2. Based on your OS, set the [PATH_TO_FX](https://openjfx.io/openjfx-docs/#install-javafx)
-3. Run the Jar File: `java --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml -jar IUI_2.0.4.jar`
+3. Run the Jar File: `java --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml -jar IUI_2.0.5.jar`
 
-* example on Win10: ``
-* example on Unix/Linux: `java --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml -jar IUI_2.0.4.jar`
 
 ## Supported ILIAS Versions
 * v5.0.x
