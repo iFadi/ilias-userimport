@@ -63,7 +63,7 @@ public class User {
         this.gender = new SimpleStringProperty("f");
         this.login = new SimpleStringProperty("");
         this.password = new Password();
-        this.email = new SimpleStringProperty("eklausur@elsa.uni-hannover.de");
+        this.email = new SimpleStringProperty("changeme@later.com");
         this.matriculation = new SimpleStringProperty("");
         this.timeLimitUnlimited = "1";
         this.timeLimitFrom = new SimpleStringProperty(DateUtil.getTodaysDate());

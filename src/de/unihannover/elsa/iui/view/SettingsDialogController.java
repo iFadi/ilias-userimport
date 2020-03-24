@@ -46,6 +46,8 @@ public class SettingsDialogController {
     @FXML
     private TextField passwordField;
     @FXML
+    private TextField emailField;
+    @FXML
     private ToggleButton limitedButton;
     @FXML
     private CheckBox generatePassword;
@@ -113,6 +115,7 @@ public class SettingsDialogController {
     		System.out.println(mainApp.getUserData().get(0).getLocalRole().getValue());
         	localRoleField.setText(mainApp.getUserData().get(0).getLocalRole().getValue());
         	passwordField.setText(mainApp.getUserData().get(0).getPassword().getPasswordToHash());
+        	emailField.setText(mainApp.getUserData().get(0).getEmail());
         	timeLimitFromField.setText(mainApp.getUserData().get(0).getTimeLimitFrom());
         	timeLimitUntilField.setText(mainApp.getUserData().get(0).getTimeLimitUntil());
         	
@@ -140,6 +143,7 @@ public class SettingsDialogController {
     	for(User user : mainApp.getUserData()) {
     		user.getGlobalRole().setId(globalRoleField.getText());
     		user.getLocalRole().setId(localRoleField.getText());
+    		user.setEmail(emailField.getText());
 
     		if(generatePassword.isSelected()) {
     			System.out.println("Password is auto generated. Check the method parseExcel.");

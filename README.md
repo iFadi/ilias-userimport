@@ -6,6 +6,7 @@ This App generates a XML file from a CSV or Excel file as input. The XML file ca
 
 ## What is it for?
 This tool is used to convert a massive number of users from a (CSV, Excel) file to a XML file that can be imported in the [ILIAS e-Learning System](http://www.ilias.de/), it is also able to generate massive test accounts. Originally this tool was developed to simplify the import of users to a separate ILIAS installation which is used only for the purpose of eExams(eKlausuren) and has specific local roles, here is a list of features which this tool can apply to the imported users list:
+* Import Stud.IP 
 * Set a generated or united password to all users.
 * Set a Global/Local Role.
 * Set Limited Access. (i.e. only on the day of the exam)
@@ -14,13 +15,13 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 
 ## Screenshots
 ![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.2_1.png)
-![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.2_2.png)
-![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.2_3.png)
+![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.5_2.png)
+![iui_1](https://raw.githubusercontent.com/iFadi/ilias-userimport/master/screenshots/IUI_2.0.5_3.png)
 
 
 ## System Requirements
 * Windows, Mac, or Linux OS
-* [Java SE 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [JavaFX 11](https://openjfx.io/openjfx-docs/#install-javafx)
 
 ## Run the Jar file (App)
@@ -29,16 +30,20 @@ This tool is used to convert a massive number of users from a (CSV, Excel) file 
 2. Based on your OS, set the [PATH_TO_FX](https://openjfx.io/openjfx-docs/#install-javafx)
 3. Run the Jar File: `java --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml -jar IUI_2.0.4.jar`
 
+* example on Win10: ``
+* example on Unix/Linux: `java --module-path $PATH_TO_FX --add-modules=javafx.controls,javafx.fxml -jar IUI_2.0.4.jar`
 
 ## Supported ILIAS Versions
 * v5.0.x
 * v5.1.x
 * v5.2.x
 * v5.3.x 
+* v5.4.x
 
 ## Donation
 
-If you find this tool useful or need a fast bug fix you can buy me a Coffee :coffee: to get started :nerd_face: [<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif">](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=fadi_asbih%40yahoo%2ede&lc=US&item_name=Support%20Developing%20ILIAS%20User%20Import&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest)
+If you find this tool useful or need a fast bug fix you can buy me a Coffee :coffee: to get started :nerd_face:.  
+[<img src="https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif">](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J226T349PUB5J&source=url)
  
 
 ## Legal
